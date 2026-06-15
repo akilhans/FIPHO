@@ -15,7 +15,7 @@ import {
 
 const contacts = [
   {
-    name: "Murodbek Islamov",
+    name: "Charos Abdusattorova",
     role: "Contact person",
     email: "info@olympcenter.uz",
     phone: "+998 77 550 33 66",

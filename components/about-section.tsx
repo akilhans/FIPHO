@@ -11,6 +11,7 @@ const pillars = [
     description:
       "To identify, inspire, and nurture exceptional young physicists from around the world through rigorous international competition and scientific collaboration.",
   },
+  
   {
     icon: Eye,
     title: "Vision",
