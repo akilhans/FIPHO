@@ -1,7 +1,6 @@
 "use client";
 import { MainNav } from "@/components/main-nav";
-import Link from "next/link";
-import Image from "next/image";
+import { FiphoLogo } from "@/components/logo";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { MobileNav } from "@/components/main-nav";
@@ -14,35 +13,24 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-emerald-800/10 bg-gradient-to-b from-emerald-900/95 to-[#011c2c]/95 backdrop-blur supports-[backdrop-filter]:from-emerald-900/80 supports-[backdrop-filter]:to-[#011c2c]/80">
-      <div className="container flex items-center justify-between py-3 min-h-[80px] px-4 md:px-6 m-auto">
-        {/* Logo on the Left */}
-        <Link href="/" className="flex items-center shrink-0 z-10">
-          <Image
-            src="/logo/logowhite.png"
-            width={60}
-            height={40}
-            alt="logo of ARBIChO"
-            className="object-contain h-10 w-auto"
-          />
-        </Link>
+    <header className="sticky top-0 z-50 w-full border-b border-fipho-gold/10 bg-fipho-navy/95 backdrop-blur-md supports-[backdrop-filter]:bg-fipho-navy/90 shadow-[0_4px_30px_rgba(11,31,58,0.3)]">
+      <div className="container flex items-center justify-between py-3 min-h-[72px] px-4 md:px-6 m-auto">
+        <FiphoLogo variant="light" className="shrink-0 z-10" />
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden p-2 text-white hover:text-emerald-300 z-10"
+          className="lg:hidden p-2 text-white hover:text-fipho-gold z-10"
+          aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <MainNav />
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-emerald-900/95 lg:hidden">
+          <div className="absolute top-full left-0 right-0 bg-fipho-navy border-t border-white/10 lg:hidden">
             <MobileNav onCloseAction={handleClose} />
           </div>
         )}

@@ -21,175 +21,113 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 const competitionItems = [
-  {
-    title: "Participation Requirements",
-    href: "/requirements",
-  },
-  {
-    title: "Past ARBICHO",
-    href: "/past-arbicho",
-  },
-  {
-    title: "Future ARBICHO",
-    href: "/future-arbicho",
-  },
+  { title: "Participation Requirements", href: "/requirements" },
+  { title: "Past FIPHO", href: "/past-fipho" },
+  { title: "Future FIPHO", href: "/future-fipho" },
 ];
 
-const arbicho2026Items = [
-  {
-    title: "Organizing Committee",
-    href: "/organizing-committee",
-  },
-  {
-    title: "Scientific Committee",
-    href: "/scientific-committee",
-  },
-  {
-    title: "Programme Schedule",
-    href: "/programme-schedule",
-  },
-  {
-    title: "Press release and report book",
-    href: "/press",
-  },
+const fipho2026Items = [
+  { title: "Organizing Committee", href: "/organizing-committee" },
+  { title: "Scientific Committee", href: "/scientific-committee" },
+  { title: "Programme Schedule", href: "/programme-schedule" },
+  { title: "Press Release & Report", href: "/press" },
 ];
 
 const infoCenterItems = [
-  {
-    title: "Results & Problems",
-    href: "/results",
-  },
-  {
-    title: "Rules & Guidelines",
-    href: "/rules",
-  },
+  { title: "Results & Problems", href: "/results" },
+  { title: "Rules & Guidelines", href: "/rules" },
+  { title: "Preparatory Problems", href: "/preparatory-problems" },
 ];
+
+function NavDropdownContent({
+  items,
+}: {
+  items: { title: string; href: string }[];
+}) {
+  return (
+    <div className="grid w-[280px] gap-1 p-2">
+      {items.map((item) => (
+        <NavigationMenuLink key={item.title} asChild>
+          <Link
+            href={item.href}
+            className="block select-none rounded-md p-3 text-sm font-medium leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-fipho-gold focus:bg-white/10 focus:text-fipho-gold"
+          >
+            {item.title}
+          </Link>
+        </NavigationMenuLink>
+      ))}
+    </div>
+  );
+}
 
 export function MainNav() {
   return (
     <NavigationMenu>
-      <NavigationMenuList className="space-x-4">
-        <NavigationMenuItem className="px-1">
+      <NavigationMenuList className="space-x-1">
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
               Home
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
+        <NavigationMenuItem>
           <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
-              About ARBICHO
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
+              About FIPHO
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
-          <NavigationMenuTrigger className="cursor-pointer">
-            Competition
-          </NavigationMenuTrigger>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="cursor-pointer">Olympiad</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="grid w-[400px] gap-3 p-4">
-              {competitionItems.map((item) => (
-                <NavigationMenuLink key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-emerald-100/10 hover:text-emerald-300 focus:bg-emerald-100/10 focus:text-emerald-300"
-                  >
-                    <div className="text-sm font-medium leading-none">
-                      {item.title}
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-              ))}
-            </div>
+            <NavDropdownContent items={competitionItems} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
-          <Link href="/arbicho-sponsors" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
-              ARBICHO Sponsors
+        <NavigationMenuItem>
+          <Link href="/fipho-sponsors" legacyBehavior passHref>
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
+              Sponsors
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
-          <NavigationMenuTrigger className="cursor-pointer">
-            Info Center
-          </NavigationMenuTrigger>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="cursor-pointer">Info Center</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="grid w-[400px] gap-3 p-4">
-              {infoCenterItems.map((item) => (
-                <NavigationMenuLink key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-emerald-100/10 hover:text-emerald-300 focus:bg-emerald-100/10 focus:text-emerald-300"
-                  >
-                    <div className="text-sm font-medium leading-none">
-                      {item.title}
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-              ))}
-            </div>
+            <NavDropdownContent items={infoCenterItems} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
+        <NavigationMenuItem>
           <Link href="/gallery" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
               Gallery
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
-          <NavigationMenuTrigger className="cursor-pointer px-4 text-1xl py-2 rounded-lg hover:bg-gray-700 transition-colors">
-            ARBICHO 2026
-          </NavigationMenuTrigger>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="cursor-pointer">FIPHO 2026</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="grid w-[400px] gap-3 p-4">
-              {arbicho2026Items.map((item) => (
-                <NavigationMenuLink key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-emerald-100/10 hover:text-emerald-300 focus:bg-emerald-100/10 focus:text-emerald-300"
-                  >
-                    <div className="text-sm font-medium leading-none">
-                      {item.title}
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-              ))}
-            </div>
+            <NavDropdownContent items={fipho2026Items} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
+        <NavigationMenuItem>
           <Link href="/uzbekistan" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
               Uzbekistan
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className="px-1">
+        <NavigationMenuItem>
           <Link href="/contact" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "px-4")}
-            >
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
               Contact
             </NavigationMenuLink>
           </Link>
@@ -199,165 +137,108 @@ export function MainNav() {
   );
 }
 
+function MobileDropdown({
+  label,
+  menuKey,
+  items,
+  openMenu,
+  toggleMenu,
+  onCloseAction,
+}: {
+  label: string;
+  menuKey: string;
+  items: { title: string; href: string }[];
+  openMenu: string | null;
+  toggleMenu: (menu: string) => void;
+  onCloseAction: () => void;
+}) {
+  return (
+    <DropdownMenu
+      open={openMenu === menuKey}
+      onOpenChange={() => toggleMenu(menuKey)}
+    >
+      <DropdownMenuTrigger asChild>
+        <button className="flex items-center justify-between w-full text-white hover:text-fipho-gold">
+          {label}
+          <span className="ml-2">
+            {openMenu === menuKey ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-full bg-fipho-navy-light border-white/10">
+        {items.map((item) => (
+          <DropdownMenuItem key={item.title} asChild>
+            <Link
+              href={item.href}
+              className="block w-full text-white hover:text-fipho-gold"
+              onClick={onCloseAction}
+            >
+              {item.title}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 export function MobileNav({ onCloseAction }: { onCloseAction: () => void }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const toggleMenu = (menu: string) => setOpenMenu(openMenu === menu ? null : menu);
 
-  const toggleMenu = (menu: string) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
+  const links = [
+    { label: "Home", href: "/" },
+    { label: "About FIPHO", href: "/about" },
+    { label: "Sponsors", href: "/fipho-sponsors" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "News", href: "/news" },
+    { label: "Uzbekistan", href: "/uzbekistan" },
+    { label: "Contact", href: "/contact" },
+  ];
 
   return (
     <nav className="p-6">
-      <ul className="space-y-6">
-        <li className="py-2">
-          <Link
-            href="/"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            Home
-          </Link>
+      <ul className="space-y-5">
+        {links.map((link) => (
+          <li key={link.href} className="py-1">
+            <Link
+              href={link.href}
+              className="block text-white hover:text-fipho-gold"
+              onClick={onCloseAction}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+        <li className="py-1">
+          <MobileDropdown
+            label="Olympiad"
+            menuKey="olympiad"
+            items={competitionItems}
+            openMenu={openMenu}
+            toggleMenu={toggleMenu}
+            onCloseAction={onCloseAction}
+          />
         </li>
-        <li className="py-2">
-          <Link
-            href="/about"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            About ARBICHO
-          </Link>
+        <li className="py-1">
+          <MobileDropdown
+            label="Info Center"
+            menuKey="infoCenter"
+            items={infoCenterItems}
+            openMenu={openMenu}
+            toggleMenu={toggleMenu}
+            onCloseAction={onCloseAction}
+          />
         </li>
-        <li className="py-2">
-          <DropdownMenu
-            open={openMenu === "competition"}
-            onOpenChange={() => toggleMenu("competition")}
-          >
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center justify-between w-full text-white hover:text-emerald-300">
-                Competition
-                <span className="ml-2">
-                  {openMenu === "competition" ? (
-                    <ChevronUp size={16} />
-                  ) : (
-                    <ChevronDown size={16} />
-                  )}
-                </span>
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full bg-gray-800 border-gray-700">
-              {competitionItems.map((item) => (
-                <DropdownMenuItem key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block w-full text-white hover:text-emerald-300"
-                    onClick={onCloseAction}
-                  >
-                    {item.title}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </li>
-        <li className="py-2">
-          <Link
-            href="/arbicho-sponsors"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            ARBICHO Sponsors
-          </Link>
-        </li>
-        <li className="py-2">
-          <DropdownMenu
-            open={openMenu === "infoCenter"}
-            onOpenChange={() => toggleMenu("infoCenter")}
-          >
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center justify-between w-full text-white hover:text-emerald-300">
-                Info Center
-                <span className="ml-2">
-                  {openMenu === "infoCenter" ? (
-                    <ChevronUp size={16} />
-                  ) : (
-                    <ChevronDown size={16} />
-                  )}
-                </span>
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full bg-gray-800 border-gray-700">
-              {infoCenterItems.map((item) => (
-                <DropdownMenuItem key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block w-full text-white hover:text-emerald-300"
-                    onClick={onCloseAction}
-                  >
-                    {item.title}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </li>
-        <li className="py-2">
-          <Link
-            href="/gallery"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            Gallery
-          </Link>
-        </li>
-        <li className="py-2">
-          <DropdownMenu
-            open={openMenu === "arbicho2026"}
-            onOpenChange={() => toggleMenu("arbicho2026")}
-          >
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center justify-between w-full text-white hover:text-emerald-300">
-                ARBICHO 2026
-                <span className="ml-2">
-                  {openMenu === "arbicho2026" ? (
-                    <ChevronUp size={16} />
-                  ) : (
-                    <ChevronDown size={16} />
-                  )}
-                </span>
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full bg-gray-800 border-gray-700">
-              {arbicho2026Items.map((item) => (
-                <DropdownMenuItem key={item.title} asChild>
-                  <Link
-                    href={item.href}
-                    className="block w-full text-white hover:text-emerald-300 "
-                    onClick={onCloseAction}
-                  >
-                    {item.title}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </li>
-        <li className="py-2">
-          <Link
-            href="/uzbekistan"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            Uzbekistan
-          </Link>
-        </li>
-        <li className="py-2">
-          <Link
-            href="/contact"
-            className="block text-white hover:text-emerald-300"
-            onClick={onCloseAction}
-          >
-            Contact
-          </Link>
+        <li className="py-1">
+          <MobileDropdown
+            label="FIPHO 2026"
+            menuKey="fipho2026"
+            items={fipho2026Items}
+            openMenu={openMenu}
+            toggleMenu={toggleMenu}
+            onCloseAction={onCloseAction}
+          />
         </li>
       </ul>
     </nav>

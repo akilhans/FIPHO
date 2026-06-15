@@ -78,30 +78,30 @@ export function TimelineSection() {
   ]
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-emerald-950/90 to-[#011c2c] py-20" id="timeline">
+    <section className="relative w-full bg-gradient-to-b from-fipho-navy/90 to-fipho-navy py-20" id="timeline">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
         <div className="absolute left-0 bottom-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
       </div>
 
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge variant="outline" className="mb-4 border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20">
+          <Badge variant="outline" className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20">
             Key Dates
           </Badge>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Important Dates & Timeline
           </h2>
-          <p className="text-emerald-100/80">
-            Mark your calendar for these crucial dates in the ARBIChO 2025 competition schedule.
+          <p className="text-fipho-slate/70">
+            Mark your calendar for these crucial dates in the FIPHO 2025 competition schedule.
           </p>
         </div>
 
         {/* Timeline */}
         <div className="relative mx-auto max-w-4xl">
-          <div className="absolute left-4 top-0 h-full w-0.5 bg-emerald-800/30 md:left-1/2" />
+          <div className="absolute left-4 top-0 h-full w-0.5 bg-fipho-blue/30 md:left-1/2" />
 
           {timelineEvents.map((event, index) => {
             const status = getDateStatus(event.date)
@@ -114,7 +114,7 @@ export function TimelineSection() {
                   <div className="flex items-center md:w-1/2">
                     <div className={`
                       absolute left-4 z-10 h-4 w-4 rounded-full border-2
-                      ${status === 'completed' ? 'border-emerald-500 bg-emerald-900' : 
+                      ${status === 'completed' ? 'border-fipho-blue bg-fipho-navy' : 
                         status === 'upcoming' ? 'border-yellow-500 bg-yellow-900' : 
                         'border-blue-500 bg-blue-900'}
                       md:left-1/2 md:-translate-x-1/2
@@ -123,12 +123,12 @@ export function TimelineSection() {
 
                   {/* Content */}
                   <div className="ml-12 md:ml-0 md:w-1/2">
-                    <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+                    <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
                       <CardHeader>
                         <div className="flex items-center justify-between">
-                          <CardTitle className="flex items-center gap-2 text-emerald-100">
+                          <CardTitle className="flex items-center gap-2 text-fipho-navy">
                             {status === 'completed' ? (
-                              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                              <CheckCircle2 className="h-5 w-5 text-fipho-blue" />
                             ) : status === 'upcoming' ? (
                               <AlertCircle className="h-5 w-5 text-yellow-500" />
                             ) : (
@@ -137,8 +137,8 @@ export function TimelineSection() {
                             {event.title}
                           </CardTitle>
                           <div className="flex items-center gap-2 text-sm">
-                            <CalendarDays className="h-4 w-4 text-emerald-400" />
-                            <span className="text-emerald-100/80">
+                            <CalendarDays className="h-4 w-4 text-fipho-gold" />
+                            <span className="text-fipho-slate/70">
                               {event.date.toLocaleDateString('en-US', {
                                 month: 'short',
                                 day: 'numeric',
@@ -149,11 +149,11 @@ export function TimelineSection() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="mb-4 text-emerald-100/80">{event.description}</p>
-                        <ul className="space-y-2 text-sm text-emerald-100/70">
+                        <p className="mb-4 text-fipho-slate/70">{event.description}</p>
+                        <ul className="space-y-2 text-sm text-fipho-slate/70">
                           {event.details.map((detail, i) => (
                             <li key={i} className="flex items-center gap-2">
-                              <div className="h-1 w-1 rounded-full bg-emerald-400" />
+                              <div className="h-1 w-1 rounded-full bg-fipho-gold" />
                               {detail}
                             </li>
                           ))}

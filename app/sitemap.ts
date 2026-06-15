@@ -1,20 +1,26 @@
+import { BRAND } from "@/lib/brand";
+
 export default async function sitemap() {
-  const baseUrl = "https://arbicho.uz";
+  const baseUrl = BRAND.domain;
 
   const paths = [
     "",
-    "/uzbekistan",
-    "/rules",
-    "/results",
     "/about",
     "/requirements",
-    "/past-arbicho",
-    "/future-arbicho",
-    "/arbicho-sponsors",
+    "/past-fipho",
+    "/future-fipho",
+    "/fipho-sponsors",
     "/gallery",
+    "/contact",
+    "/news",
+    "/preparatory-problems",
+    "/uzbekistan",
     "/organizing-committee",
     "/scientific-committee",
     "/programme-schedule",
+    "/press",
+    "/results",
+    "/rules",
   ];
 
   return paths.map((path) => ({

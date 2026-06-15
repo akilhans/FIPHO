@@ -260,7 +260,7 @@ const galleryMedia: GalleryMedia[] = [
   {
     id: 7,
     src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/0527.mp4",
-    alt: "ARBIChO Event Opening ceremony",
+    alt: "FIPHO Event Opening ceremony",
     year: "2025",
     category: "Events",
     description: "",
@@ -269,7 +269,7 @@ const galleryMedia: GalleryMedia[] = [
   {
     id: 8,
     src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/1X0A1126_1.mp4",
-    alt: "Abu Rayhan Beruni",
+    alt: "Ahmad al-Fargʻoniy",
     year: "2025",
     category: "Educational",
     description: "",
@@ -277,9 +277,9 @@ const galleryMedia: GalleryMedia[] = [
   },
   {
     id: 9,
-    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/Abu-Rayhon%20beruni-eng%202k.mp4",
-    alt: "Competition Documentation",
-    year: "2025",
+    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/fipho-documentary-eng.mp4",
+    alt: "FIPHO Competition Documentation",
+    year: "2026",
     category: "Competition",
     description: "",
     type: 'video'
@@ -299,10 +299,10 @@ export default function GalleryPage() {
   const [selectedMedia, setSelectedMedia] = useState<GalleryMedia | null>(null);
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#011c2c] to-[#012e40]">
+    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
         <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
       </div>
 
@@ -311,15 +311,15 @@ export default function GalleryPage() {
         <div className="mx-auto max-w-3xl text-center mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
           >
             Media Gallery
           </Badge>
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            ARBIChO Gallery
+            FIPHO Gallery
           </h1>
-          <p className="mt-6 text-lg leading-8 text-emerald-100/80">
-            Explore photos and videos from past ARBIChO events, capturing the spirit of
+          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+            Explore photos and videos from past FIPHO events, capturing the spirit of
             international collaboration and scientific excellence
           </p>
         </div>
@@ -330,7 +330,7 @@ export default function GalleryPage() {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <Button className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-md shadow">
+    <Button className="bg-fipho-blue hover:bg-fipho-blue/90 text-white px-6 py-2 rounded-md shadow">
       📁 View All Photos
     </Button>
   </a>
@@ -343,7 +343,7 @@ export default function GalleryPage() {
             {galleryMedia.map((media) => (
               <Card
                 key={media.id}
-                className="group relative border-emerald-800/20 bg-emerald-900/10 backdrop-blur overflow-hidden cursor-pointer"
+                className="group relative border-fipho-blue/20 bg-fipho-light/80 backdrop-blur overflow-hidden cursor-pointer"
                 onClick={() => setSelectedMedia(media)}
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -365,15 +365,15 @@ export default function GalleryPage() {
                       Your browser does not support the video tag.
                     </video>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-fipho-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-0 left-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-white font-medium">{media.alt}</p>
-                    <p className="text-emerald-100/80 text-sm">
+                    <p className="text-fipho-slate/70 text-sm">
                       {media.year} • {media.type === 'video' ? 'Video' : 'Photo'}
                     </p>
                   </div>
                 </div>
-                <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-emerald-500/10 group-hover:ring-emerald-500/30 transition-all duration-300" />
+                <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-fipho-blue/10 group-hover:ring-fipho-blue/30 transition-all duration-300" />
               </Card>
             ))}
           </div>
@@ -384,12 +384,12 @@ export default function GalleryPage() {
           open={!!selectedMedia}
           onOpenChange={(open) => !open && setSelectedMedia(null)}
         >
-          <DialogContent className="max-w-4xl bg-emerald-950/95 border-emerald-800/20 text-emerald-100">
+          <DialogContent className="max-w-4xl bg-fipho-navy/95 border-fipho-blue/20 text-fipho-navy">
             <DialogHeader>
-              <DialogTitle className="text-emerald-100">
+              <DialogTitle className="text-fipho-navy">
                 {selectedMedia?.alt}
               </DialogTitle>
-              <DialogDescription className="text-emerald-100/70">
+              <DialogDescription className="text-fipho-slate/70">
                 {selectedMedia?.year} | {selectedMedia?.category} | {selectedMedia?.type === 'video' ? 'Video' : 'Photo'}
               </DialogDescription>
             </DialogHeader>
@@ -415,11 +415,11 @@ export default function GalleryPage() {
                 )
               )}
             </div>
-            <p className="text-emerald-100/80">{selectedMedia?.description}</p>
+            <p className="text-fipho-slate/70">{selectedMedia?.description}</p>
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-4 top-4 text-emerald-100/70 hover:text-emerald-100 hover:bg-emerald-900/20"
+              className="absolute right-4 top-4 text-fipho-slate/70 hover:text-fipho-navy hover:bg-fipho-navy/20"
               onClick={() => setSelectedMedia(null)}
             >
               <X className="h-4 w-4" />

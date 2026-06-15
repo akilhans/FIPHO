@@ -30,39 +30,31 @@ export function CommitteeLayout({
   type,
 }: CommitteeLayoutProps) {
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#011c2c] to-[#012e40] py-20">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
-
+    <section className="relative w-full bg-fipho-light min-h-screen py-20">
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+            className="mb-4 border-fipho-blue/20 bg-fipho-blue/5 text-fipho-blue"
           >
             {type === "organizing" ? "Organization" : "Scientific Committee"}
           </Badge>
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h1 className="font-heading mb-4 text-3xl font-bold tracking-tight text-fipho-navy sm:text-4xl">
             {title}
           </h1>
-          <p className="text-emerald-100/80">{description}</p>
+          <p className="text-fipho-slate/70">{description}</p>
         </div>
 
-        {/* Committee Members Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {members.map((member, index) => (
             <Card
               key={index}
-              className="group relative border-emerald-800/20 bg-emerald-900/10 backdrop-blur overflow-hidden"
+              className="group border-white bg-white shadow-sm hover:shadow-md transition-shadow"
             >
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <Avatar className="h-16 w-16 border-2 border-emerald-500/20">
+                <Avatar className="h-16 w-16 border-2 border-fipho-blue/20">
                   <AvatarImage src={member.image} alt={member.name} />
-                  <AvatarFallback className="bg-emerald-950 text-emerald-100">
+                  <AvatarFallback className="bg-fipho-navy text-white">
                     {member.name
                       .split(" ")
                       .map((n) => n[0])
@@ -70,49 +62,40 @@ export function CommitteeLayout({
                   </AvatarFallback>
                 </Avatar>
                 <div className="space-y-1">
-                  <h3 className="font-medium text-lg text-emerald-100">
+                  <h3 className="font-heading font-medium text-lg text-fipho-navy">
                     {member.name}
                   </h3>
-                  <p className="text-sm text-emerald-100/70">{member.role}</p>
+                  <p className="text-sm text-fipho-blue">{member.role}</p>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <p className="text-sm text-emerald-100/70">
-                    {member.institution}
-                  </p>
-                  <p className="text-sm text-emerald-100/70">
-                    {member.country}
-                  </p>
+                <div className="space-y-1">
+                  <p className="text-sm text-fipho-slate/70">{member.institution}</p>
+                  <p className="text-sm text-fipho-slate/60">{member.country}</p>
                 </div>
-                <p className="text-sm text-emerald-100/80">{member.bio}</p>
+                <p className="text-sm text-fipho-slate/70 leading-relaxed">{member.bio}</p>
                 <div className="flex gap-2 pt-2">
                   {member.email && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-emerald-800/20 bg-emerald-900/20 text-emerald-100 hover:bg-emerald-800/20"
+                      className="border-fipho-blue/20 text-fipho-blue hover:bg-fipho-blue/5"
                       asChild
                     >
                       <Link href={`mailto:${member.email}`}>
-                        <Mail className="mr-2 h-4 w-4 cursor-pointer" />
+                        <Mail className="mr-2 h-4 w-4" />
                         Email
                       </Link>
                     </Button>
                   )}
-
                   {member.linkedin && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-emerald-800/20 bg-emerald-900/20 text-emerald-100 hover:bg-emerald-800/20"
+                      className="border-fipho-blue/20 text-fipho-blue hover:bg-fipho-blue/5"
                       asChild
                     >
-                      <Link
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
                         <LinkedinIcon className="mr-2 h-4 w-4" />
                         LinkedIn
                       </Link>
@@ -120,7 +103,6 @@ export function CommitteeLayout({
                   )}
                 </div>
               </CardContent>
-              <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-emerald-500/10 group-hover:ring-emerald-500/20 transition-all duration-300" />
             </Card>
           ))}
         </div>

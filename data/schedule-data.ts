@@ -77,7 +77,7 @@ export const weekSchedule: DaySchedule[] = [
     date: "29-May, 2025",
     day: "Day 2",
     title: "Opening Ceremony",
-    description: "Official opening of ARBIChO 2025",
+    description: "Official opening of FIPHO 2025",
     schedule: [
       {
         time: "07:00 - 08:30",
@@ -143,7 +143,7 @@ export const weekSchedule: DaySchedule[] = [
     date: "30-May, 2025",
     day: "Day 3",
     title: "Theoretical Examination",
-    description: "First competition day focused on theoretical chemistry",
+    description: "First competition day focused on theoretical physics",
     schedule: [
       {
         time: "06:30 - 07:30",
@@ -170,7 +170,7 @@ export const weekSchedule: DaySchedule[] = [
         time: "09:00 - 14:00",
         activity: "Theoretical Examination",
         description:
-          "5-hour theoretical examination covering all areas of chemistry",
+          "5-hour theoretical examination covering all areas of physics",
         location: "National University, Examination Halls",
         type: "competition",
       },
@@ -236,7 +236,7 @@ export const weekSchedule: DaySchedule[] = [
         time: "07:45 - 08:30",
         activity: "Transfer to Laboratory",
         description: "Buses depart from hotels to the laboratory venue",
-        location: "Hotels → Chemistry Research Institute",
+        location: "Hotels → Physics Research Institute",
         type: "transportation",
       },
       {
@@ -244,7 +244,7 @@ export const weekSchedule: DaySchedule[] = [
         activity: "Laboratory Preparation",
         description:
           "Safety briefing and preparation for practical examination",
-        location: "Chemistry Research Institute, Laboratories",
+        location: "Physics Research Institute, Laboratories",
         type: "competition",
       },
       {
@@ -252,14 +252,14 @@ export const weekSchedule: DaySchedule[] = [
         activity: "Practical Examination",
         description:
           "5-hour laboratory examination testing experimental skills",
-        location: "Chemistry Research Institute, Laboratories",
+        location: "Physics Research Institute, Laboratories",
         type: "competition",
       },
       {
         time: "09:30 - 13:30",
         activity: "Mentors' Workshop",
         description: "Professional development workshop for team mentors",
-        location: "Chemistry Research Institute, Conference Room",
+        location: "Physics Research Institute, Conference Room",
         type: "cultural",
       },
       {
@@ -344,7 +344,7 @@ export const weekSchedule: DaySchedule[] = [
       {
         time: "14:30 - 17:30",
         activity: "Scientific Symposium",
-        description: "Lectures by renowned scientists on sustainable chemistry",
+        description: "Lectures by renowned scientists on sustainable physics",
         location: "Science Academy, Main Auditorium",
         type: "cultural",
       },

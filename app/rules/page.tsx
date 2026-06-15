@@ -8,16 +8,16 @@ const documents = [
     title: "Competition Regulations 2025",
     category: "Rules",
     file: "/docs/rules.pdf",
-    description: "Complete rulebook for ARBIChO 2024",
+    description: "Complete rulebook for FIPHO 2024",
   },
   
 ];
 
 export default function RulesGuidelinesPage() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#011c2c] to-[#012e40]">
+    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
         <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
       </div>
 
@@ -25,22 +25,22 @@ export default function RulesGuidelinesPage() {
         <div className="mx-auto max-w-3xl text-center mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
           >
             Info Center
           </Badge>
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Rules & Guidelines
           </h1>
-          <p className="mt-6 text-lg leading-8 text-emerald-100/80">
-            Access official competition rules and guidelines for ARBIChO.
+          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+            Access official competition rules and guidelines for FIPHO.
           </p>
         </div>
 
         <div className="mx-auto max-w-4xl">
-          <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-emerald-100">
+              <CardTitle className="text-fipho-navy">
                 Official Documents
               </CardTitle>
             </CardHeader>
@@ -48,17 +48,17 @@ export default function RulesGuidelinesPage() {
               {documents.map((doc) => (
                 <div
                   key={doc.file}
-                  className="flex items-center justify-between p-4 rounded-lg bg-emerald-900/20 hover:bg-emerald-900/30 transition-colors"
+                  className="flex items-center justify-between p-4 rounded-lg bg-fipho-navy/20 hover:bg-fipho-navy/30 transition-colors"
                 >
                   <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-emerald-400 mt-1" />
+                    <FileText className="h-5 w-5 text-fipho-gold mt-1" />
                     <div>
-                      <h3 className="font-medium text-emerald-100">
+                      <h3 className="font-medium text-fipho-navy">
                         {doc.title}
                       </h3>
                       <div className="flex gap-2 mt-1 text-sm">
-                        <span className="text-emerald-400">{doc.category}</span>
-                        <span className="text-emerald-100/70">
+                        <span className="text-fipho-gold">{doc.category}</span>
+                        <span className="text-fipho-slate/70">
                           • {doc.description}
                         </span>
                       </div>
@@ -67,7 +67,7 @@ export default function RulesGuidelinesPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-emerald-800/20 bg-emerald-900/20 text-emerald-100 hover:bg-emerald-900/40"
+                    className="border-fipho-blue/20 bg-fipho-navy/20 text-fipho-navy hover:bg-fipho-navy/40"
                     asChild
                   >
                     <a href={doc.file} download>
@@ -82,9 +82,9 @@ export default function RulesGuidelinesPage() {
 
           {/* PDF Preview */}
           <div className="mt-8">
-            <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+            <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
               <CardHeader>
-                <CardTitle className="text-emerald-100">
+                <CardTitle className="text-fipho-navy">
                   Document Preview
                 </CardTitle>
               </CardHeader>

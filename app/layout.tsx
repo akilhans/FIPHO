@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { SiteFooter } from "@/components/footer";
+import { BRAND } from "@/lib/brand";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,37 +17,43 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arbicho.uz"),
+  metadataBase: new URL(BRAND.domain),
   keywords: [
-    "ARBIChO",
-    "Al Beruniy olimpiadasi",
-    "Al Beruniy olimpiada",
-    "Abu Rayhan Biruni",
-    "Chemistry Olympiad",
-    "International Chemistry Competition",
-    "Science Competition",
-    "Young Chemists",
-    "Global Science Contest",
-    "Chemistry Contest",
-    "Scientific Excellence",
+    "FIPHO",
+    "Fargʻoniy International Physics Olympiad",
+    "Ahmad al-Fargʻoniy",
+    "Physics Olympiad",
+    "International Physics Competition",
+    "Science Olympiad",
+    "Young Physicists",
     "STEM Olympiad",
-    "Chemistry Challenge",
-    "Biruni Chemistry Olympiad",
+    "Physics Contest",
+    "Scientific Excellence",
     "International Science Olympiad",
-    "High School Chemistry Competition",
-    "Chemistry Talent Recognition",
-    "Global Chemistry Contest",
+    "High School Physics Competition",
+    "Physics Talent Recognition",
+    "Global Physics Contest",
     "Future Scientists",
-    "Chemistry Students",
-    "Chemistry Exam",
+    "Physics Students",
     "Olympiad Preparation",
+    "Fergana Physics Olympiad",
+    "Uzbekistan Olympiad",
   ],
-  title:
-    "Abu Rayhan Biruni International Chemistry Olympiad | Global Science Competition",
+  title: `${BRAND.fullName} | International Physics Competition`,
+  description: BRAND.tagline,
   openGraph: {
-    description:
-      "Compete in the Abu Rayhan Biruni International Chemistry Olympiad, a prestigious global competition for young chemists. Test your skills, gain recognition, and connect with future scientists.",
+    title: BRAND.fullName,
+    description: BRAND.tagline,
+    type: "website",
+    locale: "en_US",
+    siteName: BRAND.name,
   },
 };
 
@@ -57,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
         <Header />
         {children}

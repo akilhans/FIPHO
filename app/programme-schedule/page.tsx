@@ -59,7 +59,7 @@ import Link from "next/link";
 //     case ACTIVITY_TYPES.CULTURAL:
 //       return "bg-pink-500/10 border-pink-500/20 text-pink-500";
 //     case ACTIVITY_TYPES.TRANSPORTATION:
-//       return "bg-emerald-500/10 border-emerald-500/20 text-emerald-500";
+//       return "bg-fipho-blue/10 border-fipho-blue/20 text-fipho-blue";
 //     case ACTIVITY_TYPES.FREE:
 //       return "bg-indigo-500/10 border-indigo-500/20 text-indigo-500";
 //     case ACTIVITY_TYPES.REGISTRATION:
@@ -101,24 +101,24 @@ import Link from "next/link";
 //     >
 //       {getActivityIcon(item.type)}
 //     </div>
-//     <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+//     <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
 //       <CardContent className="p-4">
 //         <div className="grid gap-2 sm:grid-cols-[1fr_auto]">
 //           <div>
-//             <h3 className="font-medium text-lg text-emerald-100">
+//             <h3 className="font-medium text-lg text-fipho-navy">
 //               {item.activity}
 //             </h3>
-//             <p className="text-emerald-100/80 text-sm mt-1">
+//             <p className="text-fipho-slate/70 text-sm mt-1">
 //               {item.description}
 //             </p>
-//             <div className="flex items-center gap-2 mt-2 text-emerald-100/70 text-sm">
-//               <MapPin className="h-4 w-4 text-emerald-400" />
+//             <div className="flex items-center gap-2 mt-2 text-fipho-slate/70 text-sm">
+//               <MapPin className="h-4 w-4 text-fipho-gold" />
 //               <span>{item.location}</span>
 //             </div>
 //           </div>
 //           <div className="flex items-start gap-2 sm:justify-end">
-//             <Clock className="h-4 w-4 text-emerald-400 mt-1" />
-//             <span className="text-emerald-100 font-medium">{item.time}</span>
+//             <Clock className="h-4 w-4 text-fipho-gold mt-1" />
+//             <span className="text-fipho-navy font-medium">{item.time}</span>
 //           </div>
 //         </div>
 //       </CardContent>
@@ -144,10 +144,10 @@ export default function SchedulePage() {
   // }, [selectedDay]);
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-[#011c2c] to-[#012e40]">
+    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
         <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
       </div>
 
@@ -156,15 +156,15 @@ export default function SchedulePage() {
         <div className="mx-auto max-w-3xl text-center mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-emerald-500/20 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
           >
-            ARBIChO 2025
+            FIPHO 2025
           </Badge>
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Programme Schedule
           </h1>
-          <p className="mt-6 text-lg leading-8 text-emerald-100/80">
-            Detailed schedule of events and activities for the ARBIChO 2025
+          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+            Detailed schedule of events and activities for the FIPHO 2025
             competition in Tashkent, Uzbekistan
           </p>
         </div>
@@ -173,7 +173,7 @@ export default function SchedulePage() {
         <div className="mx-auto max-w-5xl mb-8 flex flex-col sm:flex-row justify-center gap-4">
           <Link href='../docs/schedule.pdf' target="_blank">
           
-          <Button className="bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer">
+          <Button className="bg-fipho-blue text-white hover:bg-fipho-blue/90 cursor-pointer">
             <Download className="mr-2 h-4 w-4" />
             Download Full Schedule (PDF)
           </Button>
@@ -182,7 +182,7 @@ export default function SchedulePage() {
         </div>
 
         {/* <div className="mx-auto max-w-5xl mb-8">
-          <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-4 justify-center">
                 {COLOR_LEGEND.map((item) => (
@@ -203,12 +203,12 @@ export default function SchedulePage() {
 
         <div className="mx-auto max-w-5xl mb-8">
           <Tabs defaultValue={selectedDay} onValueChange={setSelectedDay}>
-            <TabsList className="bg-emerald-900/30 border border-emerald-800/20 w-full flex overflow-x-auto">
+            <TabsList className="bg-fipho-navy/30 border border-fipho-blue/20 w-full flex overflow-x-auto">
               {weekSchedule.map((day) => (
                 <TabsTrigger
                   key={day.day}
                   value={day.day}
-                  className="flex-1 data-[state=active]:bg-emerald-500 data-[state=active]:text-emerald-950"
+                  className="flex-1 data-[state=active]:bg-fipho-blue data-[state=active]:text-fipho-navy"
                 >
                   <div className="flex flex-col items-center">
                     <span className="text-xs">{day.date.split(",")[0]}</span>
@@ -222,29 +222,29 @@ export default function SchedulePage() {
 
         {currentDay && (
           <div className="mx-auto max-w-5xl">
-            <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur mb-8">
+            <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur mb-8">
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                   <div>
-                    <CardTitle className="text-2xl text-emerald-100">
+                    <CardTitle className="text-2xl text-fipho-navy">
                       {currentDay.title}
                     </CardTitle>
-                    <p className="text-emerald-100/70 mt-1">
+                    <p className="text-fipho-slate/70 mt-1">
                       {currentDay.date}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-emerald-100/80">
-                    <Calendar className="h-5 w-5 text-emerald-400" />
+                  <div className="flex items-center gap-2 text-fipho-slate/70">
+                    <Calendar className="h-5 w-5 text-fipho-gold" />
                     <span>{currentDay.day}</span>
                   </div>
                 </div>
-                <p className="text-emerald-100/80 mt-2">
+                <p className="text-fipho-slate/70 mt-2">
                   {currentDay.description}
                 </p>
               </CardHeader>
             </Card>
 
-            <div className="relative pl-8 space-y-6 before:absolute before:inset-0 before:h-full before:w-[2px] before:bg-emerald-800/20 before:left-3">
+            <div className="relative pl-8 space-y-6 before:absolute before:inset-0 before:h-full before:w-[2px] before:bg-fipho-blue/20 before:left-3">
               {currentDay.schedule.map(
                 (item: ScheduleItemType, index: number) => (
                   <ScheduleItem key={index} item={item} />
@@ -256,7 +256,7 @@ export default function SchedulePage() {
               {currentDayIndex > 0 && (
                 <Button
                   variant="outline"
-                  className="border-emerald-400/50 text-emerald-100 hover:bg-emerald-950/50 hover:text-emerald-50"
+                  className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white"
                   onClick={() =>
                     setSelectedDay(weekSchedule[currentDayIndex - 1].day)
                   }
@@ -268,7 +268,7 @@ export default function SchedulePage() {
               {currentDayIndex < weekSchedule.length - 1 && (
                 <Button
                   variant="outline"
-                  className="border-emerald-400/50 text-emerald-100 hover:bg-emerald-950/50 hover:text-emerald-50"
+                  className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white"
                   onClick={() =>
                     setSelectedDay(weekSchedule[currentDayIndex + 1].day)
                   }
@@ -282,28 +282,28 @@ export default function SchedulePage() {
 
         {/* Additional Information */}
         <div className="mx-auto max-w-3xl mt-16">
-          <Card className="border-emerald-800/20 bg-emerald-900/10 backdrop-blur">
+          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-emerald-100">
+              <CardTitle className="text-fipho-navy">
                 Important Notes
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-emerald-100/80">
+              <p className="text-fipho-slate/70">
                 • All times are in Uzbekistan Time (UZT, UTC+5).
               </p>
-              <p className="text-emerald-100/80">
+              <p className="text-fipho-slate/70">
                 • Transportation will be provided between official venues and
                 accommodation.
               </p>
-              <p className="text-emerald-100/80">
+              <p className="text-fipho-slate/70">
                 • Students must wear their identification badges at all times.
               </p>
-              <p className="text-emerald-100/80">
+              <p className="text-fipho-slate/70">
                 • Schedule may be subject to minor changes. Team leaders will be
                 notified of any updates.
               </p>
-              <p className="text-emerald-100/80">
+              <p className="text-fipho-slate/70">
                 • For special dietary requirements, please contact the
                 organizing committee in advance.
               </p>
@@ -313,19 +313,19 @@ export default function SchedulePage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-emerald-100/80 mb-6">
+          <p className="text-fipho-slate/70 mb-6">
             Have questions about the schedule or need assistance?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
             <Link href="/contact">
-             <Button className="bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer">
+             <Button className="bg-fipho-blue text-white hover:bg-fipho-blue/90 cursor-pointer">
               Contact Organizing Committee
             </Button>
             </Link>
            
             <Button
               variant="outline"
-              className="border-emerald-400/50 text-emerald-100 hover:bg-emerald-950/50 hover:text-emerald-50"
+              className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white"
               asChild
             >
               <Link href="/organizing-committee">Meet the Team</Link>
