@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ClipboardCheck, FlaskConical, BookOpen, Trophy } from "lucide-react";
+import { ArrowRight, BookOpen, FlaskConical, Trophy } from "lucide-react";
 
 const rounds = [
   {
@@ -15,27 +15,39 @@ const rounds = [
     title: "Theoretical Round",
     icon: BookOpen,
     description:
-      "Students solve challenging physics problems covering mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
+      "Students solve challenging multi-part physics problems spanning all major disciplines—mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
     details: [
-      "Format: Written examination with multi-part problems",
-      "Scoring: Maximum 60 points",
+      "Written examination — multi-part problems",
+      "Maximum score: 60 points",
       "Duration: 5 hours (300 minutes)",
     ],
-    side: "left" as const,
+    score: 60,
+    color: "border-fipho-blue/30 bg-fipho-blue/5",
+    iconColor: "text-fipho-blue",
+    barColor: "bg-fipho-blue",
   },
   {
     number: 2,
     title: "Experimental Round",
     icon: FlaskConical,
     description:
-      "Participants conduct laboratory experiments, collect data, perform analysis, and present scientific conclusions.",
+      "Participants design and conduct laboratory experiments, collect and analyse data, quantify measurement uncertainties, and present scientific conclusions.",
     details: [
-      "Format: Hands-on laboratory experiment",
-      "Scoring: Maximum 40 points",
+      "Hands-on laboratory experiment",
+      "Maximum score: 40 points",
       "Duration: 5 hours (300 minutes)",
     ],
-    side: "right" as const,
+    score: 40,
+    color: "border-fipho-gold/30 bg-fipho-gold/5",
+    iconColor: "text-fipho-gold",
+    barColor: "bg-fipho-gold",
   },
+];
+
+const medals = [
+  { type: "Gold", emoji: "🥇", fraction: "1/6", ratio: "1", color: "bg-yellow-400", flex: 1 },
+  { type: "Silver", emoji: "🥈", fraction: "2/6", ratio: "2", color: "bg-slate-300", flex: 2 },
+  { type: "Bronze", emoji: "🥉", fraction: "3/6", ratio: "3", color: "bg-amber-600", flex: 3 },
 ];
 
 export function CompetitionSection() {
@@ -58,117 +70,125 @@ export function CompetitionSection() {
             Olympiad Rounds
           </h2>
           <p className="text-white/70">
-            A rigorous two-round competition designed to test theoretical knowledge
-            and experimental skills at the highest international standard.
+            Two rounds designed to test theoretical mastery and experimental
+            skill at the highest international standard.
           </p>
         </div>
 
-        {/* Timeline layout */}
-        <div className="relative mb-16">
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-fipho-gold/20 md:left-1/2" />
-          <div className="space-y-12">
-            {rounds.map((round) => (
-              <div key={round.title} className="relative">
-                <div className="flex items-center md:justify-center">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-fipho-gold bg-fipho-navy text-fipho-gold font-bold z-10 ml-3 md:ml-0">
-                    {round.number}
+        {/* Score overview bar */}
+        <Card className="glass-card rounded-2xl mb-12">
+          <CardContent className="p-6 sm:p-8">
+            <p className="text-xs uppercase tracking-widest text-white/40 font-mono mb-5">
+              Score Distribution — 100 points total
+            </p>
+            <div className="space-y-4">
+              {rounds.map((r) => (
+                <div key={r.title}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-sm font-medium text-white/80 flex items-center gap-2">
+                      <r.icon className={`h-4 w-4 ${r.iconColor}`} />
+                      {r.title}
+                    </span>
+                    <span className={`font-mono font-bold text-sm ${r.iconColor}`}>
+                      {r.score} pts
+                    </span>
+                  </div>
+                  <div className="h-3 rounded-full bg-white/5 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${r.barColor} opacity-70`}
+                      style={{ width: `${r.score}%` }}
+                    />
                   </div>
                 </div>
-                <div
-                  className={`ml-16 md:ml-0 ${
-                    round.side === "left"
-                      ? "md:mr-[50%] md:pr-10"
-                      : "md:ml-[50%] md:pl-10"
-                  }`}
-                >
-                  <Card className="glass-card rounded-xl hover:bg-white/10 transition-all">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-1">
-                        <round.icon className="h-5 w-5 text-fipho-gold" />
-                        <span className="text-sm font-medium text-fipho-gold">
-                          Round {round.number}
-                        </span>
-                      </div>
-                      <CardTitle className="font-heading text-xl text-white">
-                        {round.title}
-                      </CardTitle>
-                      <CardDescription className="text-white/65">
-                        {round.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="list-disc space-y-2 pl-4 text-sm text-white/70">
-                        {round.details.map((d) => (
-                          <li key={d}>{d}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Card className="glass-card rounded-xl mb-12 glow-blue">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 font-heading text-white">
-              <Trophy className="h-5 w-5 text-fipho-gold" />
-              Awards Ceremony
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-white/70">
-            <p>
-              The top 60% of participants receive medals in a 1:2:3 (gold:silver:bronze)
-              ratio. Honorable mentions and certificates of participation are also
-              awarded at a formal closing ceremony celebrating international scientific
-              collaboration.
-            </p>
+              ))}
+            </div>
           </CardContent>
         </Card>
 
-        <div id="scoring">
-          <h3 className="font-heading mb-8 text-2xl font-semibold text-white">
-            Scoring System
-          </h3>
-          <Card className="glass-card rounded-xl">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-white">
-                <ClipboardCheck className="h-5 w-5 text-fipho-gold" />
-                Evaluation Criteria
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 md:grid-cols-3">
-                {[
-                  {
-                    title: "Theoretical Round",
-                    items: ["Multi-part written problems", "Maximum score: 60 points", "Duration: 5 hours"],
-                  },
-                  {
-                    title: "Experimental Round",
-                    items: ["Laboratory experiment and analysis", "Maximum score: 40 points", "Duration: 5 hours"],
-                  },
-                  {
-                    title: "Overall Scoring",
-                    items: ["Total maximum score: 100 points", "Theoretical: 60 points", "Experimental: 40 points"],
-                  },
-                ].map((block) => (
-                  <div key={block.title} className="space-y-2">
-                    <h4 className="font-medium text-fipho-gold">{block.title}</h4>
-                    <ul className="list-disc space-y-1 pl-4 text-sm text-white/70">
-                      {block.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
+        {/* Round cards */}
+        <div className="grid gap-6 md:grid-cols-2 mb-12">
+          {rounds.map((round) => (
+            <Card
+              key={round.title}
+              className={`glass-card rounded-2xl border hover:bg-white/10 transition-all duration-300 ${round.color}`}
+            >
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-current bg-fipho-navy/60 font-bold text-fipho-gold">
+                    {round.number}
+                  </div>
+                  <round.icon className={`h-5 w-5 ${round.iconColor}`} />
+                  <span className={`text-sm font-medium ${round.iconColor}`}>
+                    Round {round.number}
+                  </span>
+                </div>
+                <CardTitle className="font-heading text-xl text-white">
+                  {round.title}
+                </CardTitle>
+                <CardDescription className="text-white/65 leading-relaxed">
+                  {round.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {round.details.map((d) => (
+                    <li key={d} className="flex items-center gap-2 text-sm text-white/70">
+                      <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${round.barColor}`} />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Awards */}
+        <Card className="glass-card rounded-2xl mb-8 glow-gold">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-heading text-white">
+              <Trophy className="h-5 w-5 text-fipho-gold" />
+              Awards &amp; Medal Distribution
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <p className="text-white/70 text-sm leading-relaxed">
+              The top <strong className="text-white">60%</strong> of participants receive medals
+              in a <strong className="text-white">1 : 2 : 3</strong> gold : silver : bronze ratio.
+              Certificates of participation are awarded to all competitors.
+            </p>
+            <div>
+              <p className="text-xs uppercase tracking-widest text-white/40 font-mono mb-3">
+                Medal ratio among medalists
+              </p>
+              <div className="flex h-8 rounded-full overflow-hidden gap-0.5">
+                {medals.map((m) => (
+                  <div
+                    key={m.type}
+                    className={`${m.color} flex items-center justify-center text-xs font-bold text-white/90 gap-1`}
+                    style={{ flex: m.flex }}
+                  >
+                    <span>{m.emoji}</span>
+                    <span className="hidden sm:inline">{m.ratio}×</span>
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="flex mt-2 gap-0.5">
+                {medals.map((m) => (
+                  <div
+                    key={m.type}
+                    className="text-center"
+                    style={{ flex: m.flex }}
+                  >
+                    <span className="text-xs text-white/50">{m.type}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <a href="/docs/rules.pdf" download>
             <Button className="bg-fipho-gold text-fipho-navy hover:bg-fipho-gold/90 font-semibold cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.2)]">
               Download Detailed Guidelines
