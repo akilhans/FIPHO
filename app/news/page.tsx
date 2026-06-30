@@ -32,11 +32,11 @@ const articles = [
       "Official preparatory problems and detailed solutions are now available for download. These materials cover mechanics, electromagnetism, thermodynamics, optics, and modern physics at the olympiad level.",
   },
   {
-    title: "Venue Confirmed: Fergana, Uzbekistan",
+    title: "Venue Confirmed: Samarkand, Uzbekistan",
     date: "January 20, 2026",
     category: "Announcement",
     content:
-      "FIPHO 2026 will be hosted in Fergana, Uzbekistan — the historic homeland of Ahmad al-Fargʻoniy. Accommodation and local transportation will be provided for all participating teams.",
+      "FIPHO 2026 will be hosted in Samarkand, Uzbekistan. Accommodation and local transportation will be provided for all participating teams.",
   },
   {
     title: "Invitation Letters Sent to Participating Countries",

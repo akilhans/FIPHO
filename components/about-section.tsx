@@ -61,7 +61,7 @@ export function AboutSection() {
             A Prestigious International Physics Olympiad
           </h2>
           <p className="text-white/70 leading-relaxed">
-            FIPHO — the Fargʻoniy International Physics Olympiad — is a
+            FIPHO — the Al-Ferghani International Physics Olympiad — is a
             world-class competition for talented secondary school students
             passionate about physics, discovery, and scientific excellence.
           </p>
