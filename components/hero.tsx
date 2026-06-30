@@ -85,7 +85,7 @@ export default function Hero() {
                   FIPHO 2026
                 </h1>
                 <p className="text-lg text-fipho-gold/90 font-medium mt-2">
-                  Fargʻoniy International Physics Olympiad
+                  Al-Ferghani International Physics Olympiad
                 </p>
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function Hero() {
               </div>
 
               <div className="absolute bottom-4 left-4 right-4 glass-card rounded-xl p-4">
-                <p className="text-sm text-white/90 font-medium">Fergana, Uzbekistan</p>
+                <p className="text-sm text-white/90 font-medium">Samarkand, Uzbekistan</p>
                 <p className="text-xs text-fipho-gold mt-1">Host city of FIPHO 2026</p>
               </div>
             </div>

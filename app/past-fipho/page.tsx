@@ -85,7 +85,7 @@ export default function PastFIPHOPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Past FIPHO Competitions
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Explore the rich history of the Ahmad al-Fargʻoniy International
             Physics Olympiad and its impact on young scientists worldwide
           </p>
@@ -263,7 +263,7 @@ export default function PastFIPHOPage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="text-white mb-6">
             Interested in learning more about upcoming FIPHO competitions?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">

@@ -25,7 +25,7 @@ export default function PressPage() {
           </h1>
           <div className="flex items-center justify-center gap-2 text-fipho-slate/70 text-lg mb-6">
             <Calendar className="w-5 h-5 text-fipho-gold" />
-            <span>May 28 - June 4, 2025</span>
+            <span className="text-white mb-1">May 28 - June 4, 2025</span>
           </div>
           <a
             href="/docs/press.docx"
@@ -42,7 +42,7 @@ export default function PressPage() {
           <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
             <CardContent className="p-8">
               <p className="text-lg text-fipho-slate/70 leading-relaxed mb-4">
-                Ahmad al-Fargʻoniy International Physics Olympiad will be held in Tashkent from May 28 to June 4, 2025. 
+                Ahmad al-Fargʻoniy International Physics Olympiad will be held in Samarkand from October 10th to 17th, 2026. 
                 This prestigious event brings together talented students from around the world who possess knowledge and 
                 skills in the main branches of physics.
               </p>
@@ -242,7 +242,7 @@ export default function PressPage() {
         <div className="mx-auto max-w-5xl text-center mt-12">
           <Card className="border-fipho-blue/20 bg-fipho-blue/10 backdrop-blur">
             <CardContent className="p-6">
-              <p className="text-fipho-slate/70">
+              <p className="text-white mb-6">
                 For media inquiries and additional information, please contact the Science Olympiad Center.
               </p>
             </CardContent>

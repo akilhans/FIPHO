@@ -72,7 +72,7 @@ export default function ResultsReportsPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Results & Problems
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Access official results and problems from FIPHO.
           </p>
         </div>

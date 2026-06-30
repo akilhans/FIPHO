@@ -163,7 +163,7 @@ export default function SchedulePage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Programme Schedule
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Detailed schedule of events and activities for the FIPHO 2025
             competition in Tashkent, Uzbekistan
           </p>
@@ -313,7 +313,7 @@ export default function SchedulePage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="text-white mb-6">
             Have questions about the schedule or need assistance?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
