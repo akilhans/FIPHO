@@ -318,7 +318,7 @@ export default function GalleryPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             FIPHO Gallery
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Explore photos and videos from past FIPHO events, capturing the spirit of
             international collaboration and scientific excellence
           </p>

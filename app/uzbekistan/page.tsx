@@ -35,7 +35,7 @@ export default function UzbekistanPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Discover Uzbekistan
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             A land of rich history, vibrant culture, and warm hospitality at the
             heart of Central Asia
           </p>
@@ -132,19 +132,19 @@ export default function UzbekistanPage() {
               <History className="h-6 w-6 text-fipho-gold" />
               <h2 className="text-2xl font-bold text-white">Rich History</h2>
             </div>
-            <p className="text-fipho-slate/70">
+            <p className="text-white mb-6">
               Uzbekistan stands at the crossroads of ancient civilizations, with
               a history spanning over 2,500 years. The country was a key hub on
               the Great Silk Road, connecting East and West through trade and
               cultural exchange.
             </p>
-            <p className="text-fipho-slate/70">
+            <p className="text-white mb-6">
               Home to some of the world`s oldest cities, including Samarkand,
               Bukhara, and Khiva, Uzbekistan preserves the legacy of conquerors
               and scholars like Alexander the Great, Genghis Khan, and Amir
               Timur (Tamerlane).
             </p>
-            <p className="text-fipho-slate/70">
+            <p className="text-white mb-6">
               The region has been a center of scientific advancement, with
               scholars like Ahmad al-Fargʻoniy, Avicenna (Ibn Sina), and
               Al-Khwarizmi making groundbreaking contributions to mathematics,
@@ -476,7 +476,7 @@ export default function UzbekistanPage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="text-white mb-6">
             We look forward to welcoming FIPHO participants to Uzbekistan in
             2025!
           </p>

@@ -72,7 +72,7 @@ const upcomingCompetitions = [
       "Students born after January 1, 2007",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 4 students per country",
+      "Maximum of 5 students per country",
     ],
     keyDates: [
       { date: "January 2026", event: "Registration Opens", status: "future" },

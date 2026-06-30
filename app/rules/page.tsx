@@ -32,7 +32,7 @@ export default function RulesGuidelinesPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Rules & Guidelines
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Access official competition rules and guidelines for FIPHO.
           </p>
         </div>

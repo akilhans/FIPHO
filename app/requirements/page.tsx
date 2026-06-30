@@ -34,7 +34,7 @@ export default function RequirementsPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Participation Requirements
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="mt-6 text-lg leading-8 text-white">
             Essential information and guidelines for participating in FIPHO
             2025
           </p>
@@ -306,13 +306,13 @@ export default function RequirementsPage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="mt-6 text-lg leading-8 text-white">
             Ready to participate in FIPHO 2025?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
             <Button
               variant="outline"
-              className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white"
+              className="border-fipho-gold/50 text-white hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
               asChild
             >
               <Link href="/contact">Contact Organizing Committee</Link>

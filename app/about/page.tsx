@@ -44,7 +44,7 @@ export default function AboutPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Ahmad al-Fargʻoniy International Physics Olympiad
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="mt-6 text-lg leading-8 text-white">
             A prestigious global competition identifying and nurturing young
             talents in the field of physics
           </p>
@@ -302,7 +302,7 @@ export default function AboutPage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="text-white mb-6">
             Ready to be part of this prestigious international competition?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
@@ -313,7 +313,7 @@ export default function AboutPage() {
                 >
             <Button
               variant="outline"
-              className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
+              className="border-fipho-gold/50 text-white hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
             >
               Contact Us
             </Button>

@@ -90,7 +90,7 @@ export default function ContactPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Contact Us
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Have questions about FIPHO? Our team is here to help you.
           </p>
         </div>

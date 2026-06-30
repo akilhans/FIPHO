@@ -118,7 +118,7 @@ export default function FutureFIPHOPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Future FIPHO Competitions
           </h1>
-          <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
+          <p className="text-white mb-6">
             Discover upcoming FIPHO events and prepare for the next generation
             of physics excellence
           </p>
@@ -269,7 +269,7 @@ export default function FutureFIPHOPage() {
         <div className="mx-auto max-w-5xl mb-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-white">Host Country</h2>
-            <p className="mt-2 text-fipho-slate/70">
+            <p className="text-white mb-6">
               Learn more about Uzbekistan, the host of FIPHO 2026
             </p>
           </div>
@@ -318,7 +318,7 @@ export default function FutureFIPHOPage() {
         <div className="mx-auto max-w-5xl mb-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-white">Looking Ahead</h2>
-            <p className="mt-2 text-fipho-slate/70">
+            <p className="text-white mb-6">
               Future FIPHO competitions
             </p>
           </div>
@@ -360,7 +360,7 @@ export default function FutureFIPHOPage() {
 
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-fipho-slate/70 mb-6">
+          <p className="text-white mb-6">
             Ready to be part of the next generation of physics excellence?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
