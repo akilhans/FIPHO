@@ -62,14 +62,14 @@ export default function AboutPage() {
               <Calendar className="h-5 w-5 text-fipho-gold mt-1" />
               <div>
                 <h3 className="font-medium text-fipho-navy">Date</h3>
-                <p className="text-fipho-slate/70">May 28 to June 4, 2025</p>
+                <p className="text-fipho-slate/70">October 10 to 17, 2026</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <MapPin className="h-5 w-5 text-fipho-gold mt-1" />
               <div>
                 <h3 className="font-medium text-fipho-navy">Location</h3>
-                <p className="text-fipho-slate/70">Tashkent, Uzbekistan</p>
+                <p className="text-fipho-slate/70">Samarkand, Uzbekistan</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -77,7 +77,7 @@ export default function AboutPage() {
               <div>
                 <h3 className="font-medium text-fipho-navy">Participants</h3>
                 <p className="text-fipho-slate/70">
-                  Talented students from various countries
+                  Students between 15 and 18 years of age (born after September 1, 2008)
                 </p>
               </div>
             </div>
