@@ -111,9 +111,9 @@ export default function RequirementsPage() {
                 </h3>
                 <ul className="space-y-3">
                   {[
-                    "Must be enrolled in secondary education during the 2024-2025 academic year",
+                    "Must be enrolled in secondary education during the 2025-2026 academic year",
                     "Not enrolled in any university-level courses",
-                    "Not holding a secondary school graduation certificate as of January 1, 2025",
+                    "Not holding a secondary school graduation certificate as of January 1, 2026",
                     "No more than two participations in previous FIPHO competitions",
                   ].map((req, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -131,9 +131,9 @@ export default function RequirementsPage() {
                 </h3>
                 <ul className="space-y-3">
                   {[
-                    "Each country may send one team",
+                    "Each country may send multiple teams",
                     "Teams must be officially endorsed by their national physics organization or education ministry",
-                    "Maximum of 4 students per country",
+                    "Maximum of 5 students per team",
                     "Students must be citizens or legal permanent residents of the country they represent",
                   ].map((req, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -168,7 +168,6 @@ export default function RequirementsPage() {
                   {[
                     "4 student participants",
                     "1 head mentor (team leader)",
-                    "1 additional mentor (optional)",
                     "Students must compete in their respective age divisions",
                   ].map((rule, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -307,7 +306,7 @@ export default function RequirementsPage() {
         {/* CTA Section */}
         <div className="mx-auto max-w-3xl mt-16 text-center">
           <p className="mt-6 text-lg leading-8 text-white">
-            Ready to participate in FIPHO 2025?
+            Ready to participate in FIPHO 2026?
           </p>
           <div className="flex flex-col gap-4 sm:flex-row justify-center">
             <Button

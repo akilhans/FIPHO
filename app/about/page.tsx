@@ -189,30 +189,30 @@ export default function AboutPage() {
                   Medal Categories
                 </h3>
                 <div className="grid gap-6 sm:grid-cols-3">
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-fipho-navy/20">
+                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
                     <div className="p-3 rounded-full bg-yellow-500/10">
                       <Medal className="h-6 w-6 text-yellow-500" />
                     </div>
-                    <h4 className="font-medium text-yellow-500">Gold Medal</h4>
-                    <p className="text-sm text-center text-fipho-slate/70">
+                    <h4 className="font-semibold text-amber-800">Gold Medal</h4>
+                    <p className="text-sm text-center text-slate-800 font-medium">
                       Awarded to students demonstrating outstanding excellence
                     </p>
                   </div>
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-fipho-navy/20">
+                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
                     <div className="p-3 rounded-full bg-gray-400/10">
                       <Medal className="h-6 w-6 text-gray-400" />
                     </div>
-                    <h4 className="font-medium text-gray-400">Silver Medal</h4>
-                    <p className="text-sm text-center text-fipho-slate/70">
+                    <h4 className="font-semibold text-slate-700">Silver Medal</h4>
+                    <p className="text-sm text-center text-slate-800 font-medium">
                       Given to participants with high achievements
                     </p>
                   </div>
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-fipho-navy/20">
+                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
                     <div className="p-3 rounded-full bg-amber-700/10">
                       <Medal className="h-6 w-6 text-amber-700" />
                     </div>
-                    <h4 className="font-medium text-amber-700">Bronze Medal</h4>
-                    <p className="text-sm text-center text-fipho-slate/70">
+                    <h4 className="font-semibold text-orange-800">Bronze Medal</h4>
+                    <p className="text-sm text-center text-slate-800 font-medium">
                       Recognizing commendable performances
                     </p>
                   </div>
@@ -226,7 +226,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
                   <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-fipho-navy/20">
+                    <div className="p-2 rounded-lg bg-slate-200/50 border border-slate-300/30">
                       <ScrollText className="h-5 w-5 text-fipho-gold" />
                     </div>
                     <div>
@@ -240,7 +240,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-fipho-navy/20">
+                    <div className="p-2 rounded-lg bg-slate-200/50 border border-slate-300/30">
                       <Lightbulb className="h-5 w-5 text-fipho-gold" />
                     </div>
                     <div>
