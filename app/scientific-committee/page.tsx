@@ -107,7 +107,7 @@ const scientificMembers: CommitteeMember[] = [
   },
   {
     name: "Bulat Garifullin",
-    role: "member of Science Committee",
+    role: "Member of Science Committee",
     institution: "Hospital No.13 Ufa",
     country: "Russian Federation",
     bio: "Bulat is the author of problems at various international physics Olympiads for the past 20 years",
@@ -117,7 +117,7 @@ const scientificMembers: CommitteeMember[] = [
   },
   {
     name: "Alex Koronatov",
-    role: "member of the scientific committee ",
+    role: "Member of the scientific committee ",
     institution: "Technion",
     country: "Croatia",
     bio: "Alex is physicist who loves teaching. He enjoys preparing and solving physics Olympiad tasks.",
@@ -127,7 +127,7 @@ const scientificMembers: CommitteeMember[] = [
   },
   {
     name: "Andrei Shved",
-    role: "member of Science Committee",
+    role: "Member of Science Committee",
     institution: "ETH Zurich",
     country: "Switzerland",
     bio: "Andrei is a dedicated teacher with rigorous scientific training and many years of experience in international Physics Olympiads",
@@ -137,7 +137,7 @@ const scientificMembers: CommitteeMember[] = [
   },
   {
     name: "Prof. Vadim Eremin",
-    role: "member of the Science Committee",
+    role: "Member of the Science Committee",
     institution: "Moscow State University, Physics Department",
     country: "Russian",
     bio: "Professor Eremin is a professor of theoretical physics with a great experience in All-Russian and international physics olympiads.",

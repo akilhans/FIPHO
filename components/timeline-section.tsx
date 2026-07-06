@@ -1,87 +1,75 @@
-import { Badge } from "@/components/ui/badge";
-import { Calendar, CheckCircle2 } from "lucide-react";
-
 const timelineEvents = [
   {
-    date: "March 1, 2026",
-    title: "Registration Opens",
-    description: "National teams may begin submitting their registration applications.",
+    date: "MAY 15, 2026",
+    title: "Institutional Registration Opens",
+    description: "National organizing bodies submit intent to compete and delegate allocations.",
   },
   {
-    date: "August 15, 2026",
-    title: "Registration Deadline",
-    description: "Final date for all participating countries to complete team registration.",
+    date: "JULY 30, 2026",
+    title: "Student Roster Finalization",
+    description: "Deadline for submitting competing student metrics and academic profiles.",
   },
   {
-    date: "November 3–10, 2026",
-    title: "Olympiad Dates",
-    description: "Theoretical and experimental rounds, cultural program, and ceremonies.",
+    date: "SEPTEMBER 10, 2026",
+    title: "Theoretical Framework Release",
+    description: "Syllabus boundaries and preparatory problem matrices are issued to teams.",
   },
   {
-    date: "November 9, 2026",
-    title: "Results Announcement",
-    description: "Medal winners and official results published at the awards ceremony.",
-  },
-  {
-    date: "November 10, 2026",
-    title: "Closing Ceremony",
-    description: "Formal conclusion of FIPHO 2026 with awards presentation and farewell.",
+    date: "OCTOBER 22, 2026",
+    title: "Opening Ceremony · Samarkand",
+    description: "Conformation assemblies and the initiation of the experimental exam phase.",
   },
 ];
 
 export function TimelineSection() {
   return (
-    <section className="relative w-full bg-fipho-light py-20 overflow-hidden" id="timeline">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute right-0 top-1/4 h-64 w-64 rounded-full bg-fipho-blue/5 blur-3xl" />
-      </div>
-
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/5 text-fipho-blue"
-          >
-            Key Dates
-          </Badge>
-          <h2 className="font-heading mb-4 text-3xl font-bold tracking-tight text-fipho-navy sm:text-4xl">
-            Olympiad Timeline
-          </h2>
-          <p className="text-fipho-slate/70">
-            Important milestones for FIPHO 2026 participants and organizers.
-          </p>
-        </div>
-
-        <div className="mx-auto max-w-2xl">
-          <div className="relative">
-            <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-fipho-blue via-fipho-gold to-fipho-blue" />
-            <div className="space-y-8">
-              {timelineEvents.map((event, index) => (
-                <div key={event.title} className="relative flex gap-6">
-                  <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-fipho-blue bg-white shadow-md">
-                    <CheckCircle2 className="h-5 w-5 text-fipho-blue" />
-                  </div>
-                  <div className="glass-card-light rounded-xl p-5 flex-1 hover:shadow-lg transition-shadow">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Calendar className="h-4 w-4 text-fipho-gold" />
-                      <span className="text-sm font-semibold text-fipho-blue">
-                        {event.date}
-                      </span>
-                      {index === 0 && (
-                        <Badge className="ml-auto bg-fipho-gold/10 text-fipho-gold border-fipho-gold/30 text-xs">
-                          Upcoming
-                        </Badge>
-                      )}
-                    </div>
-                    <h3 className="font-heading text-lg font-semibold text-fipho-navy mb-1">
-                      {event.title}
-                    </h3>
-                    <p className="text-sm text-fipho-slate/70">{event.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+    <section id="rounds" className="px-6 py-32 bg-fipho-navy border-y border-border">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
+          
+          {/* Left Column: Sticky Title Stack */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
+            <p className="font-mono-ui text-xs tracking-[0.25em] uppercase mb-4 text-accent">
+              Chronology
+            </p>
+            <h2 className="font-heading font-semibold text-4xl md:text-5xl tracking-tight text-foreground mb-6">
+              Olympiad Timeline
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
+              Key developmental checkpoints and structural operations mapping towards the 2026 grand finals.
+            </p>
           </div>
+
+          {/* Right Column: Generously Spaced Asymmetric Cascade */}
+          <div className="lg:col-span-8 space-y-16 md:space-y-24">
+            {timelineEvents.map((event, index) => (
+              <div 
+                key={index} 
+                className="group grid md:grid-cols-12 gap-4 md:gap-8 items-start relative pb-8 border-b border-border/40 last:border-0"
+              >
+                {/* Step & Date Tracker */}
+                <div className="md:col-span-4 flex flex-row md:flex-col justify-between md:justify-start gap-2">
+                  <span className="font-mono-ui text-xs text-accent tracking-widest block">
+                    // 0{index + 1}
+                  </span>
+                  <span className="font-mono-ui text-xs text-secondary tracking-wider block mt-0.5">
+                    {event.date}
+                  </span>
+                </div>
+
+                {/* Content Block */}
+                <div className="md:col-span-8">
+                  <h3 className="font-heading font-semibold text-xl md:text-2xl text-foreground mb-3 tracking-tight group-hover:text-accent transition-colors duration-300">
+                    {event.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
+                    {event.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>

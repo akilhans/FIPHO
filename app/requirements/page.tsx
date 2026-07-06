@@ -1,7 +1,3 @@
-"use client";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Users,
   GraduationCap,
@@ -13,312 +9,256 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+const quickLinks = [
+  { id: "eligibility", icon: Users, title: "Eligibility", description: "Age and academic requirements" },
+  { id: "registration", icon: ClipboardCheck, title: "Registration", description: "Process and deadlines" },
+  { id: "rules", icon: Shield, title: "Rules", description: "Competition guidelines" },
+  { id: "documents", icon: FileText, title: "Documents", description: "Required paperwork" },
+];
+
+const academicRequirements = [
+  "Must be enrolled in secondary education during the 2025-2026 academic year",
+  "Not enrolled in any university-level courses",
+  "Not holding a secondary school graduation certificate as of January 1, 2026",
+  "No more than two participations in previous FIPHO competitions",
+];
+
+const countryRequirements = [
+  "Each country may send multiple teams",
+  "Teams must be officially endorsed by their national physics organization or education ministry",
+  "Maximum of 5 students per team",
+  "Students must be citizens or legal permanent residents of the country they represent",
+];
+
+const teamCompositionRules = [
+  "4 student participants",
+  "1 head mentor (team leader)",
+  "Students must compete in their respective age divisions",
+];
+
+const academicIntegrity = [
+  "No external resources during examinations",
+  "Independent work on all tasks",
+  "No communication during competition rounds",
+  "Strict adherence to examination rules",
+];
+
+const behavioralStandards = [
+  "Respect for all participants and staff",
+  "Punctual attendance at all events",
+  "Proper laboratory safety compliance",
+  "Cultural sensitivity and inclusivity",
+];
+
+const documents = [
+  {
+    title: "For Students",
+    items: [
+      "Valid passport copy",
+      "Recent photograph",
+      "School enrollment verification",
+      "Parent/guardian consent form",
+      "Medical information form",
+      "Travel insurance confirmation",
+    ],
+  },
+  {
+    title: "For Team Leaders",
+    items: [
+      "Valid passport copy",
+      "Recent photograph",
+      "Professional credentials",
+      "Institution endorsement letter",
+      "Emergency contact information",
+      "Code of conduct agreement",
+    ],
+  },
+];
+
 export default function RequirementsPage() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
-
-      <div className="container relative mx-auto px-4 py-20 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
-          >
+    <main>
+      {/* HERO */}
+      <section className="relative pt-36 pb-16 px-6 text-center bg-background overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             Competition Guidelines
-          </Badge>
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-5">
             Participation Requirements
           </h1>
-          <p className="mt-6 text-lg leading-8 text-white">
-            Essential information and guidelines for participating in FIPHO
-            2025
+          <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            Essential information and guidelines for participating in FIPHO 2026
           </p>
         </div>
+      </section>
 
-        {/* Quick Links */}
-        <div className="mx-auto max-w-5xl mb-16">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: <Users className="h-6 w-6 text-fipho-gold" />,
-                title: "Eligibility",
-                description: "Age and academic requirements",
-              },
-              {
-                icon: <ClipboardCheck className="h-6 w-6 text-fipho-gold" />,
-                title: "Registration",
-                description: "Process and deadlines",
-              },
-              {
-                icon: <Shield className="h-6 w-6 text-fipho-gold" />,
-                title: "Rules",
-                description: "Competition guidelines",
-              },
-              {
-                icon: <FileText className="h-6 w-6 text-fipho-gold" />,
-                title: "Documents",
-                description: "Required paperwork",
-              },
-            ].map((item, index) => (
-              <Card
-                key={index}
-                className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur cursor-pointer transition-colors hover:bg-fipho-navy/20"
-                onClick={() =>
-                  document
-                    .getElementById(item.title.toLowerCase())
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                <CardContent className="p-6">
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    {item.icon}
-                    <h3 className="font-medium text-fipho-navy">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-fipho-slate/70">
-                      {item.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+      {/* QUICK LINKS */}
+      <section className="px-6 pb-8 bg-background">
+        <div className="max-w-5xl mx-auto grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {quickLinks.map(({ id, icon: Icon, title, description }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className="p-6 rounded-xl border border-border hover:border-accent/40 hover:-translate-y-0.5 transition-all text-center block"
+            >
+              <Icon className="h-6 w-6 text-accent mx-auto mb-3" />
+              <h3 className="font-medium mb-1">{title}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ELIGIBILITY REQUIREMENTS */}
+      <section id="eligibility" className="px-6 py-16 scroll-mt-16 bg-background">
+        <div className="max-w-4xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background-raised">
+          <div className="flex items-center gap-3 mb-8">
+            <GraduationCap className="h-6 w-6 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">
+              Eligibility Requirements
+            </h2>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="font-medium mb-4">Academic Requirements</h3>
+            <ul className="space-y-3">
+              {academicRequirements.map((req) => (
+                <li key={req} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">{req}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-medium mb-4">Country Representation</h3>
+            <ul className="space-y-3">
+              {countryRequirements.map((req) => (
+                <li key={req} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">{req}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPETITION RULES */}
+      <section id="rules" className="px-6 py-16 scroll-mt-16 bg-background-raised border-y border-border">
+        <div className="max-w-4xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background">
+          <div className="flex items-center gap-3 mb-8">
+            <Shield className="h-6 w-6 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">
+              Competition Rules
+            </h2>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="font-medium mb-4">Team Composition</h3>
+            <ul className="space-y-3">
+              {teamCompositionRules.map((rule) => (
+                <li key={rule} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">{rule}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="font-medium mb-4">Language Requirements</h3>
+            <div className="flex items-start gap-3">
+              <Globe className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">
+                The official languages of the Olympiad are Uzbek and English.
+                Participants may complete the exam in their native language.
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-medium mb-5">Code of Conduct</h3>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div>
+                <h4 className="text-sm font-medium mb-3 text-accent">
+                  Academic Integrity
+                </h4>
+                <ul className="space-y-2.5">
+                  {academicIntegrity.map((rule) => (
+                    <li key={rule} className="flex items-start gap-2.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{rule}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-sm font-medium mb-3 text-accent">
+                  Behavioral Standards
+                </h4>
+                <ul className="space-y-2.5">
+                  {behavioralStandards.map((rule) => (
+                    <li key={rule} className="flex items-start gap-2.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{rule}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* REQUIRED DOCUMENTS */}
+      <section id="documents" className="px-6 py-16 scroll-mt-16 bg-background">
+        <div className="max-w-4xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background-raised">
+          <div className="flex items-center gap-3 mb-8">
+            <FileText className="h-6 w-6 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">
+              Required Documents
+            </h2>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {documents.map((section) => (
+              <div key={section.title}>
+                <h3 className="font-medium mb-4">{section.title}</h3>
+                <ul className="space-y-3">
+                  {section.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <FileText className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Eligibility Requirements */}
-        <div id="eligibility" className="mx-auto max-w-5xl mb-16 scroll-mt-16">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <GraduationCap className="h-6 w-6 text-fipho-gold" />
-                <CardTitle className="text-2xl text-fipho-navy">
-                  Eligibility Requirements
-                </CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Age Categories */}
-
-              {/* Academic Requirements */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Academic Requirements
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "Must be enrolled in secondary education during the 2025-2026 academic year",
-                    "Not enrolled in any university-level courses",
-                    "Not holding a secondary school graduation certificate as of January 1, 2026",
-                    "No more than two participations in previous FIPHO competitions",
-                  ].map((req, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-fipho-gold mt-0.5 shrink-0" />
-                      <span className="text-fipho-slate/70">{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Country Representation */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Country Representation
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "Each country may send multiple teams",
-                    "Teams must be officially endorsed by their national physics organization or education ministry",
-                    "Maximum of 5 students per team",
-                    "Students must be citizens or legal permanent residents of the country they represent",
-                  ].map((req, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-fipho-gold mt-0.5 shrink-0" />
-                      <span className="text-fipho-slate/70">{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Competition Rules */}
-        <div id="rules" className="mx-auto max-w-5xl mb-16 scroll-mt-16">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Shield className="h-6 w-6 text-fipho-gold" />
-                <CardTitle className="text-2xl text-fipho-navy">
-                  Competition Rules
-                </CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Team Composition */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Team Composition
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "4 student participants",
-                    "1 head mentor (team leader)",
-                    "Students must compete in their respective age divisions",
-                  ].map((rule, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle className="h-5 w-5 text-fipho-gold mt-0.5 shrink-0" />
-                      <span className="text-fipho-slate/70">{rule}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Language Requirements */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Language Requirements
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "The official languages of the Olympiad are Uzbek and English. Participants may complete the exam in their native language.",
-                  ].map((rule, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <Globe className="h-5 w-5 text-fipho-gold mt-0.5 shrink-0" />
-                      <span className="text-fipho-slate/70">{rule}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Code of Conduct */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Code of Conduct
-                </h3>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-3">
-                    <h4 className="font-medium text-fipho-navy">
-                      Academic Integrity
-                    </h4>
-                    <ul className="space-y-2">
-                      {[
-                        "No external resources during examinations",
-                        "Independent work on all tasks",
-                        "No communication during competition rounds",
-                        "Strict adherence to examination rules",
-                      ].map((rule, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <div className="h-1.5 w-1.5 rounded-full bg-fipho-gold mt-2"></div>
-                          <span className="text-sm text-fipho-slate/70">
-                            {rule}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-3">
-                    <h4 className="font-medium text-fipho-navy">
-                      Behavioral Standards
-                    </h4>
-                    <ul className="space-y-2">
-                      {[
-                        "Respect for all participants and staff",
-                        "Punctual attendance at all events",
-                        "Proper laboratory safety compliance",
-                        "Cultural sensitivity and inclusivity",
-                      ].map((rule, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <div className="h-1.5 w-1.5 rounded-full bg-fipho-gold mt-2"></div>
-                          <span className="text-sm text-fipho-slate/70">
-                            {rule}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Required Documents */}
-        <div id="documents" className="mx-auto max-w-5xl mb-16 scroll-mt-16">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <FileText className="h-6 w-6 text-fipho-gold" />
-                <CardTitle className="text-2xl text-fipho-navy">
-                  Required Documents
-                </CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2">
-                {[
-                  {
-                    title: "For Students",
-                    items: [
-                      "Valid passport copy",
-                      "Recent photograph",
-                      "School enrollment verification",
-                      "Parent/guardian consent form",
-                      "Medical information form",
-                      "Travel insurance confirmation",
-                    ],
-                  },
-                  {
-                    title: "For Team Leaders",
-                    items: [
-                      "Valid passport copy",
-                      "Recent photograph",
-                      "Professional credentials",
-                      "Institution endorsement letter",
-                      "Emergency contact information",
-                      "Code of conduct agreement",
-                    ],
-                  },
-                ].map((section, index) => (
-                  <div key={index} className="space-y-4">
-                    <h3 className="text-lg font-medium text-fipho-navy">
-                      {section.title}
-                    </h3>
-                    <ul className="space-y-3">
-                      {section.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start gap-2">
-                          <FileText className="h-5 w-5 text-fipho-gold mt-0.5 shrink-0" />
-                          <span className="text-fipho-slate/70">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* CTA Section */}
-        <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="mt-6 text-lg leading-8 text-white">
-            Ready to participate in FIPHO 2026?
-          </p>
-          <div className="flex flex-col gap-4 sm:flex-row justify-center">
-            <Button
-              variant="outline"
-              className="border-fipho-gold/50 text-white hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
-              asChild
-            >
-              <Link href="/contact">Contact Organizing Committee</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
+      {/* CTA */}
+      <section className="px-6 py-24 text-center bg-background">
+        <p className="mb-6 text-lg text-muted-foreground">
+          Ready to participate in FIPHO 2026?
+        </p>
+        <Link
+          href="/contact"
+          className="inline-block px-7 py-3.5 rounded-full font-medium text-sm border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+        >
+          Contact Organizing Committee
+        </Link>
+      </section>
+    </main>
   );
 }

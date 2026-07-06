@@ -1,87 +1,88 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fipho-navy: #0b1f3a;
-  --color-fipho-blue: #1e4fa8;
-  --color-fipho-gold: #d4af37;
-  --color-fipho-light: #f6f8fc;
-  --color-fipho-slate: #1a1a1a;
-  --color-fipho-navy-light: #132d52;
-  --color-fipho-blue-deep: #0d2d6b;
-  --font-heading: var(--font-playfair);
+  /* brand palette — calibrated with your exact sapphire blue color token */
+  --color-fipho-navy: #0A4174;         /* Your exact color selection */
+  --color-fipho-gold: #e0b555;         /* Original signature yellow/gold preserved */
+  --color-fipho-silver: #c7ccd6;
+  --color-fipho-bronze: #cd9463;
+  --color-fipho-cyan: #38bdf8;         
+
+  /* Global structural variables — mapped explicitly to your sapphire blue #0A4174 */
+  --color-background: #0A4174;         /* FORCES THE WHOLE SITE BACKGROUND TO #0A4174 */
+  --color-background-raised: #13538f;  /* Slightly raised variation for layouts/panels */
+  --color-foreground: #ffffff;         /* Crisp white text for excellent legibility */
+  
+  /* Primary buttons and accents remain golden yellow */
+  --color-primary: #e0b555;             
+  --color-primary-foreground: #0A4174;  /* Sapphire blue text inside yellow buttons so it stands out */
+  --color-secondary: #38bdf8;          
+  --color-secondary-foreground: #0A4174;
+  --color-accent: #e0b555;             
+  --color-accent-foreground: #0A4174;
+  
+  --color-muted: #114c84;               
+  --color-muted-foreground: #cbdbe5;   
+  --color-border: #1a5e9c;             /* Hairline border dividers matching the sapphire space */
+
+  --font-heading: var(--font-newsreader);
   --font-body: var(--font-geist-sans);
+  --font-mono-ui: var(--font-jetbrains-mono);
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --primary: #0b1f3a;
-  --primary-foreground: #ffffff;
-  --secondary: #1e4fa8;
-  --secondary-foreground: #ffffff;
-  --accent: #d4af37;
-  --accent-foreground: #0b1f3a;
-  --muted: #f6f8fc;
-  --muted-foreground: #4a5568;
-  --border: #e2e8f0;
-  --radius: 0.5rem;
-}
-
+/* Global Application Base Setup */
 body {
+  background-color: #0A4174 !important; /* Direct fallback enforcement for the site background */
+  color: var(--color-foreground);
   font-family: var(--font-body), system-ui, sans-serif;
-  color: var(--foreground);
-  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), Georgia, serif;
 }
 
-/* Section backgrounds */
-.section-dark {
-  background: linear-gradient(to bottom, #0b1f3a, #132d52);
-}
-
-.section-mid {
-  background: linear-gradient(to bottom, #132d52, #0b1f3a);
-}
-
+/* Premium Component Classes */
 .glass-card {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05); /* Translucent glass to sit beautifully over #0A4174 */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.glass-card-light {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 79, 168, 0.12);
-  box-shadow: 0 4px 24px rgba(11, 31, 58, 0.08);
-}
-
 .glow-gold {
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 10px 35px rgba(224, 181, 85, 0.3); /* Makes your yellow components vividly pop forward */
 }
 
 .glow-blue {
-  box-shadow: 0 0 30px rgba(30, 79, 168, 0.2);
+  box-shadow: 0 10px 40px rgba(10, 65, 116, 0.2); /* Deep atmospheric shadow depth under cards */
 }
 
+/* Luxury Dynamic Gradients */
 .text-gradient-gold {
-  background: linear-gradient(135deg, #d4af37, #f0d060);
+  background: linear-gradient(135deg, #ffffff, #e0b555);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff, #a5f3fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Core Fluid Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
 @keyframes orbit {
@@ -90,19 +91,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
-
-@keyframes slide-in {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
 @keyframes drift {
   0%, 100% { transform: translateY(0) translateX(0); }
-  33% { transform: translateY(-8px) translateX(4px); }
-  66% { transform: translateY(4px) translateX(-4px); }
+  33% { transform: translateY(-6px) translateX(3px); }
+  66% { transform: translateY(3px) translateX(-3px); }
+}
+
+/* Structural Utility Classes */
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(.2,.7,.3,1) forwards;
 }
 
 .animate-float {
@@ -113,10 +115,6 @@ h1, h2, h3, h4, h5, h6 {
   animation: float 6s ease-in-out 2s infinite;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
 .animate-orbit {
   animation: orbit 60s linear infinite;
 }
@@ -125,14 +123,18 @@ h1, h2, h3, h4, h5, h6 {
   animation: pulse-glow 4s ease-in-out infinite;
 }
 
-.animate-slide-in {
-  animation: slide-in 0.6s ease-out forwards;
-}
-
 .animate-drift {
   animation: drift 12s ease-in-out infinite;
 }
 
 .animate-drift-slow {
   animation: drift 18s ease-in-out 3s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in, .animate-float, .animate-float-delayed, .animate-drift, .animate-drift-slow { 
+    animation: none !important; 
+    opacity: 1 !important; 
+    transform: none !important; 
+  }
 }

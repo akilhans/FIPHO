@@ -1,7 +1,4 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, ShieldCheck } from "lucide-react";
 
 const documents = [
   {
@@ -10,95 +7,79 @@ const documents = [
     file: "/docs/rules.pdf",
     description: "Complete rulebook for FIPHO 2024",
   },
-  
 ];
 
 export default function RulesGuidelinesPage() {
-  return (
-    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
+  const primaryDoc = documents[0];
 
-      <div className="container relative mx-auto px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
-          >
+  return (
+    <main>
+      {/* HERO */}
+      <section className="relative pt-36 pb-16 px-6 text-center bg-background overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             Info Center
-          </Badge>
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Rules & Guidelines
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-5">
+            Rules &amp; Guidelines
           </h1>
-          <p className="text-white mb-6">
+          <p className="text-muted-foreground text-lg max-w-lg mx-auto">
             Access official competition rules and guidelines for FIPHO.
           </p>
         </div>
+      </section>
 
-        <div className="mx-auto max-w-4xl">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy">
-                Official Documents
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {documents.map((doc) => (
-                <div
-                  key={doc.file}
-                  className="flex items-center justify-between p-4 rounded-lg bg-fipho-navy/20 hover:bg-fipho-navy/30 transition-colors"
-                >
-                  <div className="flex items-start gap-3">
-                    <FileText className="h-5 w-5 text-fipho-gold mt-1" />
-                    <div>
-                      <h3 className="font-medium text-fipho-navy">
-                        {doc.title}
-                      </h3>
-                      <div className="flex gap-2 mt-1 text-sm">
-                        <span className="text-fipho-gold">{doc.category}</span>
-                        <span className="text-fipho-slate/70">
-                          • {doc.description}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-fipho-blue/20 bg-fipho-navy/20 text-fipho-navy hover:bg-fipho-navy/40"
-                    asChild
-                  >
-                    <a href={doc.file} download>
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </a>
-                  </Button>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* PDF Preview */}
-          <div className="mt-8">
-            <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-              <CardHeader>
-                <CardTitle className="text-fipho-navy">
-                  Document Preview
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <iframe
-                  src="/docs/rules.pdf"
-                  className="w-full h-[600px] rounded-lg"
-                  title="Document Preview"
-                />
-              </CardContent>
-            </Card>
+      {/* DOCUMENT SPOTLIGHT */}
+      <section className="px-6 pb-12 bg-background">
+        <div className="max-w-3xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background-raised flex flex-col sm:flex-row items-start gap-6">
+          <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+            <ShieldCheck className="h-7 w-7 text-accent" />
+          </div>
+          <div className="flex-1">
+            <span className="font-mono-ui text-xs text-accent">
+              {primaryDoc.category.toUpperCase()}
+            </span>
+            <h2 className="font-heading font-semibold text-2xl mt-1 mb-2">
+              {primaryDoc.title}
+            </h2>
+            <p className="text-sm text-muted-foreground mb-6">
+              {primaryDoc.description}
+            </p>
+            <a
+              href={primaryDoc.file}
+              download
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
+            >
+              <Download className="h-4 w-4" />
+              Download PDF
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* PDF PREVIEW */}
+      <section className="px-6 pb-24 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-2 mb-4">
+            <FileText className="h-4 w-4 text-accent" />
+            <h3 className="font-heading font-semibold text-lg">Document Preview</h3>
+          </div>
+          <div className="rounded-2xl border border-border overflow-hidden">
+            <iframe
+              src={primaryDoc.file}
+              className="w-full h-[600px]"
+              title="Document Preview"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

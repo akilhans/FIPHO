@@ -1,30 +1,29 @@
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Atom } from "lucide-react";
+import React from "react";
 
-export function FiphoLogo({
-  className,
-  variant = "light",
-}: {
-  className?: string;
+interface FiphoLogoProps {
   variant?: "light" | "dark";
-}) {
-  const textColor = variant === "light" ? "text-white" : "text-fipho-navy";
-  const accentColor = variant === "light" ? "text-fipho-gold" : "text-fipho-blue";
+  className?: string;
+}
+
+export function FiphoLogo({ variant = "light", className = "" }: FiphoLogoProps) {
+  const isLight = variant === "light";
 
   return (
-    <Link href="/" className={cn("flex items-center gap-3 group", className)}>
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-fipho-gold/10 border border-fipho-gold/30 group-hover:bg-fipho-gold/20 transition-colors">
-        <Atom className="h-5 w-5 text-fipho-gold" />
-      </div>
-      <div className="flex flex-col leading-none">
-        <span className={cn("font-heading text-xl font-bold tracking-wide", textColor)}>
-          FIPHO
-        </span>
-        <span className={cn("text-[9px] font-medium tracking-widest uppercase mt-0.5", accentColor)}>
-          Physics Olympiad
-        </span>
-      </div>
-    </Link>
+    <div className={`flex items-baseline gap-2 select-none ${className}`}>
+      {/* 
+        Pure, raw Pi icon matching image_ce944d.png exactly.
+        No backgrounds, boxes, or borders—just the clean mathematical gold glyph.
+      */}
+      <span className="font-serif text-3xl font-bold italic text-fipho-gold leading-none translate-y-[2px]">
+        π
+      </span>
+
+      {/* Main Brand Typography */}
+      <span className={`font-heading text-2xl font-bold tracking-wider uppercase ${
+        isLight ? "text-white" : "text-fipho-navy"
+      }`}>
+        FIPHO
+      </span>
+    </div>
   );
 }

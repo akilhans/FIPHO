@@ -17,14 +17,15 @@ const rounds = [
     description:
       "Participants design and conduct laboratory experiments, collect and analyse data, quantify measurement uncertainties, and present scientific conclusions.",
     details: [
-     "Hands-on laboratory experiment",
+      "Hands-on laboratory experiment",
       "Maximum score: 40 points",
       "Duration: 3 hours (180 minutes)",
     ],
     score: 40,
     color: "border-fipho-blue/30 bg-fipho-blue/5",
     iconColor: "text-fipho-blue",
-    barColor: "bg-fipho-blue",
+    /* CHANGED HERE: switched from 'bg-fipho-blue' to 'bg-slate-400' */
+    barColor: "bg-slate-400",
   },
   {
     number: 2,
@@ -144,7 +145,7 @@ export function CompetitionSection() {
         </div>
 
         {/* Awards */}
-        <Card className="glass-card rounded-2xl mb-8 glow-gold">
+        <Card className="glass-card rounded-2xl mb-8 glow-gold">  
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-heading text-white">
               <Trophy className="h-5 w-5 text-fipho-gold" />
@@ -153,7 +154,7 @@ export function CompetitionSection() {
           </CardHeader>
           <CardContent className="space-y-5">
             <p className="text-white/70 text-sm leading-relaxed">
-              The top <strong className="text-white">60%</strong> of participants receive medals
+              The top <strong className="text-white">50%</strong> of participants receive medals
               in a <strong className="text-white">1 : 2 : 3</strong> gold : silver : bronze ratio.
               Certificates of participation are awarded to all competitors.
             </p>

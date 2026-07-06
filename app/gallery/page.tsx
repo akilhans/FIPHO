@@ -11,296 +11,73 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { X } from "lucide-react";
 import Image from "next/image";
 
-// Gallery media type (now supports both images and videos)
 interface GalleryMedia {
-  id: number;
+  id: string; 
   src: string;
   alt: string;
   year: string;
   category: string;
   description: string;
   type: 'image' | 'video';
-  thumbnail?: string;
 }
 
-// Gallery data with both images and videos
-const galleryMedia: GalleryMedia[] = [
+// 1. Automatically generate the 62 image objects from your local folder
+const totalNewImages = 62;
+const generatedImages: GalleryMedia[] = Array.from({ length: totalNewImages }, (_, index) => {
+  const imageNumber = index + 1;
+  return {
+    id: `img-n${imageNumber}`, 
+    src: `/images/FiphoGallery/n${imageNumber}.jpg`,
+    alt: `FIPHO Olympiad Highlight ${imageNumber}`,
+    year: "2025",
+    category: "Highlights",
+    description: "Moments capturing scientific excellence, international team collaboration, and cultural exchange at FIPHO.",
+    type: 'image'
+  };
+});
+
+// 2. Local video setups linking directly to your local assets folder
+const localVideos: GalleryMedia[] = [
   {
-    id: 1,
-    src: "/images/gallery/opening2.jpg",
-    alt: "Opening Ceremony 2023",
-    year: "2023",
+    id: "vid-fargoniyfinish",
+    src: "/images/FiphoGallery/fargoniyfinish.mp4",
+    alt: "Fargʻoniy Olympiad Closing & Finish",
+    year: "2025",
     category: "Ceremonies",
-    description:
-      "A grand outdoor event with an elegant setup around a central water feature, attended by participants from 45 countries under a beautifully lit evening sky",
-    type: 'image'
+    description: "Celebrating the grand finale, award distributions, and the official closing moments of the competition.",
+    type: 'video'
   },
   {
-    id: 2,
-    src: "/images/gallery/last.JPG",
-    alt: "Engaged Audience",
-    year: "2023",
-    category: "Competition",
-    description:
-      "Participants, dressed in traditional and formal attire, eagerly watching the event, clapping, and showing enthusiasm for the performances and speeches.",
-    type: 'image'
-  },
-  {
-    id: 3,
-    src: "/images/gallery/national.JPG",
-    alt: "Cultural Performance by Young Musicians",
-    year: "2023",
-    category: "Ceremonies",
-    description: " A group of students in formal school uniforms playing traditional instruments, showcasing their musical skills in a well-lit indoor setting.",
-    type: 'image'
-  },
-  {
-    id: 4,
-    src: "/images/gallery/national2.jpg",
-    alt: "Theatrical Folk Dance",
-    year: "2023",
-    category: "Cultural",
-    description: "Performers dressed in historical and cultural outfits reenacting a traditional dance on stage, accompanied by live music and an artistic backdrop.",
-    type: 'image'
-  },
-  {
-    id: 5,
-    src: "/images/gallery/closing22.JPG",
-    alt: "Joyful Celebration",
-    year: "2023",
-    category: "Teams",
-    description: "A lively nighttime scene where children and adults join hands in a celebratory dance, moving in unison under the open sky, embracing the festive spirit.",
-    type: 'image'
-  },
-  {
-    id: 6,
-    src: "/images/gallery/organization.JPG",
-    alt: "Official Speech & International Representation",
-    year: "2023",
-    category: "Organization",
-    description: "A distinguished speaker addresses the audience from a podium adorned with an official emblem, symbolizing leadership and unity. Behind him, an interpreter stands ready, emphasizing the event's global reach. Flags from multiple countries, held by participants in formal attire, highlight the diversity and international collaboration within the organization.",
-    type: 'image'
-  },
-    {
-    id: 10,
-    src: "/images/gallery/1.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-     {
-    id: 11,
-    src: "/images/gallery/2.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-       {
-    id: 12,
-    src: "/images/gallery/3.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-       {
-    id: 13,
-    src: "/images/gallery/4.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-       {
-    id: 14,
-    src: "/images/gallery/5.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-  
-        {
-    id: 15,
-    src: "/images/gallery/6.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-        {
-    id: 16,
-    src: "/images/gallery/7.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-        {
-    id: 18,
-    src: "/images/gallery/8.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-        {
-    id: 17,
-    src: "/images/gallery/9.JPG",
-    alt: "",
-    year: "2025",
-    category: "",
-    description: "Practical exam highlights",
-    type: 'image'
-  },
-  {
-  id: 122,
-  src: "/images/gallery/10.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 19,
-  src: "/images/gallery/11.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 20,
-  src: "/images/gallery/12.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 21,
-  src: "/images/gallery/13.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 22,
-  src: "/images/gallery/14.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 23,
-  src: "/images/gallery/15.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 24,
-  src: "/images/gallery/16.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 25,
-  src: "/images/gallery/17.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 26,
-  src: "/images/gallery/18.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-},
-{
-  id: 27,
-  src: "/images/gallery/19.JPG",
-  alt: "",
-  year: "2025",
-  category: "",
-  description: "Samarkand trip highlights",
-  type: 'image'
-}
-,
-  {
-    id: 7,
-    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/0527.mp4",
-    alt: "FIPHO Event Opening ceremony",
+    id: "vid-olimpiada-ochilishi",
+    src: "/images/FiphoGallery/Olimpiada_ochilishi.mp4",
+    alt: "Olimpiada Ochilish Marosimi (Opening Ceremony)",
     year: "2025",
     category: "Events",
-    description: "",
+    description: "The spectacular opening ceremony welcoming international delegates and physics competitors.",
     type: 'video'
   },
   {
-    id: 8,
-    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/1X0A1126_1.mp4",
-    alt: "Ahmad al-Fargʻoniy",
-    year: "2025",
-    category: "Educational",
-    description: "",
-    type: 'video'
-  },
-  {
-    id: 9,
-    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/fipho-documentary-eng.mp4",
-    alt: "FIPHO Competition Documentation",
-    year: "2026",
-    category: "Competition",
-    description: "",
-    type: 'video'
-  },
-  {
-    id: 10,
-    src: "https://alxorazmiy.nyc3.cdn.digitaloceanspaces.com/1.mp4",
-    alt: "Competition Documentation",
+    id: "vid-olympiadcont",
+    src: "/images/FiphoGallery/Olympiadcont.mp4",
+    alt: "Olympiad Competition & Evaluation",
     year: "2025",
     category: "Competition",
-    description: "",
+    description: "An inside look into the rigorous theoretical tests and practical laboratory setups.",
     type: 'video'
   },
 ];
+
+// Combine arrays to showcase premium video highlights right at the top
+const galleryMedia: GalleryMedia[] = [...localVideos, ...generatedImages];
 
 export default function GalleryPage() {
   const [selectedMedia, setSelectedMedia] = useState<GalleryMedia | null>(null);
 
   return (
     <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      {/* Background elements */}
+      {/* Background ambient blurs */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
         <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
@@ -318,26 +95,23 @@ export default function GalleryPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
             FIPHO Gallery
           </h1>
-          <p className="text-white mb-6">
+          <p className="text-white/80 mb-6">
             Explore photos and videos from past FIPHO events, capturing the spirit of
-            international collaboration and scientific excellence
+            international collaboration and scientific excellence.
           </p>
         </div>
 
-        <div className="text-center mb-8">
-  <a
-    href="https://drive.google.com/drive/folders/1Wy5sect47zpbVtZSLXNX4R0AceR_JWzy?usp=sharing"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Button className="bg-fipho-blue hover:bg-fipho-blue/90 text-white px-6 py-2 rounded-md shadow">
-      📁 View All Photos
-    </Button>
-  </a>
-</div>
+        <div className="text-center mb-12">
+          <a
+            href="https://drive.google.com/drive/folders/1Wy5sect47zpbVtZSLXNX4R0AceR_JWzy?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+           
+          </a>
+        </div>
 
-
-        {/* Gallery Grid */}
+        {/* Media Grid */}
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {galleryMedia.map((media) => (
@@ -346,30 +120,48 @@ export default function GalleryPage() {
                 className="group relative border-fipho-blue/20 bg-fipho-light/80 backdrop-blur overflow-hidden cursor-pointer"
                 onClick={() => setSelectedMedia(media)}
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-fipho-navy/40">
                   {media.type === 'image' ? (
                     <Image
                       src={media.src || "/placeholder.svg"}
                       alt={media.alt}
                       fill
+                      sizes="(max-w-7xl) 33vw, (max-w-md) 100vw"
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
-                    <video
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      controls
-                      preload="metadata"
-                    >
-                      <source src={media.src} type="video/mp4" />
-                      <source src={media.src.replace(".mp4", ".MP4")} type="video/MP4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    <div className="w-full h-full relative flex items-center justify-center bg-black/30">
+                      <video
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        preload="metadata"
+                        muted
+                        playsInline
+                      >
+                        <source src={media.src} type="video/mp4" />
+                      </video>
+                      
+                      {/* Premium Glassmorphism UI Video Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/40 transition-all duration-300 backdrop-blur-[1px] group-hover:backdrop-blur-none">
+                        <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/40 flex items-center justify-center shadow-2xl transform scale-95 group-hover:scale-100 group-hover:bg-fipho-gold group-hover:text-fipho-navy group-hover:border-transparent transition-all duration-300 ease-out">
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24" 
+                            fill="currentColor" 
+                            className="h-6 w-6 translate-x-[2px]"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-fipho-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-white font-medium">{media.alt}</p>
-                    <p className="text-fipho-slate/70 text-sm">
-                      {media.year} • {media.type === 'video' ? 'Video' : 'Photo'}
+                  
+                  {/* Title Hover Fade Information overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-fipho-navy/90 via-fipho-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-full">
+                    <p className="text-white font-medium text-sm truncate">{media.alt}</p>
+                    <p className="text-white/60 text-xs mt-0.5">
+                      {media.year} • {media.type === 'video' ? 'Video File' : 'Photo File'}
                     </p>
                   </div>
                 </div>
@@ -379,21 +171,23 @@ export default function GalleryPage() {
           </div>
         </div>
 
-        {/* Media Viewer Dialog */}
+        {/* Media Lightbox Viewer Dialog */}
         <Dialog
           open={!!selectedMedia}
           onOpenChange={(open) => !open && setSelectedMedia(null)}
         >
-          <DialogContent className="max-w-4xl bg-fipho-navy/95 border-fipho-blue/20 text-fipho-navy">
+          {/* Default Close button managed organically by Shadcn UI DialogContent */}
+          <DialogContent className="max-w-4xl bg-fipho-navy/95 border-fipho-blue/20 text-white shadow-2xl">
             <DialogHeader>
-              <DialogTitle className="text-fipho-navy">
+              <DialogTitle className="text-white text-xl font-semibold">
                 {selectedMedia?.alt}
               </DialogTitle>
-              <DialogDescription className="text-fipho-slate/70">
-                {selectedMedia?.year} | {selectedMedia?.category} | {selectedMedia?.type === 'video' ? 'Video' : 'Photo'}
+              <DialogDescription className="text-white/60">
+                {selectedMedia?.year} | {selectedMedia?.category} | {selectedMedia?.type === 'video' ? 'Video Presentation' : 'Official Photograph'}
               </DialogDescription>
             </DialogHeader>
-            <div className="relative aspect-video w-full overflow-hidden rounded-md">
+            
+            <div className="relative aspect-video w-full overflow-hidden rounded-md bg-black/60 flex items-center justify-center my-2">
               {selectedMedia && (
                 selectedMedia.type === 'image' ? (
                   <Image
@@ -401,6 +195,7 @@ export default function GalleryPage() {
                     alt={selectedMedia.alt}
                     fill
                     className="object-contain"
+                    priority
                   />
                 ) : (
                   <video
@@ -409,22 +204,15 @@ export default function GalleryPage() {
                     autoPlay
                   >
                     <source src={selectedMedia.src} type="video/mp4" />
-                    <source src={selectedMedia.src.replace(".mp4", ".MP4")} type="video/MP4" />
                     Your browser does not support the video tag.
                   </video>
                 )
               )}
             </div>
-            <p className="text-fipho-slate/70">{selectedMedia?.description}</p>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 top-4 text-fipho-slate/70 hover:text-fipho-navy hover:bg-fipho-navy/20"
-              onClick={() => setSelectedMedia(null)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </Button>
+            
+            <div className="pt-2">
+              <p className="text-sm text-white/80 leading-relaxed">{selectedMedia?.description}</p>
+            </div>
           </DialogContent>
         </Dialog>
       </div>

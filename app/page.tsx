@@ -1,25 +1,25 @@
-import { AboutSection } from "@/components/about-section";
-import { CommitteePreview } from "@/components/committee-preview";
-import { CompetitionSection } from "@/components/competetion";
-import { FAQSection } from "@/components/faq";
-import Hero from "@/components/hero";
-import { NewsSection } from "@/components/news-section";
-import { PhysicsDisciplines } from "@/components/physics-disciplines";
+import Herof from "@/components/herof";
+import About from "@/components/about";
 import { StatsSection } from "@/components/stats-section";
+import Disciplines from "@/components/disciplines";
+import { CompetitionSection } from "@/components/competetion";
 import { TimelineSection } from "@/components/timeline-section";
+import { CommitteePreview } from "@/components/committee-preview";
+import { NewsSection } from "@/components/news-section";
+import { FAQSection } from "@/components/faq";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <AboutSection />
+    <main>
+      <Herof />
+      <About />
       <StatsSection />
-      <PhysicsDisciplines />
+      <Disciplines />
       <CompetitionSection />
       <TimelineSection />
       <CommitteePreview />
       <NewsSection />
       <FAQSection />
-    </>
+    </main>
   );
 }

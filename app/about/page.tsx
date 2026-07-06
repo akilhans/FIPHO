@@ -1,21 +1,13 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 import {
-  Users,
-  Target,
-  Globe2,
-  GraduationCap,
-  MapPin,
-  Calendar,
-  UserPlus,
   Medal,
   ScrollText,
   Lightbulb,
+  Users,
+  User,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About | Ahmad al-Fargʻoniy International Physics Olympiad",
@@ -23,304 +15,287 @@ export const metadata: Metadata = {
     "Learn about the Ahmad al-Fargʻoniy International Physics Olympiad (FIPHO), its mission, vision, and commitment to fostering young scientific talent worldwide.",
 };
 
+const eventDetails = [
+  { label: "Date", value: "October 10 to 17, 2026" },
+  { label: "Location", value: "Samarkand, Uzbekistan" },
+  {
+    label: "Participants",
+    value: "Students between 15 and 18 years of age (born after September 1, 2008)",
+  },
+  { label: "Field", value: "Physics" },
+];
+
+const objectives = [
+  {
+    label: "Identify & Support",
+    description: "Identifying and supporting students with exceptional physics skills",
+  },
+  {
+    label: "Global Platform",
+    description: "Providing a global platform for participants to compete and learn from one another",
+  },
+  {
+    label: "Scientific Excellence",
+    description: "Promoting Uzbekistan as a hub for scientific excellence and education",
+  },
+  {
+    label: "Collaboration",
+    description: "Encouraging collaboration between students, educators, and academic institutions worldwide",
+  },
+];
+
+const medals = [
+  {
+    name: "Gold Medal",
+    iconBg: "bg-fipho-gold/15",
+    iconColor: "text-fipho-gold",
+    textColor: "text-fipho-gold",
+    description: "Awarded to students demonstrating outstanding excellence",
+  },
+  {
+    name: "Silver Medal",
+    iconBg: "bg-fipho-silver/15",
+    iconColor: "text-fipho-silver",
+    textColor: "text-fipho-silver",
+    description: "Given to participants with high achievements",
+  },
+  {
+    name: "Bronze Medal",
+    iconBg: "bg-fipho-bronze/15",
+    iconColor: "text-fipho-bronze",
+    textColor: "text-fipho-bronze",
+    description: "Recognizing commendable performances",
+  },
+];
+
 export default function AboutPage() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
-
-      <div className="container relative mx-auto px-4 py-20 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
-          >
+    <main>
+      {/* HERO */}
+      <section className="relative pt-36 pb-20 px-6 text-center bg-background overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             About FIPHO
-          </Badge>
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-6">
             Ahmad al-Fargʻoniy International Physics Olympiad
           </h1>
-          <p className="mt-6 text-lg leading-8 text-white">
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             A prestigious global competition identifying and nurturing young
             talents in the field of physics
           </p>
         </div>
+      </section>
 
-        {/* Event Details Card */}
-        <Card className="mx-auto max-w-3xl mb-16 border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-          <CardHeader>
-            <CardTitle className="text-2xl text-fipho-navy">
-              Event Details
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-6 sm:grid-cols-2">
-            <div className="flex items-start gap-3">
-              <Calendar className="h-5 w-5 text-fipho-gold mt-1" />
-              <div>
-                <h3 className="font-medium text-fipho-navy">Date</h3>
-                <p className="text-fipho-slate/70">October 10 to 17, 2026</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-fipho-gold mt-1" />
-              <div>
-                <h3 className="font-medium text-fipho-navy">Location</h3>
-                <p className="text-fipho-slate/70">Samarkand, Uzbekistan</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <Users className="h-5 w-5 text-fipho-gold mt-1" />
-              <div>
-                <h3 className="font-medium text-fipho-navy">Participants</h3>
-                <p className="text-fipho-slate/70">
-                  Students between 15 and 18 years of age (born after September 1, 2008)
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <GraduationCap className="h-5 w-5 text-fipho-gold mt-1" />
-              <div>
-                <h3 className="font-medium text-fipho-navy">Field</h3>
-                <p className="text-fipho-slate/70">Physics</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="mx-auto max-w-3xl mb-16 space-y-8">
-          <h2 className="text-2xl font-bold text-white text-center">
-            Objectives
+      {/* EVENT DETAILS — dot list */}
+      <section className="px-6 py-16 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl mb-8 text-center">
+            Event details
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {[
-              {
-                icon: <Target className="h-8 w-8 text-fipho-gold" />,
-                title: "Identify & Support",
-                description:
-                  "Identifying and supporting students with exceptional physics skills",
-              },
-              {
-                icon: <Globe2 className="h-8 w-8 text-fipho-gold" />,
-                title: "Global Platform",
-                description:
-                  "Providing a global platform for participants to compete and learn from one another",
-              },
-              {
-                icon: <GraduationCap className="h-8 w-8 text-fipho-gold" />,
-                title: "Scientific Excellence",
-                description:
-                  "Promoting Uzbekistan as a hub for scientific excellence and education",
-              },
-              {
-                icon: <Users className="h-8 w-8 text-fipho-gold" />,
-                title: "Collaboration",
-                description:
-                  "Encouraging collaboration between students, educators, and academic institutions worldwide",
-              },
-            ].map((objective, index) => (
-              <Card
-                key={index}
-                className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur"
+          <div>
+            {eventDetails.map((d, i) => (
+              <div
+                key={d.label}
+                className={`flex gap-6 py-6 border-t border-border hover:border-accent/30 transition-colors px-2 -mx-2 rounded-lg ${
+                  i === eventDetails.length - 1 ? "border-b" : ""
+                }`}
               >
-                <CardContent className="pt-6">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    {objective.icon}
-                    <h3 className="font-medium text-fipho-navy">
-                      {objective.title}
-                    </h3>
-                    <p className="text-sm text-fipho-slate/70">
-                      {objective.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                <span className="text-accent text-lg leading-none pt-0.5 flex-shrink-0">
+                  •
+                </span>
+                <div>
+                  <h3 className="font-medium text-sm mb-1">{d.label}</h3>
+                  <p className="text-sm text-muted-foreground">{d.value}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Team Composition */}
-        <div className="mx-auto max-w-3xl mb-16 space-y-8">
-          <h2 className="text-2xl font-bold text-white text-center">
+      {/* OBJECTIVES — arrow list */}
+      <section className="px-6 py-20 bg-background-raised border-y border-border">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl md:text-3xl text-center mb-12">
+            Objectives
+          </h2>
+          <div>
+            {objectives.map((o, i) => (
+              <div
+                key={o.label}
+                className={`flex gap-6 py-6 border-t border-border hover:border-accent/30 transition-colors px-2 -mx-2 rounded-lg ${
+                  i === objectives.length - 1 ? "border-b" : ""
+                }`}
+              >
+                <span className="font-mono-ui text-accent pt-0.5 flex-shrink-0">
+                  →
+                </span>
+                <div>
+                  <h3 className="font-heading font-semibold mb-1">{o.label}</h3>
+                  <p className="text-sm text-muted-foreground">{o.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TEAM COMPOSITION */}
+      <section className="px-6 py-20 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl md:text-3xl text-center mb-10">
             Team Composition
           </h2>
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardContent className="pt-6">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <UserPlus className="h-8 w-8 text-fipho-gold" />
-                  <div>
-                    <h3 className="font-medium text-fipho-navy">
-                      Delegation Structure
-                    </h3>
-                    <ul className="mt-2 list-disc pl-5 text-fipho-slate/70 space-y-2">
-                      <li>4 participants for the competition</li>
-                      <li>
-                        1 team leader to accompany and support the participants
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="p-8 rounded-2xl border border-border bg-background-raised">
+            <h3 className="font-medium mb-4">Delegation Structure</h3>
+            <ul className="space-y-4 text-sm text-muted-foreground">
+              <li className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                  <Users className="h-4 w-4 text-accent" />
+                </span>
+                4 participants for the competition
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                  <User className="h-4 w-4 text-accent" />
+                </span>
+                1 team leader to accompany and support the participants
+              </li>
+            </ul>
+          </div>
         </div>
+      </section>
 
-        {/* Awards & Recognition */}
-        <div className="mx-auto max-w-3xl mb-16 space-y-8">
-          <h2 className="text-2xl font-bold text-white text-center">
+      {/* AWARDS & RECOGNITION */}
+      <section className="px-6 py-20 bg-background-raised border-y border-border">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl md:text-3xl text-center mb-8">
             Awards & Recognition
           </h2>
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardContent className="pt-6 space-y-8">
-              <p className="text-fipho-slate/70">
-                FIPHO follows a well-structured awards system to honor
-                top-performing students based on their final scores. The
-                distribution of medals follows a 1:2:3 ratio, ensuring fair
-                recognition of outstanding performances.
-              </p>
+          <p className="text-center text-sm text-muted-foreground max-w-xl mx-auto mb-12">
+            FIPHO follows a well-structured awards system to honor
+            top-performing students based on their final scores. The
+            distribution of medals follows a 1:2:3 ratio, ensuring fair
+            recognition of outstanding performances.
+          </p>
 
-              {/* Medal Categories */}
-              <div className="space-y-6">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Medal Categories
-                </h3>
-                <div className="grid gap-6 sm:grid-cols-3">
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
-                    <div className="p-3 rounded-full bg-yellow-500/10">
-                      <Medal className="h-6 w-6 text-yellow-500" />
-                    </div>
-                    <h4 className="font-semibold text-amber-800">Gold Medal</h4>
-                    <p className="text-sm text-center text-slate-800 font-medium">
-                      Awarded to students demonstrating outstanding excellence
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
-                    <div className="p-3 rounded-full bg-gray-400/10">
-                      <Medal className="h-6 w-6 text-gray-400" />
-                    </div>
-                    <h4 className="font-semibold text-slate-700">Silver Medal</h4>
-                    <p className="text-sm text-center text-slate-800 font-medium">
-                      Given to participants with high achievements
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center space-y-3 p-4 rounded-lg bg-slate-200/50 border border-slate-300/30">
-                    <div className="p-3 rounded-full bg-amber-700/10">
-                      <Medal className="h-6 w-6 text-amber-700" />
-                    </div>
-                    <h4 className="font-semibold text-orange-800">Bronze Medal</h4>
-                    <p className="text-sm text-center text-slate-800 font-medium">
-                      Recognizing commendable performances
-                    </p>
-                  </div>
+          <h3 className="font-medium text-sm mb-5 text-muted-foreground">
+            Medal Categories
+          </h3>
+          <div className="grid gap-5 sm:grid-cols-3 mb-14">
+            {medals.map((medal) => (
+              <div
+                key={medal.name}
+                className="p-6 rounded-xl border border-border text-center"
+              >
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 ${medal.iconBg}`}
+                >
+                  <Medal className={`h-6 w-6 ${medal.iconColor}`} />
                 </div>
+                <h4 className={`font-heading font-semibold mb-2 ${medal.textColor}`}>
+                  {medal.name}
+                </h4>
+                <p className="text-sm text-muted-foreground">{medal.description}</p>
               </div>
+            ))}
+          </div>
 
-              {/* Additional Awards */}
-              <div className="space-y-6">
-                <h3 className="text-lg font-medium text-fipho-navy">
-                  Additional Awards
-                </h3>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-slate-200/50 border border-slate-300/30">
-                      <ScrollText className="h-5 w-5 text-fipho-gold" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-fipho-navy">
-                        Certificates & Diplomas
-                      </h4>
-                      <p className="text-sm text-fipho-slate/70">
-                        All medalists and distinguished participants receive
-                        official certificates
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-slate-200/50 border border-slate-300/30">
-                      <Lightbulb className="h-5 w-5 text-fipho-gold" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-fipho-navy">
-                        Special Awards
-                      </h4>
-                      <p className="text-sm text-fipho-slate/70">
-                        Granted for exceptional creativity and innovative
-                        problem-solving approaches
-                      </p>
-                    </div>
-                  </div>
-                  
-                </div>
+          <h3 className="font-medium text-sm mb-5 text-muted-foreground">
+            Additional Awards
+          </h3>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="flex items-start gap-4">
+              <div className="p-2 rounded-lg border border-border">
+                <ScrollText className="h-5 w-5 text-accent" />
               </div>
-            </CardContent>
-          </Card>
+              <div>
+                <h4 className="font-medium mb-1">Certificates & Diplomas</h4>
+                <p className="text-sm text-muted-foreground">
+                  All medalists and distinguished participants receive
+                  official certificates
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="p-2 rounded-lg border border-border">
+                <Lightbulb className="h-5 w-5 text-accent" />
+              </div>
+              <div>
+                <h4 className="font-medium mb-1">Special Awards</h4>
+                <p className="text-sm text-muted-foreground">
+                  Granted for exceptional creativity and innovative
+                  problem-solving approaches
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Cultural Experience */}
-        <div className="mx-auto max-w-3xl space-y-8">
-          <h2 className="text-2xl font-bold text-white text-center">
+      {/* CULTURAL EXPERIENCE */}
+      <section className="px-6 py-20 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl md:text-3xl text-center mb-10">
             Cultural Experience
           </h2>
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur overflow-hidden">
-            <div className="relative h-48 w-full">
+          <div className="rounded-2xl border border-border overflow-hidden">
+            <div className="relative h-56 w-full">
               <Image
                 src="/images/samarkand.png"
                 alt="Samarkand"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-fipho-navy/80 to-transparent" />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, var(--color-background) 0%, transparent 60%)",
+                }}
+              />
             </div>
-            <CardContent className="relative pt-6">
-              <p className="text-fipho-slate/70">
+            <div className="p-8">
+              <p className="text-sm text-muted-foreground mb-6">
                 Participants will have the opportunity to visit Samarkand,
-                experiencing Uzbekistan`s rich cultural heritage. This excursion
-                combines scientific excellence with cultural exploration, making
-                FIPHO a truly unique international experience.
+                experiencing Uzbekistan&apos;s rich cultural heritage. This
+                excursion combines scientific excellence with cultural
+                exploration, making FIPHO a truly unique international
+                experience.
               </p>
-              <div className="mt-6">
-                <Link
-                  href="https://uzbekistan.travel/en/i/samarkand/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="outline"
-                    className="border-fipho-gold/50 text-fipho-navy hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
-                  >
-                    Learn More About Samarkand
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* CTA Section */}
-        <div className="mx-auto max-w-3xl mt-16 text-center">
-          <p className="text-white mb-6">
-            Ready to be part of this prestigious international competition?
-          </p>
-          <div className="flex flex-col gap-4 sm:flex-row justify-center">
-           
-            <Link
-                  href="/contact"
-                  rel="noopener noreferrer"
-                >
-            <Button
-              variant="outline"
-              className="border-fipho-gold/50 text-white hover:bg-fipho-navy/50 hover:text-white cursor-pointer"
-            >
-              Contact Us
-            </Button>
-            </Link>
+              <Link
+                href="https://uzbekistan.travel/en/i/samarkand/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-5 py-2.5 rounded-full text-sm font-medium border border-accent/50 text-accent hover:bg-accent/10 transition-colors"
+              >
+                Learn more about Samarkand
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* CTA */}
+      <section className="px-6 py-24 text-center bg-background">
+        <p className="mb-6 text-lg text-muted-foreground">
+          Ready to be part of this prestigious international competition?
+        </p>
+        <Link
+          href="/contact"
+          className="inline-block px-7 py-3.5 rounded-full font-medium text-sm bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
+        >
+          Contact Us
+        </Link>
+      </section>
+    </main>
   );
 }
