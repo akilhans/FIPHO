@@ -111,6 +111,14 @@ export function MainNav() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
+          <Link href="/news" legacyBehavior passHref>
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "px-4")}>
+              News
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
           <NavigationMenuTrigger className="cursor-pointer">FIPHO 2026</NavigationMenuTrigger>
           <NavigationMenuContent>
             <NavDropdownContent items={fipho2026Items} />
