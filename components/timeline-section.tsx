@@ -1,23 +1,18 @@
 const timelineEvents = [
   {
-    date: "MAY 15, 2026",
-    title: "Institutional Registration Opens",
-    description: "National organizing bodies submit intent to compete and delegate allocations.",
+    date: "15 JULY - 1 SEPTEMBER",
+    title: "Initial Registration",
+    description: "Preliminary registration window for international teams and country delegates to express participation interest.",
   },
   {
-    date: "JULY 30, 2026",
-    title: "Student Roster Finalization",
-    description: "Deadline for submitting competing student metrics and academic profiles.",
+    date: "1 SEPTEMBER - 25 SEPTEMBER",
+    title: "Detailed Registration",
+    description: "Submission of comprehensive student credentials, team leader documentation, and final attendee profiles.",
   },
   {
-    date: "SEPTEMBER 10, 2026",
-    title: "Theoretical Framework Release",
-    description: "Syllabus boundaries and preparatory problem matrices are issued to teams.",
-  },
-  {
-    date: "OCTOBER 22, 2026",
-    title: "Opening Ceremony · Samarkand",
-    description: "Conformation assemblies and the initiation of the experimental exam phase.",
+    date: "OCTOBER 10-17, 2026",
+    title: "Olympiad Grand Finals",
+    description: "Conformation assemblies, theoretical test matrices, and the initiation of the experimental exam phases.",
   },
 ];
 
@@ -50,9 +45,9 @@ export function TimelineSection() {
                 {/* Step & Date Tracker */}
                 <div className="md:col-span-4 flex flex-row md:flex-col justify-between md:justify-start gap-2">
                   <span className="font-mono-ui text-xs text-accent tracking-widest block">
-                    // 0{index + 1}
+                    # 0{index + 1}
                   </span>
-                  <span className="font-mono-ui text-xs text-secondary tracking-wider block mt-0.5">
+                  <span className="font-mono-ui text-xs text-secondary tracking-wider block mt-0.5 uppercase">
                     {event.date}
                   </span>
                 </div>

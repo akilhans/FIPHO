@@ -32,15 +32,13 @@ export default function SchedulePage() {
             Detailed schedule of events and activities for the FIPHO
             competition.
           </p>
-          <a
-            href="/docs/schedule.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
-          >
-            <Download className="h-4 w-4" />
-            Download Full Schedule (PDF)
-          </a>
+         <button
+  disabled
+  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-muted text-muted-foreground cursor-not-allowed opacity-70"
+>
+  <Clock className="h-4 w-4" />
+  Full Schedule Coming Soon
+</button>
         </div>
       </section>
 

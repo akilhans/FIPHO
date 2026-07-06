@@ -16,23 +16,22 @@ const upcomingCompetitions = [
     year: "2026",
     location: "Samarkand, Uzbekistan",
     dates: "October 10 to October 17, 2026",
-    registrationDeadline: "2026",
+    registrationDeadline: "September 25, 2026",
     theme: "Sustainable Physics for a Better Future",
     eligibility: [
-      "Students born after January 1, 2006",
+      "Students born after September 1, 2008",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 4 students per country",
+      "Maximum of 5 students per country",
     ],
     keyDates: [
-      { date: "January 15, 2025", event: "Registration Opens" },
-      { date: "February 15, 2025", event: "Registration Deadline" },
-      { date: "March 15, 2025", event: "Local Round Examinations" },
-      { date: "April 20, 2025", event: "National Round" },
-      { date: "June 1, 2025", event: "Opening Ceremony" },
-      { date: "June 2-5, 2025", event: "Competition Rounds" },
-      { date: "June 6-7, 2025", event: "Cultural Program" },
-      { date: "June 8, 2025", event: "Closing Ceremony & Awards" },
+      { date: "15 July, 2026", event: "Initial Registration Opens" },
+      { date: "1 September, 2026", event: "Detailed Registration Phase Begins" },
+      { date: "25 September, 2026", event: "Final Registration Deadline" },
+      { date: "October 10, 2026", event: "Opening Ceremony · Samarkand" },
+      { date: "October 11-15, 2026", event: "Competition Exam Rounds" },
+      { date: "October 16, 2026", event: "Cultural Excursion Program" },
+      { date: "October 17, 2026", event: "Closing Ceremony & Awards" },
     ],
     featuredImage: "/images/Samarkand1.jpg",
   },
@@ -40,20 +39,20 @@ const upcomingCompetitions = [
     year: "2027",
     location: "Planning soon...",
     dates: "(Exact dates TBA)",
-    registrationDeadline: "February 2026",
+    registrationDeadline: "February 2027",
     theme: "Physics at the Crossroads of Innovation",
     eligibility: [
-      "Students born after January 1, 2007",
+      "Students born after September 1, 2009",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 5 npstudents per country",
+      "Maximum of 5 students per country",
     ],
     keyDates: [
-      { date: "January 2026", event: "Registration Opens" },
-      { date: "February 2026", event: "Registration Deadline" },
-      { date: "March 2026", event: "Local Round Examinations" },
-      { date: "April 2026", event: "National Round" },
-      { date: "May 2026", event: "International Final Round" },
+      { date: "January 2027", event: "Registration Opens" },
+      { date: "February 2027", event: "Registration Deadline" },
+      { date: "March 2027", event: "Local Round Examinations" },
+      { date: "April 2027", event: "National Round" },
+      { date: "May 2027", event: "International Final Round" },
     ],
     featuredImage: "/placeholder.svg?height=400&width=800",
   },
@@ -64,13 +63,13 @@ const competitionFormat = [
     title: "Theoretical Examination",
     icon: FileText,
     description:
-      "A comprehensive 5-hour written examination covering mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
+      "A comprehensive 3-hour written examination covering mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
   },
   {
     title: "Practical Laboratory",
     icon: GraduationCap,
     description:
-      "A challenging 5-hour laboratory session testing experimental skills, data analysis, and problem-solving in a hands-on environment.",
+      "A challenging 3-hour laboratory session testing experimental skills, data analysis, and problem-solving in a hands-on environment.",
   },
   {
     title: "Research Presentation",
@@ -113,19 +112,18 @@ export default function FutureFIPHOPage() {
       <section className="px-6 pb-16 bg-background">
         <div className="max-w-4xl mx-auto rounded-2xl border border-border overflow-hidden bg-background-raised">
           
-          {/* 🛠️ REMOVED FIXED HEIGHT: The wrapper now shrinks flush against the image bounds */}
           <div className="w-full border-b border-border overflow-hidden">
             <Image
               src={featured.featuredImage}
               alt={`FIPHO ${featured.year}`}
-              width={1200} // High base dimensions to maintain clarity
+              width={1200}
               height={600}
-              className="w-full h-auto block" // 🛠️ Auto height preserves aspect ratio without black bars
+              className="w-full h-auto block"
               priority
             />
           </div>
 
-          {/* 📝 HEADER BLOCK */}
+          {/* HEADER BLOCK */}
           <div className="p-8 border-b border-border bg-background">
             <h2 className="font-heading font-semibold text-3xl mb-3 text-foreground">
               FIPHO {featured.year}
@@ -220,7 +218,6 @@ export default function FutureFIPHOPage() {
           </div>
 
           <div className="rounded-2xl border border-border overflow-hidden grid md:grid-cols-2">
-            {/* 🛠️ Applied the same fix here so the country image scales flawlessly without box limits */}
             <div className="w-full bg-background-raised border-r border-border overflow-hidden flex items-center">
               <Image
                 src="/images/Uzbekistan.jpg"

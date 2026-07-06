@@ -8,18 +8,19 @@ import {
   Globe,
   Download,
   BookOpen,
+  Clock,
 } from "lucide-react";
 
 const keyEvents = [
   {
     title: "Opening Ceremony",
-    date: "May 29, 2025, at 10:00 AM",
-    venue: "Central Asian University (CAU)",
+    date: "October 10, 2026",
+    venue: "Samarkand, Uzbekistan",
   },
   {
     title: "Closing & Awards Ceremony",
-    date: "June 3, 2025, at 4:00 PM",
-    venue: "Central Asian University (CAU)",
+    date: "October 17, 2026",
+    venue: "Samarkand, Uzbekistan",
   },
 ];
 
@@ -27,14 +28,13 @@ const venues = [
   {
     icon: Building,
     title: "Main Venue",
-    name: "Central Asian University (CAU)",
-    address: "Tashkent, Milliy Bog Street, 264",
+    name: "Samarkand Congress Center",
+    address: "Samarkand, Uzbekistan",
   },
 ];
 
 const accommodation = [
-  { name: "The Tower Hotel Tashkent", address: "Tashkent, Kichik Beshyogoch Street, 40" },
-  { name: "Al-Anvar Hotel", address: "Tashkent, Yusuf Khos Hojib Street, 65" },
+  { name: "Official Olympiad Village Hotel", address: "Samarkand, Uzbekistan" },
 ];
 
 export default function PressPage() {
@@ -54,21 +54,14 @@ export default function PressPage() {
             Press Release
           </p>
           <h1 className="font-heading font-semibold text-3xl md:text-5xl leading-tight mb-6">
-            Tashkent will host the Ahmad al-Fargʻoniy International Physics
+            Samarkand will host the Al-Ferghani International Physics
             Olympiad
           </h1>
           <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
             <Calendar className="h-4 w-4 text-accent" />
-            <span className="font-mono-ui text-sm">May 28 – June 4, 2025</span>
+            <span className="font-mono-ui text-sm">October 10 – October 17, 2026</span>
           </div>
-          <a
-            href="/docs/press.docx"
-            download
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
-          >
-            <Download className="h-4 w-4" />
-            Download Uzbek Version
-          </a>
+     
         </div>
       </section>
 
@@ -76,21 +69,16 @@ export default function PressPage() {
       <section className="px-6 py-14 bg-background">
         <div className="max-w-2xl mx-auto space-y-5 text-muted-foreground leading-relaxed">
           <p>
-            Ahmad al-Fargʻoniy International Physics Olympiad will be held in
+           Al-Ferghani International Physics Olympiad will be held in
             Samarkand from October 10th to 17th, 2026. This prestigious event
             brings together talented students from around the world who
             possess knowledge and skills in the main branches of physics.
           </p>
-          <p>
-            This year&apos;s Olympiad is expected to feature participants
-            from more than ten countries, including Saudi Arabia, Turkey,
-            Georgia, Vietnam, Russia, Belarus, Mongolia, Azerbaijan, India,
-            Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, and Uzbekistan.
-          </p>
+         
         </div>
       </section>
 
-      {/* KEY EVENTS — thin-rule list, not cards */}
+      {/* KEY EVENTS */}
       <section className="px-6 py-14 bg-background-raised border-y border-border">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-2 mb-8">
@@ -123,47 +111,20 @@ export default function PressPage() {
         </div>
       </section>
 
-      {/* REPORT BOOK */}
+      {/* REPORT BOOK — CLEAN COMING SOON VARIANT */}
       <section className="px-6 py-14 bg-background">
         <div className="max-w-3xl mx-auto">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-accent" />
-              <h2 className="font-heading font-semibold text-2xl">Report Book</h2>
-            </div>
-            <div className="flex gap-3">
-              <a
-                href="/docs/report.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm border border-border hover:border-accent/40 transition-colors"
-              >
-                <Globe className="h-4 w-4" />
-                Open in new tab
-              </a>
-              <a
-                href="/docs/report.pdf"
-                download
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
-              >
-                <Download className="h-4 w-4" />
-                Download PDF
-              </a>
-            </div>
+          <div className="flex items-center gap-2 mb-6">
+            <BookOpen className="h-5 w-5 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">Report Book</h2>
           </div>
-          <div className="rounded-xl border border-border overflow-hidden">
-            <iframe
-              src="/docs/report.pdf#view=FitH"
-              title="FIPHO Report Book"
-              className="w-full h-[80vh]"
-              loading="lazy"
-            />
-            <div className="p-4 text-center text-sm text-muted-foreground border-t border-border">
-              If the PDF doesn&apos;t display,{" "}
-              <a href="/docs/report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent underline">
-                open it in a new tab
-              </a>.
-            </div>
+          
+          <div className="rounded-xl border border-border bg-background-raised/40 backdrop-blur-sm p-12 text-center flex flex-col items-center justify-center border-dashed min-h-[40vh]">
+            <Clock className="h-10 w-10 text-accent/70 mb-4 animate-pulse" />
+            <h3 className="font-heading font-medium text-xl text-foreground mb-2">
+              Official Report Book Coming Soon
+            </h3>
+            
           </div>
         </div>
       </section>
@@ -185,6 +146,7 @@ export default function PressPage() {
             </div>
           ))}
 
+          {/* ACCOMMODATION */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5 text-accent" />
