@@ -15,6 +15,8 @@
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;
+  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --font-playfair: Georgia, "Times New Roman", serif;
   --primary: #0b1f3a;
   --primary-foreground: #ffffff;
   --secondary: #1e4fa8;
