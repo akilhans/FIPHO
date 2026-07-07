@@ -19,19 +19,20 @@ const upcomingCompetitions = [
     registrationDeadline: "September 25, 2026",
     theme: "Sustainable Physics for a Better Future",
     eligibility: [
-      "Students born after September 1, 2008",
+      "Students between 15 and 19 years of age",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 5 students per country",
+      "Maximum of 5 + 2 students per country",
     ],
     keyDates: [
-      { date: "15 July, 2026", event: "Initial Registration Opens" },
-      { date: "1 September, 2026", event: "Detailed Registration Phase Begins" },
-      { date: "25 September, 2026", event: "Final Registration Deadline" },
-      { date: "October 10, 2026", event: "Opening Ceremony · Samarkand" },
-      { date: "October 11-15, 2026", event: "Competition Exam Rounds" },
-      { date: "October 16, 2026", event: "Cultural Excursion Program" },
-      { date: "October 17, 2026", event: "Closing Ceremony & Awards" },
+      { date: "Oct 10, 2026", event: "Arrival of Delegations" },
+      { date: "Oct 11, 2026", event: "Opening Ceremony" },
+      { date: "Oct 12, 2026", event: "Theoretical Exam" },
+      { date: "Oct 13, 2026", event: "Cultural Excursion" },
+      { date: "Oct 14, 2026", event: "Practical Exam" },
+      { date: "Oct 15, 2026", event: "Appeals & Review" },
+      { date: "Oct 16, 2026", event: "Closing & Awards" },
+      { date: "Oct 17, 2026", event: "Departure" },
     ],
     featuredImage: "/images/Samarkand1.jpg",
   },
@@ -62,20 +63,16 @@ const competitionFormat = [
   {
     title: "Theoretical Examination",
     icon: FileText,
+    duration: "5 Hours",
     description:
-      "A comprehensive 3-hour written examination covering mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
+      "A comprehensive 5-hour written examination covering mechanics, electromagnetism, thermodynamics, optics, and modern physics.",
   },
   {
     title: "Practical Laboratory",
     icon: GraduationCap,
+    duration: "5 Hours",
     description:
-      "A challenging 3-hour laboratory session testing experimental skills, data analysis, and problem-solving in a hands-on environment.",
-  },
-  {
-    title: "Research Presentation",
-    icon: Users,
-    description:
-      "Participants will prepare and present a short research proposal on a physics topic related to the competition theme.",
+      "A challenging 5-hour laboratory session testing experimental skills, data analysis, and problem-solving in a hands-on environment.",
   },
 ];
 
@@ -110,15 +107,15 @@ export default function FutureFIPHOPage() {
 
       {/* FEATURED COMPETITION */}
       <section className="px-6 pb-16 bg-background">
-        <div className="max-w-4xl mx-auto rounded-2xl border border-border overflow-hidden bg-background-raised">
+        <div className="max-w-6xl mx-auto rounded-2xl border border-border overflow-hidden bg-background-raised">
           
-          <div className="w-full border-b border-border overflow-hidden">
+          <div className="w-full border-b border-border overflow-hidden max-h-[480px] flex items-center justify-center bg-muted">
             <Image
               src={featured.featuredImage}
               alt={`FIPHO ${featured.year}`}
-              width={1200}
-              height={600}
-              className="w-full h-auto block"
+              width={1400}
+              height={550}
+              className="w-full h-auto block object-cover"
               priority
             />
           </div>
@@ -141,38 +138,46 @@ export default function FutureFIPHOPage() {
           </div>
 
           {/* DETAILS PANELS */}
-          <div className="p-8 space-y-8">
+          <div className="p-8 space-y-12">
             <div>
               <h3 className="font-medium mb-2">Theme</h3>
               <p className="text-sm text-muted-foreground">{featured.theme}</p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="font-medium mb-4">Eligibility Requirements</h3>
-                <ul className="space-y-2.5">
-                  {featured.eligibility.map((requirement) => (
-                    <li key={requirement} className="flex items-start gap-2.5">
-                      <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{requirement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div>
+              <h3 className="font-medium mb-4">Eligibility Requirements</h3>
+              <ul className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+                {featured.eligibility.map((requirement) => (
+                  <li key={requirement} className="flex items-start gap-2.5">
+                    <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">{requirement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              <div>
-                <h3 className="font-medium mb-4">Important Dates</h3>
-                <div className="relative pl-5">
-                  <div className="absolute left-[3px] top-1 bottom-1 w-px bg-border" />
-                  <ul className="space-y-4">
-                    {featured.keyDates.map((kd) => (
-                      <li key={kd.event} className="relative">
-                        <span className="absolute -left-5 top-1 w-1.5 h-1.5 rounded-full bg-accent" />
-                        <p className="font-mono-ui text-xs text-muted-foreground">{kd.date}</p>
-                        <p className="text-sm">{kd.event}</p>
-                      </li>
-                    ))}
-                  </ul>
+            {/* IMPORTANT DATES — RESPONSIVE NO-SCROLL TIMELINE */}
+            <div>
+              <h3 className="font-medium mb-6">Important Dates</h3>
+              <div className="relative">
+                {/* Horizontal guide line visible only on widescreen 8-column setup */}
+                <div className="hidden lg:block absolute left-0 right-0 top-[5px] h-px bg-border" />
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-y-8 gap-x-4">
+                  {featured.keyDates.map((kd) => (
+                    <div
+                      key={kd.event}
+                      className="relative flex flex-col items-center lg:items-center text-center px-1"
+                    >
+                      <span className="hidden lg:block w-2.5 h-2.5 rounded-full bg-accent mb-3 relative z-10" />
+                      <p className="font-mono-ui text-xs text-accent mb-1 font-semibold">
+                        {kd.date}
+                      </p>
+                      <p className="text-xs md:text-sm leading-snug text-foreground font-medium">
+                        {kd.event}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -190,15 +195,25 @@ export default function FutureFIPHOPage() {
             <p className="text-sm text-muted-foreground">What to expect at FIPHO {featured.year}</p>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {competitionFormat.map(({ title, icon: Icon, description }) => (
+          <div className="grid gap-6 sm:grid-cols-2 max-w-2xl mx-auto">
+            {competitionFormat.map(({ title, icon: Icon, description, duration }, index) => (
               <div
                 key={title}
-                className="p-6 rounded-xl border border-border hover:border-accent/40 transition-colors"
+                className="group relative p-7 rounded-2xl border border-border bg-background hover:border-accent/50 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
               >
-                <Icon className="h-6 w-6 text-accent mb-4" />
-                <h3 className="font-medium mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{description}</p>
+                <div className="flex items-start justify-between mb-5">
+                  <div className="h-12 w-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
+                    <Icon className="h-5 w-5 text-accent" />
+                  </div>
+                  <span className="font-mono-ui text-xs text-muted-foreground/50">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="font-heading font-semibold text-lg mb-1.5">{title}</h3>
+                <span className="inline-block text-[11px] font-mono-ui uppercase tracking-wider text-accent/80 mb-3">
+                  {duration}
+                </span>
+                <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
               </div>
             ))}
           </div>

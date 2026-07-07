@@ -13,7 +13,6 @@ const olympiadLinks = [
 
 const infoCenterLinks = [
   { href: "/results", label: "Results & Problems" },
-  { href: "/preparatory-problems", label: "Preparatory Problems" },
   { href: "/rules", label: "Rules & Guideline (PDF)" },
   { href: "/news", label: "News" },
 ];

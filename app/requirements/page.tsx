@@ -26,13 +26,13 @@ const academicRequirements = [
 const countryRequirements = [
   "Each country may send multiple teams",
   "Teams must be officially endorsed by their national physics organization or education ministry",
-  "Maximum of 5 students per team",
+  "Maximum of 5 + 2 students per team",
   "Students must be citizens or legal permanent residents of the country they represent",
 ];
 
 const teamCompositionRules = [
-  "4 student participants",
-  "1 head mentor (team leader)",
+  "5 student participants",
+  "2 head mentors (team leaders)",
   "Students must compete in their respective age divisions",
 ];
 

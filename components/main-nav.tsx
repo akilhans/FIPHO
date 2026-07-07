@@ -36,7 +36,7 @@ const fipho2026Items = [
 const infoCenterItems = [
   { title: "Results & Problems", href: "/results" },
   { title: "Rules & Guidelines", href: "/rules" },
-  { title: "Preparatory Problems", href: "/preparatory-problems" },
+  
 ];
 
 function NavDropdownContent({

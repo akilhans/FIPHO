@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About | Ahmad al-Fargʻoniy International Physics Olympiad",
+  title: "About | Al-Ferghani International Physics Olympiad",
   description:
-    "Learn about the Ahmad al-Fargʻoniy International Physics Olympiad (FIPHO), its mission, vision, and commitment to fostering young scientific talent worldwide.",
+    "Learn about the Al-Ferghani International Physics Olympiad (FIPHO), its mission, vision, and commitment to fostering young scientific talent worldwide.",
 };
 
 const eventDetails = [
@@ -20,7 +20,7 @@ const eventDetails = [
   { label: "Location", value: "Samarkand, Uzbekistan" },
   {
     label: "Participants",
-    value: "Students between 15 and 18 years of age (born after September 1, 2008)",
+    value: "Students between 15 and 19 years of age",
   },
   { label: "Field", value: "Physics" },
 ];
@@ -85,7 +85,7 @@ export default function AboutPage() {
             About FIPHO
           </p>
           <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-6">
-            Ahmad al-Fargʻoniy International Physics Olympiad
+            Al-Ferghani International Physics Olympiad
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             A prestigious global competition identifying and nurturing young
@@ -161,13 +161,13 @@ export default function AboutPage() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                   <Users className="h-4 w-4 text-accent" />
                 </span>
-                4 participants for the competition
+                5 participants for the competition
               </li>
               <li className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                   <User className="h-4 w-4 text-accent" />
                 </span>
-                1 team leader to accompany and support the participants
+                2 team leaders to accompany and support the participants
               </li>
             </ul>
           </div>

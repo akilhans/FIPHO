@@ -1,54 +1,84 @@
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, FlaskConical, BookOpen } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const documents = [
+const problems = [
   {
-    title: "FIPHO 2024 Final Results",
-    category: "Results",
-    file: "/docs/results.pdf",
-    date: "July 15, 2024",
+    title: "Practical Round Problems",
+    language: "Uzbek",
+    file: "/problems/Amaliy bosqich.pdf",
   },
   {
-    title: "FIPHO 2025 Final Results",
-    category: "Results",
-    file: "/docs/results1.pdf",
-    date: "June 4, 2025",
+    title: "Experimental Problems",
+    language: "English",
+    file: "/problems/EXPRERIMENTAL PROBLEMS.pdf",
   },
   {
-    title: "FIPHO 2025 Theory Solutions (Official)",
-    category: "Problems",
-    file: "/docs/theory.pdf",
-    date: "FIPHO 2025",
-    size: "2.1 MB",
+    title: "Theoretical Problems",
+    language: "Uzbek",
+    file: "/problems/NAZARIY MASALALAR.pdf",
   },
   {
-    title: "FIPHO 2025 Practice Problems (Official)",
-    category: "Problems",
-    file: "/problems/Al-Farghani practice_Official.pdf",
-    date: "FIPHO 2025",
-    size: "621.0 KB",
+    title: "Theory Problems",
+    language: "English",
+    file: "/problems/THEORY PROBLEMS.pdf",
   },
   {
-    title: "FIPHO 2025 Practice Problems (Uzbek)",
-    category: "Problems",
-    file: "/problems/Al-Farghani_practice uzbek.pdf",
-    date: "FIPHO 2025",
-    size: "621.4 KB",
+    title: "Theory Problems",
+    language: "Russian",
+    file: "/problems/ТЕОРИЯ-ЗАДАЧИ.pdf",
   },
   {
-    title: "FIPHO 2025 Theory Problems (Uzbek)",
-    category: "Problems",
-    file: "/problems/Al-Farghani theory uzbek.pdf",
-    date: "FIPHO 2025",
-    size: "1.1 MB",
-  },
-  {
-    title: "FIPHO 2025 Theory Final",
-    category: "Problems",
-    file: "/problems/Al-Farghani theory_Final.docx",
-    date: "FIPHO 2025",
-    size: "1.3 MB",
+    title: "Experimental Problems",
+    language: "Russian",
+    file: "/problems/Эксперимент.pdf",
   },
 ];
+
+const solutions = [
+  {
+    title: "Theory Solutions",
+    language: "Russian",
+    file: "/solutions/Решения задач theory.pdf",
+  },
+  {
+    title: "Experimental Solutions",
+    language: "Russian",
+    file: "/solutions/Эксперимент решение.pdf",
+  },
+];
+
+type DocumentCardProps = {
+  title: string;
+  language: string;
+  file: string;
+  icon: LucideIcon;
+};
+
+function DocumentCard({ title, language, file, icon: Icon }: DocumentCardProps) {
+  return (
+    <div className="group relative flex items-center justify-between gap-4 p-5 rounded-xl border border-border bg-background hover:border-accent/50 hover:shadow-md hover:shadow-accent/5 transition-all duration-300">
+      <div className="flex items-center gap-4 min-w-0">
+        <div className="h-11 w-11 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/15 transition-colors">
+          <Icon className="h-5 w-5 text-accent" />
+        </div>
+        <div className="min-w-0">
+          <h3 className="font-medium text-sm mb-1 truncate">{title}</h3>
+          <span className="inline-block text-[11px] font-mono-ui uppercase tracking-wider text-muted-foreground/70 px-2 py-0.5 rounded-full border border-border">
+            {language}
+          </span>
+        </div>
+      </div>
+      <a
+        href={file}
+        download
+        aria-label={`Download ${title} (${language})`}
+        className="flex-shrink-0 h-9 w-9 flex items-center justify-center rounded-full border border-accent/40 text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+      >
+        <Download className="h-4 w-4" />
+      </a>
+    </div>
+  );
+}
 
 export default function ResultsReportsPage() {
   return (
@@ -70,64 +100,45 @@ export default function ResultsReportsPage() {
             Results & Problems
           </h1>
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-            Access official results and problems from FIPHO.
+            Official problem sets and solutions, available in Uzbek, Russian,
+            and English.
           </p>
         </div>
       </section>
 
       {/* DOCUMENT LIST */}
-      <section className="px-6 pb-24 bg-background">
+      <section className="px-6 pb-24 bg-background space-y-8">
+        {/* PROBLEMS */}
         <div className="max-w-4xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background-raised">
-          <h2 className="font-heading font-semibold text-2xl mb-8">
-            Available Documents
-          </h2>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-9 w-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <FlaskConical className="h-4 w-4 text-accent" />
+            </div>
+            <h2 className="font-heading font-semibold text-2xl">Problems</h2>
+          </div>
 
-          <div className="space-y-3">
-            {documents.map((doc) => (
-              <div
-                key={doc.file}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-lg border border-border hover:border-accent/40 transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <FileText className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-sm mb-1">{doc.title}</h3>
-                    <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-                      <span>{doc.category}</span>
-                      <span>•</span>
-                      <span>{doc.date}</span>
-                      {doc.size && (
-                        <>
-                          <span>•</span>
-                          <span>{doc.size}</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <a
-                  href={doc.file}
-                  download
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-accent/40 text-accent hover:bg-accent/10 transition-colors flex-shrink-0 self-start sm:self-center"
-                >
-                  <Download className="h-4 w-4" />
-                  Download
-                </a>
-              </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {problems.map((doc) => (
+              <DocumentCard key={doc.file} {...doc} icon={FileText} />
             ))}
           </div>
         </div>
 
-        {/* PDF Preview
-        <div className="max-w-4xl mx-auto mt-8 p-8 rounded-2xl border border-border bg-background-raised">
-          <h2 className="font-heading font-semibold text-xl mb-6">Document Preview</h2>
-          <iframe
-            src="/docs/results.pdf"
-            className="w-full h-[600px] rounded-lg"
-            title="Document Preview"
-          />
+        {/* SOLUTIONS */}
+        <div className="max-w-4xl mx-auto p-8 md:p-10 rounded-2xl border border-border bg-background-raised">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-9 w-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <BookOpen className="h-4 w-4 text-accent" />
+            </div>
+            <h2 className="font-heading font-semibold text-2xl">Solutions</h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {solutions.map((doc) => (
+              <DocumentCard key={doc.file} {...doc} icon={FileText} />
+            ))}
+          </div>
         </div>
-        */}
       </section>
     </main>
   );

@@ -4,7 +4,6 @@ import { StatsSection } from "@/components/stats-section";
 import Disciplines from "@/components/disciplines";
 import { CompetitionSection } from "@/components/competetion";
 import { TimelineSection } from "@/components/timeline-section";
-import { CommitteePreview } from "@/components/committee-preview";
 import { NewsSection } from "@/components/news-section";
 import { FAQSection } from "@/components/faq";
 
@@ -17,7 +16,6 @@ export default function Home() {
       <Disciplines />
       <CompetitionSection />
       <TimelineSection />
-      <CommitteePreview />
       <NewsSection />
       <FAQSection />
     </main>

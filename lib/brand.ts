@@ -3,7 +3,7 @@ export const BRAND = {
   fullName: "Al-Ferghani International Physics Olympiad",
   tagline:
     "Empowering the next generation of physicists through international competition, discovery, and excellence.",
-  email: "fipho@olympcenter.uz",
+  email: "info@olympcenter.uz",
   contactEmail: "contact@fipho.uz",
   phone: "+998 99 199 49 00 ",
   address: "Samarkand Region, Uzbekistan",

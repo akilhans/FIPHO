@@ -1,24 +1,49 @@
 const timelineEvents = [
   {
-    date: "15 JULY - 1 SEPTEMBER",
-    title: "Initial Registration",
-    description: "Preliminary registration window for international teams and country delegates to express participation interest.",
+    date: "OCTOBER 10, 2026",
+    title: "Arrival Day",
+    description: "Welcoming international delegations, managing team check-ins, and distributing orientation materials at official checkpoints.",
   },
   {
-    date: "1 SEPTEMBER - 25 SEPTEMBER",
-    title: "Detailed Registration",
-    description: "Submission of comprehensive student credentials, team leader documentation, and final attendee profiles.",
+    date: "OCTOBER 11, 2026",
+    title: "Opening Ceremony",
+    description: "The grand inaugural assembly, official welcome speeches, cultural performances, and country flag presentations in Samarkand.",
   },
   {
-    date: "OCTOBER 10-17, 2026",
-    title: "Olympiad Grand Finals",
-    description: "Conformation assemblies, theoretical test matrices, and the initiation of the experimental exam phases.",
+    date: "OCTOBER 12, 2026",
+    title: "Theoretical Examination",
+    description: "The first major competitive stage testing advanced conceptual mechanics and rigorous problem-solving capacities.",
+  },
+  {
+    date: "OCTOBER 13, 2026",
+    title: "Cultural Excursion",
+    description: "A scheduled break from academic testing for delegates to explore Samarkand's legendary historic Silk Road landmarks.",
+  },
+  {
+    date: "OCTOBER 14, 2026",
+    title: "Experimental Examination",
+    description: "The final competitive phase challenge focused on laboratory techniques, practical physics metrics, and data analysis.",
+  },
+  {
+    date: "OCTOBER 15, 2026",
+    title: "Moderation & Appeals",
+    description: "Coordination assemblies between team leaders and the scientific committee to verify score matrices and finalize calculations.",
+  },
+  {
+    date: "OCTOBER 16, 2026",
+    title: "Closing Ceremony",
+    description: "The official medal presentation, final podium announcements, certificates deployment, and the celebratory farewell assembly.",
+  },
+  {
+    date: "OCTOBER 17, 2026",
+    title: "Departure Day",
+    description: "Coordination of regional transport networks, hotel checkout schedules, and final international group departures.",
   },
 ];
 
 export function TimelineSection() {
   return (
-    <section id="rounds" className="px-6 py-32 bg-fipho-navy border-y border-border">
+    <section id="rounds" className="px-6 py-32 bg-background border-y border-border">
       <div className="max-w-5xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
           
@@ -30,13 +55,13 @@ export function TimelineSection() {
             <h2 className="font-heading font-semibold text-4xl md:text-5xl tracking-tight text-foreground mb-6">
               Olympiad Timeline
             </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-              Key developmental checkpoints and structural operations mapping towards the 2026 grand finals.
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-sm font-light">
+              Key developmental checkpoints and structural operations mapping out the full event schedule for FIPHO 2026.
             </p>
           </div>
 
           {/* Right Column: Generously Spaced Asymmetric Cascade */}
-          <div className="lg:col-span-8 space-y-16 md:space-y-24">
+          <div className="lg:col-span-8 space-y-12 md:space-y-16">
             {timelineEvents.map((event, index) => (
               <div 
                 key={index} 
@@ -47,17 +72,17 @@ export function TimelineSection() {
                   <span className="font-mono-ui text-xs text-accent tracking-widest block">
                     # 0{index + 1}
                   </span>
-                  <span className="font-mono-ui text-xs text-secondary tracking-wider block mt-0.5 uppercase">
+                  <span className="font-mono-ui text-xs text-foreground/80 font-medium tracking-wider block mt-0.5 uppercase whitespace-nowrap">
                     {event.date}
                   </span>
                 </div>
 
                 {/* Content Block */}
                 <div className="md:col-span-8">
-                  <h3 className="font-heading font-semibold text-xl md:text-2xl text-foreground mb-3 tracking-tight group-hover:text-accent transition-colors duration-300">
+                  <h3 className="font-heading font-semibold text-xl text-foreground mb-2 tracking-tight group-hover:text-accent transition-colors duration-300">
                     {event.title}
                   </h3>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl font-light">
                     {event.description}
                   </p>
                 </div>

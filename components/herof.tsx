@@ -91,7 +91,7 @@ export default function Hero() {
             Explore the Olympiad
           </Link>
           <Link
-            href="/preparatory-problems"
+            href="/results"
             className="px-8 py-3.5 rounded-full font-medium text-sm border border-border bg-background/40 backdrop-blur-sm text-white hover:bg-muted transition-colors"
           >
             Preparatory Problems
