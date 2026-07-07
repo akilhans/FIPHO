@@ -3,9 +3,9 @@ export const BRAND = {
   fullName: "Al-Ferghani International Physics Olympiad",
   tagline:
     "Empowering the next generation of physicists through international competition, discovery, and excellence.",
-  email: "info@fipho.uz",
+  email: "fipho@olympcenter.uz",
   contactEmail: "contact@fipho.uz",
-  phone: "+998 77 550 33 66",
+  phone: "+998 99 199 49 00 ",
   address: "Samarkand Region, Uzbekistan",
   domain: "https://fipho.uz",
   year: 2026,
@@ -13,5 +13,5 @@ export const BRAND = {
   eventStartDate: "2026-10-10T00:00:00", 
   location: "Samarkand, Uzbekistan",
   countries: "30+",
-  teamComposition: "4 Students + 1 Team Leader",
+  teamComposition: "5 Students + 2 Team Leader",
 } as const;

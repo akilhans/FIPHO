@@ -1,159 +1,61 @@
-import {
-  CommitteeLayout,
-  type CommitteeMember,
-} from "@/components/committee-layout";
+"use client";
 
-const scientificMembers: CommitteeMember[] = [
-  {
-    name: "Prof. Khamid Khodjaniyazov",
-    role: "Chairman of the Scientific Committee",
-    institution: "A.S. Sadykov Bioorganic Physics Institute.",
-    country: "Uzbekistan",
-    bio: "Leading Researcher of Complex Compounds Lab., A.S. Sadykov Bioorganic Physics Institute. ",
-    email: "a.ivanov@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/khamid.png",
-  },
-  {
-    name: "Alexander Kirilovich Gladilin",
-    role: "Vice Chairman of the Scientific Committee",
-    institution: "Moscow State University named after M. V. Lomonosov",
-    country: "Russia",
-    bio: "Professor of Moscow State University named after M. V. Lomonosov, Doctor of Chemical Sciences.",
-    email: "m.rodriguez@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/alex.jpg",
-  },
-  {
-    name: "Acad. Shamansur Sagdullaev ",
-    role: "Committee member",
-    institution: "Institute of Plant Physics",
-    country: "Uzbekistan",
-    bio: "Director of Institute of Plant Physics. ",
-    email: "y.tanaka@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/acad.jpg",
-  },
-  {
-    name: "Prof. Burkhon Elmuradov ",
-    role: "Committee member",
-    institution: "Institute of Plant Physics",
-    country: "Uzbekistan",
-    bio: "Deputy Director for Research and Innovation of Institute of Plant Physics. ",
-    email: "a.hassan@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/burxon.png",
-  },
-  {
-    name: "Prof. Abdujalol Sidikov ",
-    role: "Committee member",
-    institution: "Tashkent Institute of chemical technologies",
-    country: "Uzbekistan",
-    bio: "Professor Schmidt specializes in analytical methods and instrumentation for chemical analysis.",
-    email: "l.schmidt@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/jalol.jpg",
-  },
-  {
-    name: "Yunus Türkmen",
-    role: "Member of the Scientific Committee",
-    institution: "Bilkent University ",
-    country: "Ankara, Turkey",
-    bio: "Professor Bilkent University Department of Physics",
-    email: "w.zhang@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/yunus.jpg",
-  },
-
-  {
-    name: "Xamidulla To’xtayev",
-    role: "Committee member",
-    institution: "King Abdullah University of Science and Technology",
-    country: "Tashkent, Uzbekistan",
-    bio: "Researcher of King Abdullah University of Science and Technology. ",
-    email: "w.zhang@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/xamid.jpg",
-  },
-  {
-    name: "Bekzod Boltayev ",
-    role: "Committee member",
-    institution: "“Shifo-Nur” multidisciplinary medical center",
-    country: "Tashkent, Uzbekistan",
-    bio: "Surgeon at “Shifo-Nur” multidisciplinary medical center. ",
-    email: "w.zhang@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/bek.jpg",
-  },
-  {
-    name: "Muzaffar Maksumov",
-    role: "Committee member",
-    institution: "The University of Siegen",
-    country: "Tashkent, Uzbekistan",
-    bio: "Graduate of the University of Siegen.  ",
-    email: "w.zhang@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/muzaffar.jpg",
-  },
-  {
-    name: "Abdulloh Mahmudov ",
-    role: "Committee member",
-    institution: "Massachusetts Institute of Technology",
-    country: "Tashkent, Uzbekistan",
-    bio: "Researcher of Massachusetts Institute of Technology.  ",
-    email: "w.zhang@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
-    image: "/images/scientific/abdulloh.jpg",
-  },
-  {
-    name: "Bulat Garifullin",
-    role: "Member of Science Committee",
-    institution: "Hospital No.13 Ufa",
-    country: "Russian Federation",
-    bio: "Bulat is the author of problems at various international physics Olympiads for the past 20 years",
-    email: "germes1981@list.ru",
-    linkedin: "",
-    image: "/images/scientific/Bulat.jpg",
-  },
-  {
-    name: "Alex Koronatov",
-    role: "Member of the scientific committee ",
-    institution: "Technion",
-    country: "Croatia",
-    bio: "Alex is physicist who loves teaching. He enjoys preparing and solving physics Olympiad tasks.",
-    email: "sashakoronatow@gmail.com",
-    linkedin: "http://linkedin.com/in/alex-koronatov-227592292",
-    image: "/images/scientific/Koronatov.jpg",
-  },
-  {
-    name: "Andrei Shved",
-    role: "Member of Science Committee",
-    institution: "ETH Zurich",
-    country: "Switzerland",
-    bio: "Andrei is a dedicated teacher with rigorous scientific training and many years of experience in international Physics Olympiads",
-    email: "andrei.m.shved@gmail.com",
-    linkedin: "https://linkedin.com/in/andrei-shved",
-    image: "/images/scientific/Andrei.jpg",
-  },
-  {
-    name: "Prof. Vadim Eremin",
-    role: "Member of the Science Committee",
-    institution: "Moscow State University, Physics Department",
-    country: "Russian",
-    bio: "Professor Eremin is a professor of theoretical physics with a great experience in All-Russian and international physics olympiads.",
-    email: "vv_er@mail.ru",
-    linkedin: "",
-    image: "/images/scientific/Vadim.jpg",
-  },
-];
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { GraduationCap, ArrowLeft, Calendar } from "lucide-react";
+import Link from "next/link";
 
 export default function ScientificCommitteePage() {
   return (
-    <CommitteeLayout
-      title="Scientific Committee"
-      description="Our distinguished Scientific Committee comprises leading physicists and educators who ensure the academic excellence and innovation of FIPHO 2025."
-      members={scientificMembers}
-      type="scientific"
-    />
+    <main className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-6 relative overflow-hidden selection:bg-accent/30">
+      {/* Structural ambient lighting gradient to match design system */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle 500px at 50% 40%, rgba(224,181,85,0.06), transparent 70%)",
+        }}
+      />
+
+      <div className="relative max-w-xl text-center space-y-8 z-10">
+        {/* Animated structural icon wrapper */}
+        <div className="inline-flex p-4 rounded-2xl bg-accent/5 border border-accent/20 text-accent animate-pulse">
+          <GraduationCap className="h-10 w-10 stroke-[1.5]" />
+        </div>
+
+        <div className="space-y-4">
+          <Badge
+            variant="outline"
+            className="px-4 py-1 border-accent/30 bg-accent/5 text-accent font-mono-ui tracking-[0.2em] uppercase text-xs rounded-full backdrop-blur-sm"
+          >
+            Academic Roster
+          </Badge>
+          <h1 className="font-heading text-4xl sm:text-5xl font-semibold tracking-tight">
+            Scientific Committee
+          </h1>
+          <p className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed max-w-md mx-auto">
+            Our distinguished lineup of international physicists, researchers, and academic experts is currently being finalized.
+          </p>
+        </div>
+
+        {/* Structural status indicator component */}
+        <div className="p-4 rounded-xl border border-border bg-background-raised flex items-center justify-center gap-3 text-sm font-mono-ui text-muted-foreground max-w-xs mx-auto">
+          <Calendar className="h-4 w-4 text-accent" />
+          <span>Release Scheduled: July 2026</span>
+        </div>
+
+        <div className="pt-4">
+          <Link href="/" passHref>
+            <Button
+              variant="outline"
+              className="border-border hover:bg-background-raised rounded-full px-6 py-5 flex items-center gap-2 text-sm font-medium mx-auto transition-all cursor-pointer"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Return to Homepage
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }
