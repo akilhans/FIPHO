@@ -1,0 +1,55 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - img "FIPHO" [ref=e5]
+    - generic [ref=e6]:
+      - img "FIPHO" [ref=e9]
+      - heading "Registration Form" [level=2] [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - text: Full Name
+          - textbox "Full Name" [ref=e13]:
+            - /placeholder: John Doe
+        - generic [ref=e14]:
+          - text: Country
+          - combobox "Country" [ref=e15] [cursor=pointer]:
+            - generic: Select your country
+            - img [ref=e16]
+          - combobox [ref=e18]
+        - generic [ref=e19]:
+          - text: Role
+          - combobox "Role" [ref=e20] [cursor=pointer]:
+            - generic: Select your role
+            - img [ref=e21]
+          - combobox [ref=e23]
+        - generic [ref=e24]:
+          - text: Subject
+          - combobox "Subject" [ref=e25] [cursor=pointer]:
+            - generic: Select your subject
+            - img [ref=e26]
+          - combobox [ref=e28]
+        - generic [ref=e29]:
+          - text: How many students are coming?
+          - combobox "How many students are coming?" [ref=e30] [cursor=pointer]:
+            - generic: 0 student
+            - img [ref=e31]
+          - combobox [ref=e33]
+        - generic [ref=e34]:
+          - text: How many team leaders are coming?
+          - combobox "How many team leaders are coming?" [ref=e35] [cursor=pointer]:
+            - generic: 0 team leader
+            - img [ref=e36]
+          - combobox [ref=e38]
+        - generic [ref=e39]:
+          - text: Email
+          - textbox "Email" [ref=e40]:
+            - /placeholder: john.doe@example.com
+        - generic [ref=e41]:
+          - text: WhatsApp Number
+          - textbox "WhatsApp Number" [ref=e42]:
+            - /placeholder: "+1234567890"
+        - generic [ref=e43]:
+          - text: Additional Number
+          - textbox "Additional Number" [ref=e44]:
+            - /placeholder: "+1234567890"
+        - button "Submit Registration" [ref=e45] [cursor=pointer]
+  - alert [ref=e46]

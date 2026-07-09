@@ -21,7 +21,7 @@ const upcomingCompetitions = [
       "Students between 15 and 19 years of age",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 5 + 2 students per country",
+      "Maximum of 5 students per country",
     ],
     keyDates: [
       { date: "Oct 10, 2026", event: "Arrival of Delegations" },

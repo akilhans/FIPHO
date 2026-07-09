@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "Who is eligible to participate?",
     answer:
-      "Participants must be secondary school students under 19 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 4 students and 2 team leaders.",
+      "Participants must be secondary school students under 18 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 5 students and 2 team leaders.",
   },
   {
     question: "How can my country participate?",

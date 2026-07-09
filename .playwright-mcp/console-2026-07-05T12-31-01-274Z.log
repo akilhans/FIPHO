@@ -1,0 +1,4 @@
+[     151ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://register-fipho.olympcenter.uz/logo/fipho-logo.png:0
+[     279ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://register-fipho.olympcenter.uz/admin/login:0
+[     294ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://register-fipho.olympcenter.uz/_next/image?url=%2Flogo%2Ffipho-logo-transparent.png&w=384&q=75:0
+[     337ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://register-fipho.olympcenter.uz/logo/fipho-logo.png:0

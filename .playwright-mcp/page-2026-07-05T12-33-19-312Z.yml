@@ -1,0 +1,42 @@
+- generic [active] [ref=f1e1]:
+  - alert [ref=f1e2]
+  - generic [ref=f1e4]:
+    - generic [ref=f1e5]:
+      - img
+      - generic [ref=f1e7]:
+        - generic [ref=f1e8]:
+          - img [ref=f1e9]
+          - text: Operations
+        - img "FIPHO" [ref=f1e13]
+        - generic [ref=f1e14]:
+          - heading "FIPHO Control Panel" [level=1] [ref=f1e15]
+          - paragraph [ref=f1e16]: Manage registrations, content, media, and operational records from one workspace.
+        - generic [ref=f1e17]:
+          - generic [ref=f1e18]:
+            - generic [ref=f1e19]: Access
+            - paragraph [ref=f1e20]: Secure access for operations staff, reviewers, and content managers.
+          - generic [ref=f1e21]:
+            - generic [ref=f1e22]: Workflow
+            - paragraph [ref=f1e23]: Manage submissions, inspect delegation details, publish content, and export operational data.
+        - generic [ref=f1e24]:
+          - img [ref=f1e25]
+          - text: FIPHO operations dashboard
+    - generic [ref=f1e27]:
+      - generic [ref=f1e28]:
+        - img "FIPHO" [ref=f1e30]
+        - generic [ref=f1e31]: Admin Sign In
+        - generic [ref=f1e32]:
+          - generic [ref=f1e33]: Welcome back
+          - generic [ref=f1e34]: Sign in to continue to the FIPHO administration workspace.
+      - generic [ref=f1e36]:
+        - generic [ref=f1e37]:
+          - text: Username
+          - textbox "Username" [ref=f1e38]:
+            - /placeholder: admin
+        - generic [ref=f1e39]:
+          - text: Password
+          - textbox "Password" [ref=f1e40]:
+            - /placeholder: ••••••••
+        - button "Sign in" [ref=f1e41] [cursor=pointer]:
+          - text: Sign in
+          - img
