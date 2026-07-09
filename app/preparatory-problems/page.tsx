@@ -1,8 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, FileText } from "lucide-react";
 import { Metadata } from "next";
+import { Download, FileText, CheckCircle2 } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -14,60 +11,88 @@ export const metadata: Metadata = {
 const documents = [
   {
     title: "Preparatory Problems",
-    description: "Official practice problems covering all topics in the FIPHO syllabus.",
+    description:
+      "Official practice problems covering all topics in the FIPHO syllabus.",
     href: "/docs/problems.pdf",
     type: "PDF",
+    accent: "text-accent",
+    iconBg: "bg-accent/10",
+    border: "hover:border-accent/40",
   },
   {
     title: "Solutions",
-    description: "Detailed solutions to the preparatory problems with full explanations.",
+    description:
+      "Detailed solutions to the preparatory problems with full explanations.",
     href: "/solutions.pdf",
     type: "PDF",
+    accent: "text-fipho-cyan",
+    iconBg: "bg-fipho-cyan/10",
+    border: "hover:border-fipho-cyan/40",
   },
 ];
 
 export default function PreparatoryProblemsPage() {
   return (
-    <section className="relative w-full bg-fipho-light min-h-screen py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/5 text-fipho-blue"
-          >
+    <main>
+      {/* HERO */}
+      <section className="relative pt-36 pb-16 px-6 text-center bg-background overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             Preparation Materials
-          </Badge>
-          <h1 className="font-heading mb-4 text-3xl font-bold tracking-tight text-fipho-navy sm:text-5xl">
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-5">
             Preparatory Problems &amp; Solutions
           </h1>
-          <p className="text-fipho-slate/70">
-            Official practice materials to help participating teams prepare for
-            FIPHO {BRAND.year}.
+          <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            Official practice materials to help participating teams prepare
+            for FIPHO {BRAND.year}.
           </p>
         </div>
+      </section>
 
-        <div className="mx-auto max-w-2xl grid gap-6">
+      {/* DOCUMENT CARDS */}
+      <section className="px-6 pb-24 bg-background">
+        <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-6">
           {documents.map((doc) => (
-            <Card key={doc.title} className="border-white bg-white shadow-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 font-heading text-fipho-navy">
-                  <FileText className="h-5 w-5 text-fipho-blue" />
-                  {doc.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-fipho-slate/70">{doc.description}</p>
-                <a href={doc.href} download>
-                  <Button className="bg-fipho-blue text-white hover:bg-fipho-blue/90 cursor-pointer">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download {doc.type}
-                  </Button>
-                </a>
-              </CardContent>
-            </Card>
+            <div
+              key={doc.title}
+              className={`p-8 rounded-2xl border border-border bg-background-raised transition-colors flex flex-col items-center text-center ${doc.border}`}
+            >
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${doc.iconBg}`}>
+                <FileText className={`h-7 w-7 ${doc.accent}`} />
+              </div>
+
+              <h2 className="font-heading font-semibold text-xl mb-2">
+                {doc.title}
+              </h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                {doc.description}
+              </p>
+
+              <div className="flex items-center gap-1.5 text-xs font-mono-ui text-muted-foreground mb-6">
+                <CheckCircle2 className={`h-3.5 w-3.5 ${doc.accent}`} />
+                Official FIPHO document
+              </div>
+
+              <a
+                href={doc.href}
+                download
+                className="mt-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
+              >
+                <Download className="h-4 w-4" />
+                Download {doc.type}
+              </a>
+            </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

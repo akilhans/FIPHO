@@ -1,39 +1,128 @@
 "use client";
-import { MainNav } from "@/components/main-nav";
-import { FiphoLogo } from "@/components/logo";
+
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { MobileNav } from "@/components/main-nav";
+import Link from "next/link";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 
-export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const olympiadLinks = [
+  { href: "/requirements", label: "Eligibility Requirements" },
+  { href: "/past-fipho", label: "Past FIPHO" },
+  { href: "/future-fipho", label: "Future FIPHO" },
+];
 
-  const handleClose = () => {
-    setIsMenuOpen(false);
-  };
+const infoCenterLinks = [
+  { href: "/results", label: "Results & Problems" },
+  { href: "/rules", label: "Rules & Guideline (PDF)" },
+  { href: "/news", label: "News" },
+];
+
+const fipho2026Links = [
+  { href: "/organizing-committee", label: "Organizing Committee" },
+  { href: "/scientific-committee", label: "Scientific Committee" },
+  { href: "/programme-schedule", label: "Program Schedule" },
+  { href: "/press", label: "Press Release & Report Book" },
+];
+
+function NavDropdown({
+  label,
+  links,
+}: {
+  label: string;
+  links: { href: string; label: string }[];
+}) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-fipho-gold/10 bg-fipho-navy/95 backdrop-blur-md supports-[backdrop-filter]:bg-fipho-navy/90 shadow-[0_4px_30px_rgba(11,31,58,0.3)]">
-      <div className="container flex items-center justify-between py-3 min-h-[72px] px-4 md:px-6 m-auto">
-        <FiphoLogo variant="light" className="shrink-0 z-10" />
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors outline-none cursor-pointer"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {label}
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
 
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden p-2 text-white hover:text-fipho-gold z-10"
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <MainNav />
-        </div>
-
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-fipho-navy border-t border-white/10 lg:hidden">
-            <MobileNav onCloseAction={handleClose} />
+      {open && (
+        <div className="absolute top-full left-0 pt-3 z-50">
+          <div className="min-w-[220px] rounded-xl border border-border bg-background-raised p-2 shadow-lg">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-border/40 transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-        )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Header() {
+  return (
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
+          {/* Increased container dimensions to 40px for ideal visibility */}
+          <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/images/Fiphowhite.png"
+              alt="FIPHO Logo"
+              fill
+              priority
+              className="object-contain"
+            />
+          </div>
+          <div className="flex flex-col justify-center space-y-0.5">
+            <div className="font-heading font-semibold text-lg tracking-wide leading-none text-foreground">
+              FIPHO
+            </div>
+            <div className="font-mono-ui text-[9px] tracking-[0.15em] text-accent leading-none">
+              PHYSICS OLYMPIAD
+            </div>
+          </div>
+        </Link>
+
+        <nav className="hidden lg:flex items-center gap-7">
+          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Home
+          </Link>
+          <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            About FIPHO
+          </Link>
+
+          <NavDropdown label="Olympiad" links={olympiadLinks} />
+
+          <Link href="/fipho-sponsors" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Sponsors
+          </Link>
+
+          <NavDropdown label="Info Center" links={infoCenterLinks} />
+
+          <Link href="/gallery" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Gallery
+          </Link>
+
+          <NavDropdown label="FIPHO 2026" links={fipho2026Links} />
+
+          <Link href="/uzbekistan" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Uzbekistan
+          </Link>
+          <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Contact
+          </Link>
+        </nav>
       </div>
     </header>
   );

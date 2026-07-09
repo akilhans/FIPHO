@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Twitter,
@@ -8,7 +11,6 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-import { FiphoLogo } from "@/components/logo";
 import { BRAND } from "@/lib/brand";
 
 export function SiteFooter() {
@@ -18,9 +20,24 @@ export function SiteFooter() {
         <div className="absolute bottom-0 left-1/4 h-px w-1/2 bg-gradient-to-r from-transparent via-fipho-gold/20 to-transparent" />
       </div>
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-24">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-24 space-y-12 xl:space-y-0">
           <div className="space-y-6">
-            <FiphoLogo variant="light" />
+            
+            {/* Logo and branding title section */}
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10">
+                <Image
+                  src="/images/Fiphowhite.png"
+                  alt="FIPHO Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-heading text-2xl font-bold tracking-wider uppercase text-white leading-none">
+                FIPHO
+              </span>
+            </div>
+
             <p className="max-w-xs text-sm leading-6 text-white/70">
               An international physics olympiad honoring the legacy of Ahmad
               al-Fargʻoniy, fostering scientific excellence and global
@@ -36,7 +53,7 @@ export function SiteFooter() {
                 <Link
                   key={i}
                   href={href}
-                  className="text-fipho-gold/80 hover:text-fipho-gold"
+                  className="text-fipho-gold/80 hover:text-fipho-gold transition-colors"
                 >
                   <Icon className="h-5 w-5" />
                 </Link>
@@ -62,7 +79,7 @@ export function SiteFooter() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm leading-6 text-white/70 hover:text-fipho-gold"
+                    className="text-sm leading-6 text-white/70 hover:text-fipho-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -80,12 +97,12 @@ export function SiteFooter() {
                 <Mail className="h-5 w-5 shrink-0 text-fipho-gold" />
                 <Link
                   href={`mailto:${BRAND.email}`}
-                  className="text-sm leading-6 text-white/70 hover:text-fipho-gold"
+                  className="text-sm leading-6 text-white/70 hover:text-fipho-gold transition-colors"
                 >
                   {BRAND.email}
                 </Link>
               </li>
-              <li className="flex gap-2">
+                <li className="flex gap-2">
                 <Phone className="h-5 w-5 shrink-0 text-fipho-gold" />
                 <span className="text-sm leading-6 text-white/70">
                   {BRAND.phone}

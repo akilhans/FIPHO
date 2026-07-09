@@ -12,7 +12,7 @@ const stats = [
     icon: Users,
     value: "200+",
     label: "Competing Students",
-    sub: "4 per national team",
+    sub: "5 + 2 per national team",
   },
   {
     icon: Award,

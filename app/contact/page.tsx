@@ -1,208 +1,142 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Youtube,
-  Globe,
-} from "lucide-react";
+import { Phone, Mail, MousePointerClick, MapPin } from "lucide-react";
 
-const contacts = [
-  {
-    name: "Charos Abdusattorova",
-    role: "Contact person",
-    email: "info@olympcenter.uz",
-    phone: "+998 77 550 33 66",
-  },
-  
+const contact = {
+  name: "Charos Abdusattorova",
+  role: "Contact person",
+  email: "info@olympcenter.uz",
+  phone: "+998 77 550 33 66",
+};
 
-];
+const office = {
+  name: "Science Olympiad Center",
+  city: "Tashkent",
+  country: "Uzbekistan",
+  address: "100099, Otchopar-1, Darvozakent Street, House 60, Yunusobod District",
+};
 
-const socialLinks = [
-  {
-    name: "Facebook",
-    icon: <Facebook className="h-5 w-5" />,
-    href: "https://facebook.com/fipho",
-    color: "hover:text-blue-500",
-  },
-  {
-    name: "Twitter",
-    icon: <Twitter className="h-5 w-5" />,
-    href: "https://twitter.com/fipho",
-    color: "hover:text-blue-400",
-  },
-  {
-    name: "Instagram",
-    icon: <Instagram className="h-5 w-5" />,
-    href: "https://www.instagram.com/fan_olimpiadalari_markazi?igsh=cDFqODRsNGx3dnk=",
-    color: "hover:text-pink-500",
-  },
-  {
-    name: "LinkedIn",
-    icon: <Linkedin className="h-5 w-5" />,
-    href: "https://linkedin.com/company/fipho",
-    color: "hover:text-blue-600",
-  },
-  {
-    name: "YouTube",
-    icon: <Youtube className="h-5 w-5" />,
-    href: "http://bit.ly/olimpdep",
-    color: "hover:text-red-500",
-  },
-];
-
-const offices = [
-  {
-    city: "Tashkent",
-    country: "Uzbekistan",
-    address: "100099, Otchopar-1, Darvozakent Street, House 60, Yunusobod District",
-    phone: "+998 77 550 33 66",
-    timezone: "GMT+5",
-    hours: "Mon-Fri: 9:00 AM - 6:00 PM",
-  },
- 
-];
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${office.name}, ${office.address}, ${office.city}, ${office.country}`)}`;
 
 export default function ContactPage() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
+    <main>
+      {/* HERO — dot-grid texture + pulsing location ping */}
+      <section className="relative pt-36 pb-24 px-6 text-center bg-background overflow-hidden">
+        {/* dot-grid texture, faded toward edges */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-40"
+          style={{
+            backgroundImage:
+              "radial-gradient(var(--color-border) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+            maskImage:
+              "radial-gradient(ellipse 60% 60% at 50% 30%, black 30%, transparent 80%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 60% 60% at 50% 30%, black 30%, transparent 80%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
 
-      <div className="container relative mx-auto px-4 py-20 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
-          >
+        {/* 🛠️ REMOVED THE MAP LINK WRAPPER — NOW JUST A STATIC DECORATIVE CLICK LOGO */}
+        <div className="relative flex justify-center mb-2 select-none pointer-events-none">
+          <div className="relative flex items-center justify-center w-24 h-24 rounded-full">
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="w-24 h-24 rounded-full bg-accent/10 animate-ping [animation-duration:2.5s]" />
+            </span>
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="w-16 h-16 rounded-full bg-accent/15" />
+            </span>
+            
+            <span className="relative flex items-center justify-center w-12 h-12 rounded-full bg-background border border-accent/20 shadow-md">
+              <MousePointerClick className="h-6 w-6 text-accent" />
+            </span>
+          </div>
+        </div>
+
+        <div className="relative max-w-xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             Get in Touch
-          </Badge>
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-4">
             Contact Us
           </h1>
-          <p className="text-white mb-6">
+          <div className="w-16 h-px bg-accent mx-auto mb-6" />
+          <p className="text-muted-foreground text-lg">
             Have questions about FIPHO? Our team is here to help you.
           </p>
         </div>
+      </section>
 
-        <div className="mx-auto max-w-5xl grid gap-8 lg:grid-cols-2">
-          {/* Contact Information */}
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy">
-                Contact Person
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {contacts.map((contact) => (
-                <div key={contact.email} className="space-y-2">
-                  <h3 className="text-lg font-medium text-fipho-navy">
-                    {contact.name}
-                  </h3>
-                  <p className="text-sm text-fipho-slate/70">{contact.role}</p>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-fipho-slate/70">
-                      <Mail className="h-4 w-4 text-fipho-gold" />
-                      <a
-                        href={`mailto:${contact.email}`}
-                        className="hover:text-fipho-gold"
-                      >
-                        {contact.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2 text-fipho-slate/70">
-                      <Phone className="h-4 w-4 text-fipho-gold" />
-                      <a
-                        href={`tel:${contact.phone}`}
-                        className="hover:text-fipho-gold"
-                      >
-                        {contact.phone}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+      {/* THREE-COLUMN INFO — cream cards, real data */}
+      <section className="px-6 pb-24 bg-background">
+        <div className="max-w-5xl mx-auto grid gap-6 sm:grid-cols-3">
+          
+          {/* Card 1: Visit Us (Kept the real map navigation here so users can still find you) */}
+          <a 
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl bg-[#f7f2e7] p-8 text-center block border border-transparent hover:border-amber-200 transition-all duration-200 group"
+          >
+            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5 transition-transform group-hover:scale-110">
+              <MapPin className="h-5 w-5 text-amber-700" />
+            </div>
+            <h3 className="font-heading font-semibold text-lg text-amber-950 mb-1 group-hover:text-amber-800 transition-colors">
+              Visit Us
+            </h3>
+            <p className="text-xs font-bold uppercase tracking-wide text-amber-700 mb-2">
+              {office.name}
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              {office.address}
+            </p>
+            <p className="text-sm text-slate-500 mt-1">
+              {office.city}, {office.country}
+            </p>
+          </a>
 
-          {/* Office Locations */}
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy">Our Office</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {offices.map((office) => (
-                <div key={office.city} className="space-y-3">
-                  <div className="flex items-center gap-2 text-fipho-navy">
-                    <Globe className="h-5 w-5 text-fipho-gold" />
-                    <h3 className="font-medium">
-                      {office.city}, {office.country}
-                    </h3>
-                  </div>
-                  <div className="space-y-2 text-sm text-fipho-slate/70">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="h-4 w-4 text-fipho-gold mt-1" />
-                      <span>{office.address}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-fipho-gold" />
-                      <a
-                        href={`tel:${office.phone}`}
-                        className="hover:text-fipho-gold"
-                      >
-                        {office.phone}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-fipho-gold" />
-                      <span>
-                        {office.timezone} • {office.hours}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          {/* Card 2: Call Us */}
+          <div className="rounded-xl bg-[#f7f2e7] p-8 text-center border border-transparent">
+            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5">
+              <Phone className="h-5 w-5 text-amber-700" />
+            </div>
+            <h3 className="font-heading font-semibold text-lg text-amber-950 mb-3">
+              Call Us
+            </h3>
+            <a
+              href={`tel:${contact.phone}`}
+              className="text-sm text-slate-600 hover:text-amber-800 transition-colors font-medium"
+            >
+              {contact.phone}
+            </a>
+          </div>
+
+          {/* Card 3: Contact Us */}
+          <div className="rounded-xl bg-[#f7f2e7] p-8 text-center border border-transparent">
+            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5">
+              <Mail className="h-5 w-5 text-amber-700" />
+            </div>
+            <h3 className="font-heading font-semibold text-lg text-amber-950 mb-3">
+              Contact Us
+            </h3>
+            <a
+              href={`mailto:${contact.email}`}
+              className="text-sm text-slate-600 hover:text-amber-800 transition-colors font-medium"
+            >
+              {contact.email}
+            </a>
+            <p className="text-xs text-slate-500 mt-2">
+              {contact.name} — {contact.role}
+            </p>
+          </div>
+
         </div>
-
-        {/* Social Media Links */}
-        <div className="mx-auto max-w-5xl mt-8">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy">
-                Connect With Us
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap justify-center gap-6">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-4 rounded-full bg-fipho-navy/40 text-fipho-slate/70 transition-all hover:scale-110 ${social.color}`}
-                  >
-                    {social.icon}
-                    <span className="sr-only">{social.name}</span>
-                  </a>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

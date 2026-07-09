@@ -1,8 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Mail, LinkedinIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export interface CommitteeMember {
@@ -23,6 +20,14 @@ interface CommitteeLayoutProps {
   type: "organizing" | "scientific";
 }
 
+function initials(name: string) {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2);
+}
+
 export function CommitteeLayout({
   title,
   description,
@@ -30,83 +35,97 @@ export function CommitteeLayout({
   type,
 }: CommitteeLayoutProps) {
   return (
-    <section className="relative w-full bg-fipho-light min-h-screen py-20">
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/5 text-fipho-blue"
-          >
+    <main>
+      {/* HERO */}
+      <section className="relative pt-36 pb-16 px-6 text-center bg-background overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             {type === "organizing" ? "Organization" : "Scientific Committee"}
-          </Badge>
-          <h1 className="font-heading mb-4 text-3xl font-bold tracking-tight text-fipho-navy sm:text-4xl">
+          </p>
+          <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-5">
             {title}
           </h1>
-          <p className="text-fipho-slate/70">{description}</p>
+          <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            {description}
+          </p>
         </div>
+      </section>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {members.map((member, index) => (
-            <Card
-              key={index}
-              className="group border-white bg-white shadow-sm hover:shadow-md transition-shadow"
+      {/* MEMBER GRID */}
+      <section className="px-6 pb-24 bg-background">
+        <div className="max-w-6xl mx-auto grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {members.map((member) => (
+            <div
+              key={member.name}
+              className="p-6 rounded-xl border border-amber-200/60 bg-[#f7f2e7] hover:border-amber-300 transition-colors"
             >
-              <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <Avatar className="h-16 w-16 border-2 border-fipho-blue/20">
-                  <AvatarImage src={member.image} alt={member.name} />
-                  <AvatarFallback className="bg-fipho-navy text-white">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="space-y-1">
-                  <h3 className="font-heading font-medium text-lg text-fipho-navy">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="relative h-16 w-16 flex-shrink-0 rounded-full overflow-hidden border-2 border-amber-300/50 bg-amber-100 flex items-center justify-center">
+                  {member.image ? (
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <span className="font-heading font-semibold text-amber-800">
+                      {initials(member.name)}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h3 className="font-heading font-semibold text-lg leading-tight text-amber-950">
                     {member.name}
                   </h3>
-                  <p className="text-sm text-fipho-blue">{member.role}</p>
+                  <p className="text-sm text-amber-700">{member.role}</p>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-1">
-                  <p className="text-sm text-fipho-slate/70">{member.institution}</p>
-                  <p className="text-sm text-fipho-slate/60">{member.country}</p>
-                </div>
-                <p className="text-sm text-fipho-slate/70 leading-relaxed">{member.bio}</p>
-                <div className="flex gap-2 pt-2">
+              </div>
+
+              <div className="mb-3">
+                <p className="text-sm text-slate-700">{member.institution}</p>
+                <p className="text-xs text-slate-500">{member.country}</p>
+              </div>
+
+              <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                {member.bio}
+              </p>
+
+              {(member.email || member.linkedin) && (
+                <div className="flex gap-2 pt-2 border-t border-amber-200/60">
                   {member.email && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-fipho-blue/20 text-fipho-blue hover:bg-fipho-blue/5"
-                      asChild
+                    <Link
+                      href={`mailto:${member.email}`}
+                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-medium border border-amber-300/60 text-amber-800 hover:bg-amber-100 transition-colors"
                     >
-                      <Link href={`mailto:${member.email}`}>
-                        <Mail className="mr-2 h-4 w-4" />
-                        Email
-                      </Link>
-                    </Button>
+                      <Mail className="h-3.5 w-3.5" />
+                      Email
+                    </Link>
                   )}
                   {member.linkedin && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-fipho-blue/20 text-fipho-blue hover:bg-fipho-blue/5"
-                      asChild
+                    <Link
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-medium border border-amber-300/60 text-amber-800 hover:bg-amber-100 transition-colors"
                     >
-                      <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                        <LinkedinIcon className="mr-2 h-4 w-4" />
-                        LinkedIn
-                      </Link>
-                    </Button>
+                      <LinkedinIcon className="h-3.5 w-3.5" />
+                      LinkedIn
+                    </Link>
                   )}
                 </div>
-              </CardContent>
-            </Card>
+              )}
+            </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

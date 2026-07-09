@@ -21,11 +21,11 @@ const faqs = [
   {
     question: "Who is eligible to participate?",
     answer:
-      "Participants must be secondary school students under 18 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 4 students and 2 team leaders.",
+      "Participants must be secondary school students under 19 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 4 students and 2 team leaders.",
   },
   {
     question: "How can my country participate?",
-    answer: `Countries interested in participating should contact ${BRAND.email} through their national olympiad organization before the registration deadline.`,
+    answer: `Countries interested in participating should contact info@olympcenter.uz through their national olympiad organization before the registration deadline.`,
   },
   {
     question: "Can students register individually?",
@@ -69,7 +69,7 @@ const faqs = [
   {
     question: "How are winners determined?",
     answer:
-      "The top 60% of participants receive medals in a 1 (gold): 2 (silver): 3 (bronze) ratio. Certificates of participation are awarded to all competitors.",
+      "The top 50% of participants receive medals in a 1 (gold): 2 (silver): 3 (bronze) ratio. Certificates of participation are awarded to all competitors.",
   },
   {
     question: "Is accommodation provided?",

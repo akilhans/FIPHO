@@ -1,254 +1,229 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, MapPin, Users, Building, Phone, Mail, Globe, Download, BookOpen } from 'lucide-react';
+import {
+  Calendar,
+  MapPin,
+  Users,
+  Building,
+  Phone,
+  Mail,
+  Globe,
+  BookOpen,
+  Clock,
+} from "lucide-react";
+
+const keyEvents = [
+  {
+    title: "Opening Ceremony",
+    date: "October 10, 2026",
+    venue: "Samarkand, Uzbekistan",
+  },
+  {
+    title: "Closing & Awards Ceremony",
+    date: "October 17, 2026",
+    venue: "Samarkand, Uzbekistan",
+  },
+];
+
+const venues = [
+  {
+    icon: Building,
+    title: "Main Venue",
+    name: "Samarkand Congress Center",
+    address: "Samarkand, Uzbekistan",
+  },
+];
+
+const accommodation = [
+  { name: "Official Olympiad Village Hotel", address: "Samarkand, Uzbekistan" },
+];
 
 export default function PressPage() {
   return (
-    <section className="relative w-full bg-gradient-to-b from-fipho-navy to-fipho-navy-light">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-0 top-0 -translate-x-1/2 translate-y-1/2 h-96 w-96 rounded-full bg-fipho-blue/5 blur-3xl" />
-        <div className="absolute right-0 bottom-0 translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
-      </div>
-
-      <div className="container relative mx-auto px-4 py-20 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="mx-auto max-w-4xl text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-fipho-blue/20 bg-fipho-blue/10 text-fipho-gold hover:bg-fipho-blue/20"
-          >
+    <main>
+      {/* DATELINE HEADER */}
+      <section className="relative pt-36 pb-14 px-6 bg-background overflow-hidden border-b border-border">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 45% at 50% 0%, rgba(224,181,85,0.08), transparent 70%)",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto text-center">
+          <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-5 text-accent">
             Press Release
-          </Badge>
-          <h1 className="mb-6 text-3xl font-bold tracking-tight text-white sm:text-5xl leading-tight">
-            Tashkent will host the Ahmad al-Fargʻoniy International Physics Olympiad
+          </p>
+          <h1 className="font-heading font-semibold text-3xl md:text-5xl leading-tight mb-6">
+            Samarkand will host the Al-Ferghani International Physics
+            Olympiad
           </h1>
-          <div className="flex items-center justify-center gap-2 text-fipho-slate/70 text-lg mb-6">
-            <Calendar className="w-5 h-5 text-fipho-gold" />
-            <span className="text-white mb-1">May 28 - June 4, 2025</span>
+          <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
+            <Calendar className="h-4 w-4 text-accent" />
+            <span className="font-mono-ui text-sm">October 10 – October 17, 2026</span>
           </div>
-          <a
-            href="/docs/press.docx"
-            download
-            className="inline-flex items-center gap-2 px-6 py-3 bg-fipho-blue hover:bg-fipho-blue/90 text-white rounded-lg transition-colors font-medium"
-          >
-            <Download className="w-4 h-4" />
-            Download Uzbek Version
-          </a>
+     
         </div>
+      </section>
 
-        {/* Introduction */}
-        <div className="mx-auto max-w-5xl mb-8">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardContent className="p-8">
-              <p className="text-lg text-fipho-slate/70 leading-relaxed mb-4">
-                Ahmad al-Fargʻoniy International Physics Olympiad will be held in Samarkand from October 10th to 17th, 2026. 
-                This prestigious event brings together talented students from around the world who possess knowledge and 
-                skills in the main branches of physics.
-              </p>
-              <p className="text-lg text-fipho-slate/70 leading-relaxed">
-                This year`s Olympiad is expected to feature participants from more than ten countries, including Saudi Arabia, 
-                Turkey, Georgia, Vietnam, Russia, Belarus, Mongolia, Azerbaijan, India, Kazakhstan, Kyrgyzstan, Tajikistan, 
-                Turkmenistan, and Uzbekistan.
-              </p>
-            </CardContent>
-          </Card>
+      {/* RUNNING TEXT — release body */}
+      <section className="px-6 py-14 bg-background">
+        <div className="max-w-2xl mx-auto space-y-5 text-muted-foreground leading-relaxed">
+          <p>
+           Al-Ferghani International Physics Olympiad will be held in
+            Samarkand from October 10th to 17th, 2026. This prestigious event
+            brings together talented students from around the world who
+            possess knowledge and skills in the main branches of physics.
+          </p>
+         
         </div>
+      </section>
 
-        {/* Key Events */}
-        <div className="mx-auto max-w-5xl mb-8">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy flex items-center gap-3">
-                <Calendar className="w-6 h-6 text-fipho-gold" />
-                Key Events
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-fipho-blue/10 rounded-lg border border-fipho-blue/20">
-                <div className="w-2 h-2 bg-fipho-gold rounded-full mt-3"></div>
+      {/* KEY EVENTS */}
+      <section className="px-6 py-14 bg-background-raised border-y border-border">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-2 mb-8">
+            <Calendar className="h-5 w-5 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">Key Events</h2>
+          </div>
+          <div>
+            {keyEvents.map((event, i) => (
+              <div
+                key={event.title}
+                className={`flex items-start gap-4 py-5 border-t border-border ${
+                  i === keyEvents.length - 1 ? "border-b" : ""
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-fipho-navy">Opening Ceremony</h3>
-                  <p className="text-fipho-slate/70">May 29, 2025, at 10:00 AM</p>
-                  <p className="text-sm text-fipho-navy/60 mt-1">Central Asian University (CAU)</p>
+                  <h3 className="font-medium">{event.title}</h3>
+                  <p className="text-sm text-muted-foreground">{event.date}</p>
+                  <p className="text-xs text-muted-foreground/70 mt-0.5">{event.venue}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                <div className="w-2 h-2 bg-blue-400 rounded-full mt-3"></div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground/70 mt-6">
+            The events will be attended by officials from the Ministry of
+            Preschool and School Education of the Republic of Uzbekistan,
+            international guests, and diplomatic representatives from the
+            participating countries.
+          </p>
+        </div>
+      </section>
+
+      {/* REPORT BOOK — CLEAN COMING SOON VARIANT */}
+      <section className="px-6 py-14 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-2 mb-6">
+            <BookOpen className="h-5 w-5 text-accent" />
+            <h2 className="font-heading font-semibold text-2xl">Report Book</h2>
+          </div>
+          
+          <div className="rounded-xl border border-border bg-background-raised/40 backdrop-blur-sm p-12 text-center flex flex-col items-center justify-center border-dashed min-h-[40vh]">
+            <Clock className="h-10 w-10 text-accent/70 mb-4 animate-pulse" />
+            <h3 className="font-heading font-medium text-xl text-foreground mb-2">
+              Official Report Book Coming Soon
+            </h3>
+            
+          </div>
+        </div>
+      </section>
+
+      {/* VENUES */}
+      <section className="px-6 py-14 bg-background-raised border-y border-border">
+        <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-10">
+          {venues.map((venue) => (
+            <div key={venue.title}>
+              <div className="flex items-center gap-2 mb-4">
+                <venue.icon className="h-5 w-5 text-accent" />
+                <h3 className="font-heading font-semibold text-lg">{venue.title}</h3>
+              </div>
+              <p className="font-medium text-sm mb-1">{venue.name}</p>
+              <div className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-muted-foreground">{venue.address}</span>
+              </div>
+            </div>
+          ))}
+
+          {/* ACCOMMODATION */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Users className="h-5 w-5 text-accent" />
+              <h3 className="font-heading font-semibold text-lg">Accommodation</h3>
+            </div>
+            <div className="space-y-4">
+              {accommodation.map((hotel) => (
+                <div key={hotel.name}>
+                  <p className="font-medium text-sm mb-1">{hotel.name}</p>
+                  <div className="flex items-start gap-2">
+                    <MapPin className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">{hotel.address}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ORGANIZING COMMITTEE CONTACT */}
+      <section className="px-6 py-14 bg-background">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading font-semibold text-2xl mb-2">Organizing Committee</h2>
+          <p className="text-sm text-muted-foreground mb-8">Science Olympiad Center</p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-5">
+              <div className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-fipho-navy">Closing & Awards Ceremony</h3>
-                  <p className="text-fipho-slate/70">June 3, 2025, at 4:00 PM</p>
-                  <p className="text-sm text-fipho-navy/60 mt-1">Central Asian University (CAU)</p>
+                  <p className="font-medium text-sm">Address</p>
+                  <p className="text-sm text-muted-foreground">
+                    100099, Otchopar-1, Darvozakent Street, House 60
+                  </p>
                 </div>
               </div>
-              <p className="text-fipho-navy/60 mt-6 text-sm">
-                The events will be attended by officials from the Ministry of Preschool and School Education of the 
-                Republic of Uzbekistan, international guests, and diplomatic representatives from the participating countries.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Contact</p>
+                  <p className="text-sm text-muted-foreground">+998712070524</p>
+                  <p className="text-sm text-muted-foreground">Telegram/WhatsApp: +998775503366</p>
+                </div>
+              </div>
+            </div>
 
-        {/* Report Book (PDF) */}
-        <div className="mx-auto max-w-5xl mb-8">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <CardTitle className="text-fipho-navy flex items-center gap-3">
-                <BookOpen className="w-5 h-5 text-fipho-gold" />
-                Report Book
-              </CardTitle>
-              <div className="flex gap-3">
-                <a
-                  href="/docs/report.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-fipho-blue text-white hover:bg-fipho-blue/90 transition"
-                >
-                  <Globe className="w-4 h-4" />
-                  Open in new tab
-                </a>
-                <a
-                  href="/docs/report.pdf"
-                  download
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-fipho-blue text-white hover:bg-fipho-blue/90 transition"
-                >
-                  <Download className="w-4 h-4" />
-                  Download PDF
-                </a>
+            <div className="space-y-5">
+              <div className="flex items-start gap-3">
+                <Globe className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Website</p>
+                  <a href="https://fipho.uz" className="text-sm text-accent hover:underline">
+                    https://fipho.uz
+                  </a>
+                </div>
               </div>
-            </CardHeader>
-            <CardContent className="p-0">
-              <iframe
-                src="/docs/report.pdf#view=FitH"
-                title="FIPHO Report Book"
-                className="w-full h-[80vh] rounded-b-lg border-t border-fipho-blue/20"
-                loading="lazy"
-              />
-              {/* Fallback text for devices that block inline PDF */}
-              <div className="p-4 text-center text-fipho-slate/70 text-sm">
-                If the PDF doesn’t display,{" "}
-                <a href="/docs/report.pdf" target="_blank" rel="noopener noreferrer" className="text-fipho-gold underline hover:text-fipho-gold">
-                  open it in a new tab
-                </a>.
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-sm">Email</p>
+                  <a href="mailto:info@fipho.uz" className="text-sm text-accent hover:underline">
+                    info@fipho.uz
+                  </a>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Venues */}
-        <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-8 mb-8">
-          {/* Main Venue */}
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy flex items-center gap-3">
-                <Building className="w-5 h-5 text-fipho-gold" />
-                Main Venue
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div>
-                <h3 className="font-semibold text-fipho-navy mb-2">Central Asian University (CAU)</h3>
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-fipho-gold mt-1 flex-shrink-0" />
-                  <span className="text-fipho-slate/70">Tashkent, Milliy Bog Street, 264</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Accommodation */}
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy flex items-center gap-3">
-                <Users className="w-5 h-5 text-fipho-gold" />
-                Accommodation
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-fipho-navy">The Tower Hotel Tashkent</h3>
-                <div className="flex items-start gap-2 mt-1">
-                  <MapPin className="w-4 h-4 text-fipho-gold mt-1 flex-shrink-0" />
-                  <span className="text-fipho-slate/70">Tashkent, Kichik Beshyogoch Street, 40</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold text-fipho-navy">Al-Anvar Hotel</h3>
-                <div className="flex items-start gap-2 mt-1">
-                  <MapPin className="w-4 h-4 text-fipho-gold mt-1 flex-shrink-0" />
-                  <span className="text-fipho-slate/70">Tashkent, Yusuf Khos Hojib Street, 65</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Organizing Committee */}
-        <div className="mx-auto max-w-5xl">
-          <Card className="border-fipho-blue/20 bg-fipho-light/80 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-fipho-navy">Organizing Committee</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <h3 className="text-lg font-semibold text-fipho-navy mb-6">Science Olympiad Center</h3>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-fipho-gold mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-fipho-navy">Address</p>
-                      <p className="text-fipho-slate/70">100099, Otchopar-1, Darvozakent Street, House 60</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <Phone className="w-5 h-5 text-fipho-gold mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-fipho-navy">Contact</p>
-                      <p className="text-fipho-slate/70">+998712070524</p>
-                      <p className="text-fipho-slate/70">Telegram/WhatsApp: +998775503366</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Globe className="w-5 h-5 text-fipho-gold mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-fipho-navy">Website</p>
-                      <a href="https://fipho.uz" className="text-fipho-gold hover:text-fipho-gold transition-colors">
-                        https://fipho.uz
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-fipho-gold mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-fipho-navy">Email</p>
-                      <a href="mailto:info@fipho.uz" className="text-fipho-gold hover:text-fipho-gold transition-colors">
-                        info@fipho.uz
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Footer Note */}
-        <div className="mx-auto max-w-5xl text-center mt-12">
-          <Card className="border-fipho-blue/20 bg-fipho-blue/10 backdrop-blur">
-            <CardContent className="p-6">
-              <p className="text-white mb-6">
-                For media inquiries and additional information, please contact the Science Olympiad Center.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </section>
+      {/* FOOTER NOTE */}
+      <section className="px-6 py-16 text-center bg-background-raised border-t border-border">
+        <p className="text-muted-foreground max-w-lg mx-auto">
+          For media inquiries and additional information, please contact the
+          Science Olympiad Center.
+        </p>
+      </section>
+    </main>
   );
 }
