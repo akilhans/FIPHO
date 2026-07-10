@@ -111,7 +111,7 @@ export function SiteFooter() {
               <li className="flex gap-2">
                 <MapPin className="h-5 w-5 shrink-0 text-fipho-gold" />
                 <span className="text-sm leading-6 text-white/70">
-                  {BRAND.address}
+                  Toshkent, Uzbekistan
                 </span>
               </li>
             </ul>
