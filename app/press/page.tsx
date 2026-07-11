@@ -111,7 +111,7 @@ export default function PressPage() {
         </div>
       </section>
 
-      {/* REPORT BOOK — CLEAN COMING SOON VARIANT */}
+     
       <section className="px-6 py-14 bg-background">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-2 mb-6">
@@ -129,44 +129,30 @@ export default function PressPage() {
         </div>
       </section>
 
-      {/* VENUES */}
-      <section className="px-6 py-14 bg-background-raised border-y border-border">
-        <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-10">
-          {venues.map((venue) => (
-            <div key={venue.title}>
-              <div className="flex items-center gap-2 mb-4">
-                <venue.icon className="h-5 w-5 text-accent" />
-                <h3 className="font-heading font-semibold text-lg">{venue.title}</h3>
-              </div>
-              <p className="font-medium text-sm mb-1">{venue.name}</p>
-              <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">{venue.address}</span>
-              </div>
-            </div>
-          ))}
+  
+<section className="px-6 py-14 bg-background-raised border-y border-border">
+  <div className="max-w-3xl mx-auto grid md:grid-cols-2 gap-10">
+    
+    {/* VENUES */}
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <MapPin className="h-5 w-5 text-accent" />
+        <h3 className="font-heading font-semibold text-lg">Venue</h3>
+      </div>
+      <p className="text-sm text-muted-foreground font-light">Coming Soon</p>
+    </div>
 
-          {/* ACCOMMODATION */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Users className="h-5 w-5 text-accent" />
-              <h3 className="font-heading font-semibold text-lg">Accommodation</h3>
-            </div>
-            <div className="space-y-4">
-              {accommodation.map((hotel) => (
-                <div key={hotel.name}>
-                  <p className="font-medium text-sm mb-1">{hotel.name}</p>
-                  <div className="flex items-start gap-2">
-                    <MapPin className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-muted-foreground">{hotel.address}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+    {/* ACCOMMODATION */}
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <Users className="h-5 w-5 text-accent" />
+        <h3 className="font-heading font-semibold text-lg">Accommodation</h3>
+      </div>
+      <p className="text-sm text-muted-foreground font-light">Coming Soon</p>
+    </div>
+    
+  </div>
+</section>
       {/* ORGANIZING COMMITTEE CONTACT */}
       <section className="px-6 py-14 bg-background">
         <div className="max-w-3xl mx-auto">
@@ -188,8 +174,8 @@ export default function PressPage() {
                 <Phone className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-sm">Contact</p>
-                  <p className="text-sm text-muted-foreground">+998712070524</p>
-                  <p className="text-sm text-muted-foreground">Telegram/WhatsApp: +998775503366</p>
+                  <p className="text-sm text-muted-foreground">+998 99 199 49 00</p>
+                  <p className="text-sm text-muted-foreground">Telegram/WhatsApp: +998 99 199 49 00</p>
                 </div>
               </div>
             </div>
