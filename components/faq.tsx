@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: "How can my country participate?",
-    answer: `Countries interested in participating should contact info@olympcenter.uz through their national olympiad organization before the registration deadline.`,
+    answer: `Countries interested in participating should contact ${BRAND.email} through their national olympiad organization before the registration deadline.`,
   },
   {
     question: "Can students register individually?",

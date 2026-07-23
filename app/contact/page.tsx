@@ -1,9 +1,10 @@
 import { Phone, Mail, MousePointerClick, MapPin } from "lucide-react";
+import { BRAND } from "@/lib/brand";
 
 const contact = {
   name: "Charos Abdusattorova",
   role: "Contact person",
-  email: "info@olympcenter.uz",
+  email: BRAND.email,
   phone: "+998 77 550 33 66",
 };
 
