@@ -68,7 +68,7 @@ Staging ports:
 - registration backend API: `http://127.0.0.1:8035`
 - Postgres: `127.0.0.1:5466`
 
-Current backend defaults:
+Participation-request limits:
 
 - default subject: `Physics`
 - max students: `5`
@@ -78,6 +78,7 @@ These are configurable with `FIPHO_DEFAULT_SUBJECT`, `FIPHO_MAX_STUDENTS`, and `
 
 ## Detailed registration rules
 
-- Render each delegation's two leaders followed by its four students before the next delegation.
+- Each delegation requires one leader, may add one optional second leader, and may include zero through five students.
+- Render each delegation's leaders followed by its students before the next delegation.
 - Contestants must be under 20 on May 1, 2026 and not enrolled in higher education.
 - Dates of birth must be strictly after May 1, 2006.
