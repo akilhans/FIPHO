@@ -427,6 +427,35 @@ class FileValidationTests(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("id_photo", response.data)
 
+    def test_required_fields_cannot_be_cleared(self):
+        leader = TeamLeader.objects.create(
+            delegation=self.delegation,
+            full_name="Leader",
+            badge_name="Leader Badge",
+            date_of_birth="1980-01-01",
+            gender="Male",
+            passport_number="TL123456",
+            email="leader@example.com",
+            phone_number="+1234567890",
+            role="Team Leader",
+            t_shirt_size="L",
+            food_type="Standard",
+            passport_scan="leader-passport.pdf",
+            id_photo="leader-photo.jpg",
+            consent_form="leader-consent.pdf",
+        )
+        url = reverse("teamleader-detail", args=[leader.id])
+
+        blank_name = self.client.patch(url, {"full_name": ""}, format="json")
+        cleared_file = self.client.patch(
+            url, {"passport_scan": None}, format="json"
+        )
+
+        self.assertEqual(blank_name.status_code, 400)
+        self.assertIn("full_name", blank_name.data)
+        self.assertEqual(cleared_file.status_code, 400)
+        self.assertIn("passport_scan", cleared_file.data)
+
     def test_contestant_parental_consent_validates(self):
         url = reverse("contestant-list")
         data = {

@@ -28,11 +28,13 @@ CONTESTANT_ELIGIBILITY_MESSAGE = (
 def _add_required_field_errors(data, required_fields, instance=None):
     errors = {}
     for field_name, message in required_fields.items():
-        if data.get(field_name):
-            continue
-        if instance is not None and getattr(instance, field_name, None):
-            continue
-        errors[field_name] = message
+        value = (
+            data[field_name]
+            if field_name in data
+            else getattr(instance, field_name, None)
+        )
+        if not value:
+            errors[field_name] = message
     if errors:
         raise serializers.ValidationError(errors)
 
