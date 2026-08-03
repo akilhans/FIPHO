@@ -2,6 +2,34 @@ type DelegationField = {
   delegation_index: number;
 };
 
+export const MIN_TEAM_LEADERS = 1;
+export const MAX_TEAM_LEADERS = 2;
+export const MAX_STUDENTS = 5;
+
+export function delegationCompositionErrors(
+  leaderCount: number,
+  studentCount: number
+) {
+  return [
+    ...(leaderCount < MIN_TEAM_LEADERS || leaderCount > MAX_TEAM_LEADERS
+      ? [
+          {
+            field: "team_leaders" as const,
+            message: "Each delegation must have 1 or 2 team leaders.",
+          },
+        ]
+      : []),
+    ...(studentCount > MAX_STUDENTS
+      ? [
+          {
+            field: "contestants" as const,
+            message: "Each delegation may have up to 5 students.",
+          },
+        ]
+      : []),
+  ];
+}
+
 export function orderParticipantsByTeam<
   TLeader extends DelegationField,
   TStudent extends DelegationField,

@@ -8,14 +8,20 @@ import * as z from "zod";
 import {
   ArrowRight,
   Download,
+  Plus,
   ShieldCheck,
+  Trash2,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { BrandLockup } from "@/components/brand-lockup";
 import {
+  delegationCompositionErrors,
   firstErrorMessage,
   invalidSubmissionMessage,
+  MAX_STUDENTS,
+  MAX_TEAM_LEADERS,
+  MIN_TEAM_LEADERS,
   orderParticipantsByTeam,
 } from "@/lib/detailed-registration";
 import { cn } from "@/lib/utils";
@@ -71,8 +77,6 @@ const foodTypeOptions = [
   "Gluten-Free",
   "Other",
 ];
-const TEAM_LEADERS_PER_DELEGATION = 2;
-const CONTESTANTS_PER_DELEGATION = 4;
 const MAX_PARTICIPATING_TEAMS = 10;
 const CONTESTANT_ELIGIBILITY_CUTOFF = "2006-05-01";
 const CONTESTANT_MINIMUM_DATE = "2006-05-02";
@@ -169,28 +173,19 @@ const formSchema = z
       });
     }
     values.delegations.forEach((_, delegationIndex) => {
-      if (
-        values.team_leaders.filter(
-          (leader) => leader.delegation_index === delegationIndex
-        ).length !== TEAM_LEADERS_PER_DELEGATION
-      ) {
+      const leaderCount = values.team_leaders.filter(
+        (leader) => leader.delegation_index === delegationIndex
+      ).length;
+      const studentCount = values.contestants.filter(
+        (contestant) => contestant.delegation_index === delegationIndex
+      ).length;
+      delegationCompositionErrors(leaderCount, studentCount).forEach((error) => {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          path: ["team_leaders"],
-          message: "Each delegation must have exactly 2 team leaders.",
+          path: [error.field],
+          message: error.message,
         });
-      }
-      if (
-        values.contestants.filter(
-          (contestant) => contestant.delegation_index === delegationIndex
-        ).length !== CONTESTANTS_PER_DELEGATION
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["contestants"],
-          message: "Each delegation must have exactly 4 contestants.",
-        });
-      }
+      });
     });
   });
 
@@ -362,14 +357,8 @@ export default function SecondStepRegistration({
       country: "",
       number_of_teams: 1,
       delegations: [{ official_delegation_name: "" }],
-      team_leaders: Array.from(
-        { length: TEAM_LEADERS_PER_DELEGATION },
-        () => emptyLeader()
-      ),
-      contestants: Array.from(
-        { length: CONTESTANTS_PER_DELEGATION },
-        () => emptyContestant()
-      ),
+      team_leaders: [emptyLeader()],
+      contestants: [],
       confirm_information: false,
       agree_rules: false,
     },
@@ -394,8 +383,11 @@ export default function SecondStepRegistration({
 
   function showSubmissionError(message: string) {
     setSubmissionError(message);
-    requestAnimationFrame(() => submissionErrorRef.current?.focus());
   }
+
+  useEffect(() => {
+    if (submissionError) submissionErrorRef.current?.focus();
+  }, [submissionError]);
 
   function setDelegationCount(nextCount: number) {
     const currentCount = delegationFields.fields.length;
@@ -407,13 +399,8 @@ export default function SecondStepRegistration({
           { official_delegation_name: "" },
           { shouldFocus: false }
         );
-        for (let count = 0; count < TEAM_LEADERS_PER_DELEGATION; count += 1) {
+        for (let count = 0; count < MIN_TEAM_LEADERS; count += 1) {
           teamLeaderFields.append(emptyLeader(index), {
-            shouldFocus: false,
-          });
-        }
-        for (let count = 0; count < CONTESTANTS_PER_DELEGATION; count += 1) {
-          contestantFields.append(emptyContestant(index), {
             shouldFocus: false,
           });
         }
@@ -622,14 +609,8 @@ export default function SecondStepRegistration({
         country: "",
         number_of_teams: 1,
         delegations: [{ official_delegation_name: "" }],
-        team_leaders: Array.from(
-          { length: TEAM_LEADERS_PER_DELEGATION },
-          () => emptyLeader()
-        ),
-        contestants: Array.from(
-          { length: CONTESTANTS_PER_DELEGATION },
-          () => emptyContestant()
-        ),
+        team_leaders: [emptyLeader()],
+        contestants: [],
         confirm_information: false,
         agree_rules: false,
       });
@@ -712,8 +693,8 @@ export default function SecondStepRegistration({
 
               <div className="grid max-w-4xl gap-3 border-t border-white/15 pt-6 text-sm text-[#cbdbe5] sm:grid-cols-3">
                 <div><span className="font-semibold text-white">5 sections</span><br />One guided submission</div>
-                <div><span className="font-semibold text-white">5 students</span><br />Maximum team roster</div>
-                <div><span className="font-semibold text-white">2 team leaders</span><br />Delegation officials</div>
+                <div><span className="font-semibold text-white">Up to 5 students</span><br />Flexible team roster</div>
+                <div><span className="font-semibold text-white">1-2 team leaders</span><br />Delegation officials</div>
               </div>
             </div>
           </motion.div>
@@ -863,7 +844,7 @@ export default function SecondStepRegistration({
               <SectionTitle
                 eyebrow="Section 02"
                 title="Delegation Groups"
-                description="Name each delegation. Two leader and four student fields are provided automatically."
+                description="Name each delegation, then add its optional second leader and up to five students as needed."
                 displayClassName={displayClassName}
               />
 
@@ -910,14 +891,14 @@ export default function SecondStepRegistration({
                         <div className="space-y-2">
                           <Label>Team leaders</Label>
                           <p className="text-sm text-[#52677a]">
-                            2 required per delegation.
+                            1 required, with an optional second leader.
                           </p>
                         </div>
 
                         <div className="space-y-2">
                           <Label>Students</Label>
                           <p className="text-sm text-[#52677a]">
-                            4 required per delegation.
+                            0-5 students per delegation.
                           </p>
                         </div>
                       </div>
@@ -956,12 +937,31 @@ export default function SecondStepRegistration({
 
           <Card className="overflow-hidden rounded-[2rem] border-[#d8e5f0] bg-white shadow-[0_24px_70px_rgba(10,65,116,0.10)]">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
-              <SectionTitle
-                eyebrow="Leaders first"
-                title="Team Leaders and Officials"
-                description="Complete the team leader profiles created for each delegation group."
-                displayClassName={displayClassName}
-              />
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <SectionTitle
+                  eyebrow="Leaders first"
+                  title="Team Leaders and Officials"
+                  description="Complete the required team leader, then add an optional second leader if needed."
+                  displayClassName={displayClassName}
+                />
+                {teamLeaderFields.fields.filter(
+                  (leader) => leader.delegation_index === delegationIndex
+                ).length < MAX_TEAM_LEADERS ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() =>
+                      teamLeaderFields.append(emptyLeader(delegationIndex), {
+                        shouldFocus: false,
+                      })
+                    }
+                    className="shrink-0 rounded-full border-[#0a4174] text-[#0a4174]"
+                  >
+                    <Plus />
+                    Add second leader
+                  </Button>
+                ) : null}
+              </div>
 
               <div className="space-y-6">
                 {groupedParticipantFields
@@ -993,6 +993,28 @@ export default function SecondStepRegistration({
                           Delegation profile
                         </div>
                       </div>
+                      {teamLeaderFields.fields.filter(
+                        (leader) => leader.delegation_index === delegationIndex
+                      ).length > MIN_TEAM_LEADERS ? (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => teamLeaderFields.remove(index)}
+                          aria-label={`Remove leader ${
+                            teamLeaderFields.fields
+                              .slice(0, index + 1)
+                              .filter(
+                                (leader) =>
+                                  leader.delegation_index === delegationIndex
+                              ).length
+                          } from delegation ${delegationIndex + 1}`}
+                          className="rounded-full border-red-300 text-red-700 hover:bg-red-50 hover:text-red-800"
+                        >
+                          <Trash2 />
+                          Remove
+                        </Button>
+                      ) : null}
                     </div>
 
                     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -1314,14 +1336,41 @@ export default function SecondStepRegistration({
 
           <Card className="overflow-hidden rounded-[2rem] border-[#d8e5f0] bg-white shadow-[0_24px_70px_rgba(10,65,116,0.10)]">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
-              <SectionTitle
-                eyebrow="Students next"
-                title="Student Rosters"
-                description="Complete the student profiles created for each delegation group."
-                displayClassName={displayClassName}
-              />
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <SectionTitle
+                  eyebrow="Students next"
+                  title="Student Rosters"
+                  description="Students are optional. Add up to five profiles for this delegation."
+                  displayClassName={displayClassName}
+                />
+                {contestantFields.fields.filter(
+                  (contestant) => contestant.delegation_index === delegationIndex
+                ).length < MAX_STUDENTS ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() =>
+                      contestantFields.append(emptyContestant(delegationIndex), {
+                        shouldFocus: false,
+                      })
+                    }
+                    className="shrink-0 rounded-full border-[#0a4174] text-[#0a4174]"
+                  >
+                    <Plus />
+                    Add student
+                  </Button>
+                ) : null}
+              </div>
 
               <div className="space-y-6">
+                {contestantFields.fields.every(
+                  (contestant) =>
+                    contestant.delegation_index !== delegationIndex
+                ) ? (
+                  <p className="rounded-2xl border border-dashed border-[#afc9df] bg-[#f7fbff] px-5 py-6 text-sm text-[#52677a]">
+                    No students added for this delegation.
+                  </p>
+                ) : null}
                 {groupedParticipantFields
                   .filter(
                     ({ kind, field }) =>
@@ -1351,6 +1400,24 @@ export default function SecondStepRegistration({
                           Participant profile
                         </div>
                       </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => contestantFields.remove(index)}
+                        aria-label={`Remove student ${
+                          contestantFields.fields
+                            .slice(0, index + 1)
+                            .filter(
+                              (contestant) =>
+                                contestant.delegation_index === delegationIndex
+                            ).length
+                        } from delegation ${delegationIndex + 1}`}
+                        className="rounded-full border-red-300 text-red-700 hover:bg-red-50 hover:text-red-800"
+                      >
+                        <Trash2 />
+                        Remove
+                      </Button>
                     </div>
 
                     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

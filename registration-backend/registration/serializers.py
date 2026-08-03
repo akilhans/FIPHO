@@ -315,16 +315,18 @@ class DelegationSerializer(serializers.ModelSerializer):
         ]
 
     def validate_team_leaders(self, value):
-        if len(value) != 2:
+        max_team_leaders = getattr(settings, "FIPHO_MAX_TEAM_LEADERS", 2)
+        if not 1 <= len(value) <= max_team_leaders:
             raise serializers.ValidationError(
-                "Exactly 2 team leaders are required per delegation."
+                f"Each delegation must have 1 to {max_team_leaders} team leaders."
             )
         return value
 
     def validate_contestants(self, value):
-        if len(value) != 4:
+        max_students = getattr(settings, "FIPHO_MAX_STUDENTS", 5)
+        if len(value) > max_students:
             raise serializers.ValidationError(
-                "Exactly 4 contestants are required per delegation."
+                f"Each delegation may have up to {max_students} contestants."
             )
         return value
 

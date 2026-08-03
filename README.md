@@ -78,6 +78,6 @@ These are configurable with `FIPHO_DEFAULT_SUBJECT`, `FIPHO_MAX_STUDENTS`, and `
 
 ## Detailed registration rules
 
-- Render each delegation's two leaders followed by its four students before the next delegation.
+- Render each delegation's one or two leaders followed by its zero to five students before the next delegation.
 - Contestants must be under 20 on May 1, 2026 and not enrolled in higher education.
 - Dates of birth must be strictly after May 1, 2006.
