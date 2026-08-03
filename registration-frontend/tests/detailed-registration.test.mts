@@ -7,25 +7,20 @@ import {
   orderParticipantsByTeam,
 } from "../lib/detailed-registration.ts";
 
-test("accepts minimum and maximum delegation compositions", () => {
+test("accepts supported delegation compositions", () => {
+  assert.deepEqual(delegationCompositionErrors(0, 0), []);
   assert.deepEqual(delegationCompositionErrors(1, 0), []);
   assert.deepEqual(delegationCompositionErrors(2, 5), []);
 });
 
 test("rejects delegation compositions outside the limits", () => {
-  assert.deepEqual(delegationCompositionErrors(0, 0), [
-    {
-      field: "team_leaders",
-      message: "Each delegation must have 1 or 2 team leaders.",
-    },
-  ]);
   assert.deepEqual(delegationCompositionErrors(3, 0), [
     {
       field: "team_leaders",
-      message: "Each delegation must have 1 or 2 team leaders.",
+      message: "Each delegation may have up to 2 team leaders.",
     },
   ]);
-  assert.deepEqual(delegationCompositionErrors(1, 6), [
+  assert.deepEqual(delegationCompositionErrors(0, 6), [
     {
       field: "contestants",
       message: "Each delegation may have up to 5 students.",
@@ -80,5 +75,24 @@ test("turns a nested invalid submission into a visible summary", () => {
       contestants: [{ date_of_birth: { message: "Select the date of birth." } }],
     }),
     "Please correct the highlighted fields before submitting. First issue: Select the date of birth."
+  );
+});
+
+test("reports participant errors in delegation-first order", () => {
+  assert.equal(
+    invalidSubmissionMessage(
+      {
+        team_leaders: [
+          undefined,
+          { full_name: { message: "Delegation 2 leader." } },
+        ],
+        contestants: [{ full_name: { message: "Delegation 1 student." } }],
+      },
+      [
+        { kind: "student", index: 0 },
+        { kind: "leader", index: 1 },
+      ]
+    ),
+    "Please correct the highlighted fields before submitting. First issue: Delegation 1 student."
   );
 });

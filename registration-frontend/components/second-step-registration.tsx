@@ -21,7 +21,6 @@ import {
   invalidSubmissionMessage,
   MAX_STUDENTS,
   MAX_TEAM_LEADERS,
-  MIN_TEAM_LEADERS,
   orderParticipantsByTeam,
 } from "@/lib/detailed-registration";
 import { cn } from "@/lib/utils";
@@ -357,7 +356,7 @@ export default function SecondStepRegistration({
       country: "",
       number_of_teams: 1,
       delegations: [{ official_delegation_name: "" }],
-      team_leaders: [emptyLeader()],
+      team_leaders: [],
       contestants: [],
       confirm_information: false,
       agree_rules: false,
@@ -399,11 +398,6 @@ export default function SecondStepRegistration({
           { official_delegation_name: "" },
           { shouldFocus: false }
         );
-        for (let count = 0; count < MIN_TEAM_LEADERS; count += 1) {
-          teamLeaderFields.append(emptyLeader(index), {
-            shouldFocus: false,
-          });
-        }
       }
       return;
     }
@@ -458,7 +452,12 @@ export default function SecondStepRegistration({
   }, []);
 
   function onInvalid(errors: FieldErrors<SecondStepRegistrationFormValues>) {
-    showSubmissionError(invalidSubmissionMessage(errors));
+    showSubmissionError(
+      invalidSubmissionMessage(
+        errors,
+        groupedParticipantFields.map(({ kind, index }) => ({ kind, index }))
+      )
+    );
   }
 
   async function onSubmit(values: SecondStepRegistrationFormValues) {
@@ -609,7 +608,7 @@ export default function SecondStepRegistration({
         country: "",
         number_of_teams: 1,
         delegations: [{ official_delegation_name: "" }],
-        team_leaders: [emptyLeader()],
+        team_leaders: [],
         contestants: [],
         confirm_information: false,
         agree_rules: false,
@@ -694,7 +693,7 @@ export default function SecondStepRegistration({
               <div className="grid max-w-4xl gap-3 border-t border-white/15 pt-6 text-sm text-[#cbdbe5] sm:grid-cols-3">
                 <div><span className="font-semibold text-white">5 sections</span><br />One guided submission</div>
                 <div><span className="font-semibold text-white">Up to 5 students</span><br />Flexible team roster</div>
-                <div><span className="font-semibold text-white">1-2 team leaders</span><br />Delegation officials</div>
+                <div><span className="font-semibold text-white">Up to 2 leaders</span><br />Flexible delegation officials</div>
               </div>
             </div>
           </motion.div>
@@ -844,7 +843,7 @@ export default function SecondStepRegistration({
               <SectionTitle
                 eyebrow="Section 02"
                 title="Delegation Groups"
-                description="Name each delegation, then add its optional second leader and up to five students as needed."
+                description="Name each delegation, then add up to two leaders and five students as needed."
                 displayClassName={displayClassName}
               />
 
@@ -891,7 +890,7 @@ export default function SecondStepRegistration({
                         <div className="space-y-2">
                           <Label>Team leaders</Label>
                           <p className="text-sm text-[#52677a]">
-                            1 required, with an optional second leader.
+                            0-2 leaders per delegation.
                           </p>
                         </div>
 
@@ -941,7 +940,7 @@ export default function SecondStepRegistration({
                 <SectionTitle
                   eyebrow="Leaders first"
                   title="Team Leaders and Officials"
-                  description="Complete the required team leader, then add an optional second leader if needed."
+                  description="Leaders are optional. Add up to two profiles for this delegation."
                   displayClassName={displayClassName}
                 />
                 {teamLeaderFields.fields.filter(
@@ -958,7 +957,7 @@ export default function SecondStepRegistration({
                     className="shrink-0 rounded-full border-[#0a4174] text-[#0a4174]"
                   >
                     <Plus />
-                    Add second leader
+                    Add leader
                   </Button>
                 ) : null}
               </div>
@@ -995,7 +994,7 @@ export default function SecondStepRegistration({
                       </div>
                       {teamLeaderFields.fields.filter(
                         (leader) => leader.delegation_index === delegationIndex
-                      ).length > MIN_TEAM_LEADERS ? (
+                      ).length > 0 ? (
                         <Button
                           type="button"
                           variant="outline"

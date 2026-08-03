@@ -213,6 +213,7 @@ class DetailedRegistrationLimitTests(APITestCase):
     def test_second_step_accepts_flexible_roster_limits(self):
         serializer = DelegationSerializer()
 
+        self.assertEqual(serializer.validate_team_leaders([]), [])
         self.assertEqual(serializer.validate_team_leaders([{}]), [{}])
         self.assertEqual(serializer.validate_team_leaders([{}, {}]), [{}, {}])
         self.assertEqual(serializer.validate_contestants([]), [])
@@ -222,12 +223,7 @@ class DetailedRegistrationLimitTests(APITestCase):
         serializer = DelegationSerializer()
 
         with self.assertRaisesMessage(
-            ValidationError, "Each delegation must have 1 to 2 team leaders."
-        ):
-            serializer.validate_team_leaders([])
-
-        with self.assertRaisesMessage(
-            ValidationError, "Each delegation must have 1 to 2 team leaders."
+            ValidationError, "Each delegation may have up to 2 team leaders."
         ):
             serializer.validate_team_leaders([{}, {}, {}])
 
@@ -725,11 +721,26 @@ class PermissionsTests(APITestCase):
             [newer.id, older.id],
         )
 
-    def test_detailed_registration_accepts_minimum_and_maximum_compositions(self):
+    def test_detailed_registration_accepts_supported_compositions(self):
         url = reverse("detailed_registration_list")
-        minimum = self.client.post(
+        empty = self.client.post(
+            url,
+            detailed_registration_payload(self.country.id, leader_count=0),
+            format="multipart",
+        )
+        one_leader = self.client.post(
             url,
             detailed_registration_payload(self.country.id),
+            format="multipart",
+        )
+        cutoff_boundary = self.client.post(
+            url,
+            detailed_registration_payload(
+                self.country.id,
+                leader_count=0,
+                contestant_count=1,
+                contestant_dob="2006-05-02",
+            ),
             format="multipart",
         )
         maximum = self.client.post(
@@ -740,42 +751,44 @@ class PermissionsTests(APITestCase):
             format="multipart",
         )
 
-        self.assertEqual(minimum.status_code, 201)
+        self.assertEqual(empty.status_code, 201)
+        self.assertEqual(one_leader.status_code, 201)
+        self.assertEqual(cutoff_boundary.status_code, 201)
         self.assertEqual(maximum.status_code, 201)
-        self.assertEqual(DetailedRegistration.objects.count(), 2)
-        min_delegation = DetailedRegistration.objects.get(
-            id=minimum.data["id"]
+        self.assertEqual(DetailedRegistration.objects.count(), 4)
+        empty_delegation = DetailedRegistration.objects.get(
+            id=empty.data["id"]
+        ).delegations.get()
+        one_leader_delegation = DetailedRegistration.objects.get(
+            id=one_leader.data["id"]
         ).delegations.get()
         max_delegation = DetailedRegistration.objects.get(
             id=maximum.data["id"]
         ).delegations.get()
-        self.assertEqual(min_delegation.team_leaders.count(), 1)
-        self.assertEqual(min_delegation.contestants.count(), 0)
+        self.assertEqual(empty_delegation.team_leaders.count(), 0)
+        self.assertEqual(empty_delegation.contestants.count(), 0)
+        self.assertEqual(one_leader_delegation.team_leaders.count(), 1)
+        self.assertEqual(one_leader_delegation.contestants.count(), 0)
         self.assertEqual(max_delegation.team_leaders.count(), 2)
         self.assertEqual(max_delegation.contestants.count(), 5)
 
     def test_detailed_registration_rejects_compositions_outside_limits(self):
         url = reverse("detailed_registration_list")
 
-        zero_leaders = self.client.post(
-            url,
-            detailed_registration_payload(self.country.id, leader_count=0),
-            format="multipart",
-        )
-        three_leaders = self.client.post(
-            url,
-            detailed_registration_payload(self.country.id, leader_count=3),
-            format="multipart",
-        )
-        six_students = self.client.post(
-            url,
-            detailed_registration_payload(
-                self.country.id, leader_count=1, contestant_count=6
-            ),
-            format="multipart",
-        )
+        with self.settings(FIPHO_MAX_TEAM_LEADERS=3, FIPHO_MAX_STUDENTS=6):
+            three_leaders = self.client.post(
+                url,
+                detailed_registration_payload(self.country.id, leader_count=3),
+                format="multipart",
+            )
+            six_students = self.client.post(
+                url,
+                detailed_registration_payload(
+                    self.country.id, leader_count=0, contestant_count=6
+                ),
+                format="multipart",
+            )
 
-        self.assertEqual(zero_leaders.status_code, 400)
         self.assertEqual(three_leaders.status_code, 400)
         self.assertEqual(six_students.status_code, 400)
 
