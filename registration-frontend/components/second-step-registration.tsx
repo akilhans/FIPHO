@@ -71,8 +71,8 @@ const foodTypeOptions = [
   "Gluten-Free",
   "Other",
 ];
-const MAX_TEAM_LEADERS = 2;
-const MAX_CONTESTANTS = 5;
+const TEAM_LEADERS_PER_DELEGATION = 2;
+const CONTESTANTS_PER_DELEGATION = 4;
 const MAX_PARTICIPATING_TEAMS = 10;
 const CONTESTANT_ELIGIBILITY_CUTOFF = "2006-05-01";
 const CONTESTANT_MINIMUM_DATE = "2006-05-02";
@@ -151,8 +151,8 @@ const formSchema = z
       .array(delegationSchema)
       .min(1)
       .max(MAX_PARTICIPATING_TEAMS),
-    team_leaders: z.array(leaderSchema).min(1, "Add at least one team leader."),
-    contestants: z.array(contestantSchema).min(1, "Add at least one contestant."),
+    team_leaders: z.array(leaderSchema),
+    contestants: z.array(contestantSchema),
     confirm_information: z.boolean().refine((value) => value, {
       message: "You must confirm that the information is accurate.",
     }),
@@ -168,6 +168,30 @@ const formSchema = z
         message: "The team count must match the delegation groups.",
       });
     }
+    values.delegations.forEach((_, delegationIndex) => {
+      if (
+        values.team_leaders.filter(
+          (leader) => leader.delegation_index === delegationIndex
+        ).length !== TEAM_LEADERS_PER_DELEGATION
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["team_leaders"],
+          message: "Each delegation must have exactly 2 team leaders.",
+        });
+      }
+      if (
+        values.contestants.filter(
+          (contestant) => contestant.delegation_index === delegationIndex
+        ).length !== CONTESTANTS_PER_DELEGATION
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["contestants"],
+          message: "Each delegation must have exactly 4 contestants.",
+        });
+      }
+    });
   });
 
 type SecondStepRegistrationFormValues = z.infer<typeof formSchema>;
@@ -338,8 +362,14 @@ export default function SecondStepRegistration({
       country: "",
       number_of_teams: 1,
       delegations: [{ official_delegation_name: "" }],
-      team_leaders: [emptyLeader()],
-      contestants: [emptyContestant()],
+      team_leaders: Array.from(
+        { length: TEAM_LEADERS_PER_DELEGATION },
+        () => emptyLeader()
+      ),
+      contestants: Array.from(
+        { length: CONTESTANTS_PER_DELEGATION },
+        () => emptyContestant()
+      ),
       confirm_information: false,
       agree_rules: false,
     },
@@ -377,8 +407,16 @@ export default function SecondStepRegistration({
           { official_delegation_name: "" },
           { shouldFocus: false }
         );
-        teamLeaderFields.append(emptyLeader(index), { shouldFocus: false });
-        contestantFields.append(emptyContestant(index), { shouldFocus: false });
+        for (let count = 0; count < TEAM_LEADERS_PER_DELEGATION; count += 1) {
+          teamLeaderFields.append(emptyLeader(index), {
+            shouldFocus: false,
+          });
+        }
+        for (let count = 0; count < CONTESTANTS_PER_DELEGATION; count += 1) {
+          contestantFields.append(emptyContestant(index), {
+            shouldFocus: false,
+          });
+        }
       }
       return;
     }
@@ -401,42 +439,6 @@ export default function SecondStepRegistration({
         (_, offset) => currentCount - 1 - offset
       )
     );
-  }
-
-  function setLeaderCount(delegationIndex: number, nextCount: number) {
-    const leaders = form.getValues("team_leaders");
-    const matchingIndexes = leaders
-      .map((leader, index) => ({ leader, index }))
-      .filter(({ leader }) => leader.delegation_index === delegationIndex)
-      .map(({ index }) => index);
-    if (nextCount > matchingIndexes.length) {
-      for (let count = matchingIndexes.length; count < nextCount; count += 1) {
-        teamLeaderFields.append(emptyLeader(delegationIndex), {
-          shouldFocus: false,
-        });
-      }
-    } else if (nextCount < matchingIndexes.length) {
-      teamLeaderFields.remove(matchingIndexes.slice(nextCount));
-    }
-  }
-
-  function setContestantCount(delegationIndex: number, nextCount: number) {
-    const contestants = form.getValues("contestants");
-    const matchingIndexes = contestants
-      .map((contestant, index) => ({ contestant, index }))
-      .filter(
-        ({ contestant }) => contestant.delegation_index === delegationIndex
-      )
-      .map(({ index }) => index);
-    if (nextCount > matchingIndexes.length) {
-      for (let count = matchingIndexes.length; count < nextCount; count += 1) {
-        contestantFields.append(emptyContestant(delegationIndex), {
-          shouldFocus: false,
-        });
-      }
-    } else if (nextCount < matchingIndexes.length) {
-      contestantFields.remove(matchingIndexes.slice(nextCount));
-    }
   }
 
   useEffect(() => {
@@ -620,8 +622,14 @@ export default function SecondStepRegistration({
         country: "",
         number_of_teams: 1,
         delegations: [{ official_delegation_name: "" }],
-        team_leaders: [emptyLeader()],
-        contestants: [emptyContestant()],
+        team_leaders: Array.from(
+          { length: TEAM_LEADERS_PER_DELEGATION },
+          () => emptyLeader()
+        ),
+        contestants: Array.from(
+          { length: CONTESTANTS_PER_DELEGATION },
+          () => emptyContestant()
+        ),
         confirm_information: false,
         agree_rules: false,
       });
@@ -855,25 +863,12 @@ export default function SecondStepRegistration({
               <SectionTitle
                 eyebrow="Section 02"
                 title="Delegation Groups"
-                description="Name each delegation and choose its team leader and student counts. The matching information fields open immediately."
+                description="Name each delegation. Two leader and four student fields are provided automatically."
                 displayClassName={displayClassName}
               />
 
               <div className="space-y-5">
                 {delegationFields.fields.map((delegationField, delegationIndex) => {
-                  const leaderCount = form
-                    .watch("team_leaders")
-                    .filter(
-                      (leader) =>
-                        leader.delegation_index === delegationIndex
-                    ).length;
-                  const contestantCount = form
-                    .watch("contestants")
-                    .filter(
-                      (contestant) =>
-                        contestant.delegation_index === delegationIndex
-                    ).length;
-
                   return (
                     <div
                       key={delegationField.id}
@@ -913,59 +908,16 @@ export default function SecondStepRegistration({
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Number of team leaders</Label>
-                          <Select
-                            value={String(leaderCount)}
-                            onValueChange={(value) =>
-                              setLeaderCount(delegationIndex, Number(value))
-                            }
-                          >
-                            <SelectTrigger className="h-12 rounded-xl border-[#b9cee0] bg-white">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Array.from(
-                                { length: MAX_TEAM_LEADERS },
-                                (_, index) => index + 1
-                              ).map((count) => (
-                                <SelectItem key={count} value={String(count)}>
-                                  {count}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <p className="text-xs text-[#60778b]">
-                            Maximum 2 per delegation.
+                          <Label>Team leaders</Label>
+                          <p className="text-sm text-[#52677a]">
+                            2 required per delegation.
                           </p>
                         </div>
 
                         <div className="space-y-2">
-                          <Label>Number of students</Label>
-                          <Select
-                            value={String(contestantCount)}
-                            onValueChange={(value) =>
-                              setContestantCount(
-                                delegationIndex,
-                                Number(value)
-                              )
-                            }
-                          >
-                            <SelectTrigger className="h-12 rounded-xl border-[#b9cee0] bg-white">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Array.from(
-                                { length: MAX_CONTESTANTS },
-                                (_, index) => index + 1
-                              ).map((count) => (
-                                <SelectItem key={count} value={String(count)}>
-                                  {count}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <p className="text-xs text-[#60778b]">
-                            Maximum 5 per delegation.
+                          <Label>Students</Label>
+                          <p className="text-sm text-[#52677a]">
+                            4 required per delegation.
                           </p>
                         </div>
                       </div>

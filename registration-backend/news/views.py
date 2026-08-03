@@ -4,7 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import NewsArticle, NewsGalleryImage
-from .serializers import AdminNewsArticleSerializer, NewsArticleSerializer
+from .serializers import (
+    AdminNewsArticleSerializer,
+    AdminNewsGalleryImageSerializer,
+    NewsArticleSerializer,
+)
 
 
 class NewsArticleViewSet(viewsets.ReadOnlyModelViewSet):
@@ -44,18 +48,22 @@ class AdminNewsArticleViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        created = []
         next_order = article.gallery_images.count()
         captions = request.data.getlist("captions")
+        serializers = []
         for index, image in enumerate(images):
-            created.append(
-                NewsGalleryImage.objects.create(
-                    article=article,
-                    image=image,
-                    caption=captions[index] if index < len(captions) else "",
-                    sort_order=next_order + index,
-                )
+            image_serializer = AdminNewsGalleryImageSerializer(
+                data={
+                    "image": image,
+                    "caption": captions[index] if index < len(captions) else "",
+                    "sort_order": next_order + index,
+                },
+                context=self.get_serializer_context(),
             )
+            image_serializer.is_valid(raise_exception=True)
+            serializers.append(image_serializer)
+        for image_serializer in serializers:
+            image_serializer.save(article=article)
 
         serializer = self.get_serializer(article)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import MediaAlbum, MediaImage
-from .serializers import MediaAlbumSerializer
+from .serializers import MediaAlbumSerializer, MediaImageSerializer
 
 
 class MediaAlbumViewSet(viewsets.ReadOnlyModelViewSet):
@@ -47,14 +47,21 @@ class AdminMediaAlbumViewSet(viewsets.ModelViewSet):
         next_order = album.images.count()
         titles = request.data.getlist("titles")
         alt_texts = request.data.getlist("alt_texts")
+        serializers = []
         for index, image in enumerate(files):
-            MediaImage.objects.create(
-                album=album,
-                image=image,
-                title=titles[index] if index < len(titles) else "",
-                alt_text=alt_texts[index] if index < len(alt_texts) else "",
-                sort_order=next_order + index,
+            image_serializer = MediaImageSerializer(
+                data={
+                    "image": image,
+                    "title": titles[index] if index < len(titles) else "",
+                    "alt_text": alt_texts[index] if index < len(alt_texts) else "",
+                    "sort_order": next_order + index,
+                },
+                context=self.get_serializer_context(),
             )
+            image_serializer.is_valid(raise_exception=True)
+            serializers.append(image_serializer)
+        for image_serializer in serializers:
+            image_serializer.save(album=album)
 
         serializer = self.get_serializer(album)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

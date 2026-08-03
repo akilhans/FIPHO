@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from core.validators import validate_image_file
+
 from .models import NewsArticle, NewsGalleryImage
 
 
@@ -51,6 +53,10 @@ class AdminNewsGalleryImageSerializer(serializers.ModelSerializer):
         model = NewsGalleryImage
         fields = ["id", "image", "caption", "sort_order", "created_at"]
         read_only_fields = ["id", "created_at"]
+
+    def validate_image(self, value):
+        validate_image_file(value)
+        return value
 
 
 class AdminNewsArticleSerializer(serializers.ModelSerializer):

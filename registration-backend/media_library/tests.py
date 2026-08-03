@@ -1,3 +1,5 @@
+import base64
+
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
@@ -9,15 +11,18 @@ from .models import MediaAlbum, MediaImage
 User = get_user_model()
 
 
-def make_image(name="image.gif"):
+def make_image(name="image.png"):
     return SimpleUploadedFile(
         name,
-        (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,"
-            b"\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
+        base64.b64decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
         ),
-        content_type="image/gif",
+        content_type="image/png",
     )
+
+
+def make_invalid_image():
+    return SimpleUploadedFile("invalid.png", b"not an image", content_type="image/png")
 
 
 class MediaAlbumAPITests(APITestCase):
@@ -110,3 +115,16 @@ class MediaAlbumAPITests(APITestCase):
 
         self.assertEqual(delete_response.status_code, 204)
         self.assertFalse(MediaImage.objects.filter(pk=image.id).exists())
+
+    def test_album_upload_rejects_invalid_image_content(self):
+        self.client.force_authenticate(user=self.admin)
+        album = MediaAlbum.objects.create(title="Album")
+
+        response = self.client.post(
+            reverse("admin-media-album-images", args=[album.id]),
+            {"images": [make_invalid_image()]},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(MediaImage.objects.filter(album=album).exists())

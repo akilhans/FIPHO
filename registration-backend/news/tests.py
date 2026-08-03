@@ -1,3 +1,5 @@
+import base64
+
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -8,15 +10,18 @@ from .models import NewsArticle, NewsGalleryImage
 User = get_user_model()
 
 
-def make_image(name="image.gif"):
+def make_image(name="image.png"):
     return SimpleUploadedFile(
         name,
-        (
-            b"GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,"
-            b"\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;"
+        base64.b64decode(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
         ),
-        content_type="image/gif",
+        content_type="image/png",
     )
+
+
+def make_invalid_image():
+    return SimpleUploadedFile("invalid.png", b"not an image", content_type="image/png")
 
 
 class NewsAPITests(APITestCase):
@@ -137,7 +142,7 @@ class AdminNewsAPITests(APITestCase):
 
         gallery_response = self.client.post(
             reverse("admin-news-gallery", args=[article.id]),
-            {"images": [make_image("gallery.gif")]},
+            {"images": [make_image()]},
             format="multipart",
         )
 
@@ -151,3 +156,20 @@ class AdminNewsAPITests(APITestCase):
 
         self.assertEqual(delete_response.status_code, 204)
         self.assertFalse(NewsGalleryImage.objects.filter(pk=image.id).exists())
+
+    def test_gallery_upload_rejects_invalid_image_content(self):
+        self.client.force_authenticate(user=self.admin)
+        article = NewsArticle.objects.create(
+            title="Gallery article",
+            content="Article body",
+            main_image="news/main/main.jpg",
+        )
+
+        response = self.client.post(
+            reverse("admin-news-gallery", args=[article.id]),
+            {"images": [make_invalid_image()]},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(NewsGalleryImage.objects.filter(article=article).exists())

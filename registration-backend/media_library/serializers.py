@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from core.validators import validate_image_file
+
 from .models import MediaAlbum, MediaImage
 
 
@@ -26,6 +28,11 @@ class MediaImageSerializer(serializers.ModelSerializer):
             url = obj.image.url
             return request.build_absolute_uri(url) if request else url
         return obj.external_url
+
+    def validate_image(self, value):
+        if value:
+            validate_image_file(value)
+        return value
 
 
 class MediaAlbumSerializer(serializers.ModelSerializer):

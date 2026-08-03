@@ -45,10 +45,6 @@ def _get_existing_or_new_value(data, field_name, instance=None):
     return None
 
 
-def _is_parent_nested_update(serializer):
-    return serializer.instance is None and getattr(serializer.root, "instance", None) is not None
-
-
 # ----------------- GENERAL SERIALIZERS ----------------- #
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -155,26 +151,25 @@ class TeamLeaderSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"delegation": "Delegation is required."}
             )
-        if not _is_parent_nested_update(self):
-            _add_required_field_errors(
-                data,
-                {
-                    "full_name": "Full name is required.",
-                    "badge_name": "Badge name is required.",
-                    "date_of_birth": "Date of birth is required.",
-                    "gender": "Gender is required.",
-                    "passport_number": "Passport number is required.",
-                    "email": "Email is required.",
-                    "phone_number": "Phone number is required.",
-                    "role": "Role is required.",
-                    "t_shirt_size": "T-shirt size is required.",
-                    "food_type": "Food type is required.",
-                    "passport_scan": "Passport scan is required.",
-                    "id_photo": "ID photo is required.",
-                    "consent_form": "Consent form is required.",
-                },
-                self.instance,
-            )
+        _add_required_field_errors(
+            data,
+            {
+                "full_name": "Full name is required.",
+                "badge_name": "Badge name is required.",
+                "date_of_birth": "Date of birth is required.",
+                "gender": "Gender is required.",
+                "passport_number": "Passport number is required.",
+                "email": "Email is required.",
+                "phone_number": "Phone number is required.",
+                "role": "Role is required.",
+                "t_shirt_size": "T-shirt size is required.",
+                "food_type": "Food type is required.",
+                "passport_scan": "Passport scan is required.",
+                "id_photo": "ID photo is required.",
+                "consent_form": "Consent form is required.",
+            },
+            self.instance,
+        )
         gender = _get_existing_or_new_value(data, "gender", self.instance)
         if gender and gender not in ALLOWED_GENDERS:
             raise serializers.ValidationError(
@@ -246,26 +241,25 @@ class ContestantSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"delegation": "Delegation is required."}
             )
-        if not _is_parent_nested_update(self):
-            _add_required_field_errors(
-                data,
-                {
-                    "full_name": "Full name is required.",
-                    "badge_name": "Badge name is required.",
-                    "date_of_birth": "Date of birth is required.",
-                    "gender": "Gender is required.",
-                    "competition_subject": "Competition subject is required.",
-                    "passport_number": "Passport number is required.",
-                    "passport_expiry_date": "Passport expiry date is required.",
-                    "t_shirt_size": "T-shirt size is required.",
-                    "food_type": "Food type is required.",
-                    "passport_scan": "Passport scan is required.",
-                    "id_photo": "ID photo is required.",
-                    "commitment_form": "Commitment form is required.",
-                    "consent_form": "Consent form is required.",
-                },
-                self.instance,
-            )
+        _add_required_field_errors(
+            data,
+            {
+                "full_name": "Full name is required.",
+                "badge_name": "Badge name is required.",
+                "date_of_birth": "Date of birth is required.",
+                "gender": "Gender is required.",
+                "competition_subject": "Competition subject is required.",
+                "passport_number": "Passport number is required.",
+                "passport_expiry_date": "Passport expiry date is required.",
+                "t_shirt_size": "T-shirt size is required.",
+                "food_type": "Food type is required.",
+                "passport_scan": "Passport scan is required.",
+                "id_photo": "ID photo is required.",
+                "commitment_form": "Commitment form is required.",
+                "consent_form": "Consent form is required.",
+            },
+            self.instance,
+        )
         gender = _get_existing_or_new_value(data, "gender", self.instance)
         if gender and gender not in ALLOWED_GENDERS:
             raise serializers.ValidationError(
@@ -319,22 +313,16 @@ class DelegationSerializer(serializers.ModelSerializer):
         ]
 
     def validate_team_leaders(self, value):
-        max_team_leaders = getattr(settings, "FIPHO_MAX_TEAM_LEADERS", 2)
-        if not value:
-            raise serializers.ValidationError("Add at least one team leader.")
-        if len(value) > max_team_leaders:
+        if len(value) != 2:
             raise serializers.ValidationError(
-                f"Maximum {max_team_leaders} team leaders allowed per delegation."
+                "Exactly 2 team leaders are required per delegation."
             )
         return value
 
     def validate_contestants(self, value):
-        max_students = getattr(settings, "FIPHO_MAX_STUDENTS", 5)
-        if not value:
-            raise serializers.ValidationError("Add at least one contestant.")
-        if len(value) > max_students:
+        if len(value) != 4:
             raise serializers.ValidationError(
-                f"Maximum {max_students} contestants allowed per delegation."
+                "Exactly 4 contestants are required per delegation."
             )
         return value
 

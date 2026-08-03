@@ -36,6 +36,27 @@ from registration.serializers import (
 User = get_user_model()
 
 
+def complete_fixed_roster(data):
+    for group, required_count in (("team_leaders", 2), ("contestants", 4)):
+        prefix = f"delegations[0][{group}][0]"
+        original_items = [
+            (key, value) for key, value in data.items() if key.startswith(prefix)
+        ]
+        for index in range(1, required_count):
+            for key, value in original_items:
+                copied_value = value
+                if isinstance(value, SimpleUploadedFile):
+                    value.seek(0)
+                    copied_value = SimpleUploadedFile(
+                        value.name,
+                        value.read(),
+                        value.content_type,
+                    )
+                    value.seek(0)
+                data[key.replace(f"[{group}][0]", f"[{group}][{index}]")] = copied_value
+    return data
+
+
 class CountryAPITests(APITestCase):
     def setUp(self):
         self.admin = User.objects.create_user(
@@ -142,19 +163,42 @@ class ParticipationRequestAPITests(APITestCase):
 
 
 class DetailedRegistrationLimitTests(APITestCase):
-    @override_settings(FIPHO_MAX_STUDENTS=5, FIPHO_MAX_TEAM_LEADERS=2)
-    def test_second_step_rejects_fipho_team_limits(self):
+    def test_second_step_requires_fixed_roster(self):
         serializer = DelegationSerializer()
 
         with self.assertRaisesMessage(
-            ValidationError, "Maximum 5 contestants allowed per delegation."
+            ValidationError, "Exactly 4 contestants are required per delegation."
         ):
-            serializer.validate_contestants([{} for _ in range(6)])
+            serializer.validate_contestants([{}])
 
         with self.assertRaisesMessage(
-            ValidationError, "Maximum 2 team leaders allowed per delegation."
+            ValidationError, "Exactly 2 team leaders are required per delegation."
         ):
-            serializer.validate_team_leaders([{} for _ in range(3)])
+            serializer.validate_team_leaders([{}])
+
+    def test_nested_replacement_requires_complete_people(self):
+        country = Country.objects.create(name="Testland")
+        registration = DetailedRegistration.objects.create(
+            country=country,
+            number_of_teams=1,
+            confirm_information=True,
+            agree_rules=True,
+        )
+        serializer = DetailedRegistrationSerializer(
+            registration,
+            data={
+                "delegations": [{
+                    "official_delegation_name": "Replacement",
+                    "position": 1,
+                    "team_leaders": [{}, {}],
+                    "contestants": [{}, {}, {}, {}],
+                }],
+            },
+            partial=True,
+        )
+
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("delegations", serializer.errors)
 
     def test_second_step_requires_people(self):
         country = Country.objects.create(name="Testland")
@@ -644,7 +688,9 @@ class PermissionsTests(APITestCase):
                 "student-consent.pdf", b"x" * 10, "application/pdf"
             ),
         }
-        response = self.client.post(url, data, format="multipart")
+        response = self.client.post(
+            url, complete_fixed_roster(data), format="multipart"
+        )
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(DetailedRegistration.objects.count(), 1)
@@ -652,8 +698,8 @@ class PermissionsTests(APITestCase):
         self.assertEqual(registration.number_of_teams, 1)
         delegation = registration.delegations.get()
         self.assertEqual(delegation.official_delegation_name, "Test Delegation")
-        self.assertEqual(delegation.team_leaders.count(), 1)
-        self.assertEqual(delegation.contestants.count(), 1)
+        self.assertEqual(delegation.team_leaders.count(), 2)
+        self.assertEqual(delegation.contestants.count(), 4)
         self.assertEqual(delegation.team_leaders.first().badge_name, "L. One")
         self.assertEqual(delegation.team_leaders.first().food_type, "Halal")
         self.assertEqual(delegation.contestants.first().badge_name, "S. One")
@@ -709,7 +755,9 @@ class PermissionsTests(APITestCase):
                 "student-consent.pdf", b"x" * 10, "application/pdf"
             ),
         }
-        response = self.client.post(url, data, format="multipart")
+        response = self.client.post(
+            url, complete_fixed_roster(data), format="multipart"
+        )
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("delegations", response.data)
