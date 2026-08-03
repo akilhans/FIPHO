@@ -1,0 +1,94 @@
+name: fipho-platform
+
+services:
+  landing:
+    build: .
+    container_name: fipho-landing
+    ports:
+      - "127.0.0.1:3012:3000"
+    restart: unless-stopped
+    networks:
+      - public
+
+  registration-frontend:
+    build:
+      context: ./registration-frontend
+      args:
+        NEXT_PUBLIC_API_URL: "https://api-fipho.olympcenter.uz"
+    container_name: fipho-registration-frontend
+    ports:
+      - "127.0.0.1:3013:3000"
+    restart: unless-stopped
+    networks:
+      - public
+
+  registration-backend:
+    build: ./registration-backend
+    container_name: fipho-registration-backend
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py collectstatic --noinput &&
+             python manage.py seed &&
+             gunicorn fipho_django.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    volumes:
+      - ./registration-backend:/app
+      - ./registration-backend/staticfiles:/app/staticfiles
+      - ./registration-backend/media:/app/media
+    ports:
+      - "127.0.0.1:8015:8000"
+    env_file:
+      - path: ./registration-backend/.env
+        required: false
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY}
+      DEBUG: ${DEBUG:-False}
+      DB_NAME: ${DB_NAME:-fipho}
+      DB_USER: ${DB_USER:-fipho}
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      FIPHO_MAX_STUDENTS: ${FIPHO_MAX_STUDENTS:-5}
+      FIPHO_MAX_TEAM_LEADERS: ${FIPHO_MAX_TEAM_LEADERS:-2}
+      FIPHO_DEFAULT_SUBJECT: ${FIPHO_DEFAULT_SUBJECT:-Physics}
+      PUBLIC_MEDIA_URL: ${PUBLIC_MEDIA_URL:-https://api-fipho.olympcenter.uz/media/}
+      ADMIN_LOGIN_URL: ${ADMIN_LOGIN_URL:-https://register-fipho.olympcenter.uz/admin/login}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - private
+      - public
+
+  db:
+    image: postgres:16-alpine
+    container_name: fipho-registration-db
+    ports:
+      - "127.0.0.1:5446:5432"
+    env_file:
+      - path: ./registration-backend/.env
+        required: false
+    environment:
+      POSTGRES_USER: ${DB_USER:-fipho}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-fipho}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - private
+
+volumes:
+  postgres_data:
+    name: fipho_postgres_data
+
+networks:
+  private:
+    driver: bridge
+  public:
+    external: true
+    name: olympcenter_django_extranet
