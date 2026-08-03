@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FIPHO Platform
 
-## Getting Started
+FIPHO is being expanded from a public Next.js website into a platform with a Django registration backend, staff admin APIs, protected uploads, exports, news, and media management.
 
-First, run the development server:
+## Apps
+
+- `/` - current FIPHO public Next.js website.
+- `registration-backend/` - Django REST API for registration, admin workflows, protected uploads, exports, news, and media.
+
+- `registration-frontend/` - Next.js registration and admin interface for the FIPHO registration backend.
+
+## Frontend
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Backend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd registration-backend
+python3 -m pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py seed
+python3 manage.py createsuperuser
+python3 manage.py runserver 8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Local defaults use SQLite. Production can use PostgreSQL through `.env` values based on `registration-backend/.env.example`.
 
-## Learn More
+## Backend Checks
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cd registration-backend
+python3 manage.py check
+python3 manage.py test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Local compose runs the existing FIPHO public frontend, registration frontend/admin, registration backend, and PostgreSQL:
 
-## Deploy on Vercel
+```bash
+docker compose build
+docker compose up -d
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Local ports:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- landing: `http://127.0.0.1:3022`
+- registration frontend/admin: `http://127.0.0.1:3023`
+- registration backend API: `http://127.0.0.1:8025`
+- Postgres: `127.0.0.1:5456`
+
+Staging override:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.staging.yml build
+docker compose -f docker-compose.yml -f docker-compose.staging.yml up -d
+```
+
+Staging ports:
+
+- landing: `http://127.0.0.1:3032`
+- registration frontend/admin: `http://127.0.0.1:3033`
+- registration backend API: `http://127.0.0.1:8035`
+- Postgres: `127.0.0.1:5466`
+
+Current backend defaults:
+
+- default subject: `Physics`
+- max students: `5`
+- max team leaders: `2`
+
+These are configurable with `FIPHO_DEFAULT_SUBJECT`, `FIPHO_MAX_STUDENTS`, and `FIPHO_MAX_TEAM_LEADERS`.
+
+## Detailed registration rules
+
+- Render each delegation's two leaders followed by its students before the next delegation.
+- Contestants must be under 20 on May 1, 2026 and not enrolled in higher education.
+- Dates of birth must be strictly after May 1, 2006.

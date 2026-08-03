@@ -1,0 +1,27 @@
+name: fipho-platform-staging
+
+services:
+  landing:
+    container_name: fipho-staging-landing
+    ports: !override
+      - "127.0.0.1:3032:3000"
+
+  registration-frontend:
+    container_name: fipho-staging-registration-frontend
+    ports: !override
+      - "127.0.0.1:3033:3000"
+
+  registration-backend:
+    container_name: fipho-staging-registration-backend
+    ports: !override
+      - "127.0.0.1:8035:8000"
+
+  db:
+    container_name: fipho-staging-registration-db
+    ports: !override
+      - "127.0.0.1:5466:5432"
+
+volumes:
+  postgres_data:
+    external: false
+    name: fipho_staging_postgres_data
