@@ -8,19 +8,24 @@ import {
 } from "../lib/detailed-registration.ts";
 
 test("accepts supported delegation compositions", () => {
-  assert.deepEqual(delegationCompositionErrors(0, 0), []);
   assert.deepEqual(delegationCompositionErrors(1, 0), []);
   assert.deepEqual(delegationCompositionErrors(2, 5), []);
 });
 
 test("rejects delegation compositions outside the limits", () => {
+  assert.deepEqual(delegationCompositionErrors(0, 0), [
+    {
+      field: "team_leaders",
+      message: "Each delegation must have at least 1 team leader.",
+    },
+  ]);
   assert.deepEqual(delegationCompositionErrors(3, 0), [
     {
       field: "team_leaders",
       message: "Each delegation may have up to 2 team leaders.",
     },
   ]);
-  assert.deepEqual(delegationCompositionErrors(0, 6), [
+  assert.deepEqual(delegationCompositionErrors(1, 6), [
     {
       field: "contestants",
       message: "Each delegation may have up to 5 students.",

@@ -356,7 +356,7 @@ export default function SecondStepRegistration({
       country: "",
       number_of_teams: 1,
       delegations: [{ official_delegation_name: "" }],
-      team_leaders: [],
+      team_leaders: [emptyLeader()],
       contestants: [],
       confirm_information: false,
       agree_rules: false,
@@ -398,6 +398,7 @@ export default function SecondStepRegistration({
           { official_delegation_name: "" },
           { shouldFocus: false }
         );
+        teamLeaderFields.append(emptyLeader(index), { shouldFocus: false });
       }
       return;
     }
@@ -608,7 +609,7 @@ export default function SecondStepRegistration({
         country: "",
         number_of_teams: 1,
         delegations: [{ official_delegation_name: "" }],
-        team_leaders: [],
+        team_leaders: [emptyLeader()],
         contestants: [],
         confirm_information: false,
         agree_rules: false,
@@ -693,7 +694,7 @@ export default function SecondStepRegistration({
               <div className="grid max-w-4xl gap-3 border-t border-white/15 pt-6 text-sm text-[#cbdbe5] sm:grid-cols-3">
                 <div><span className="font-semibold text-white">5 sections</span><br />One guided submission</div>
                 <div><span className="font-semibold text-white">Up to 5 students</span><br />Flexible team roster</div>
-                <div><span className="font-semibold text-white">Up to 2 leaders</span><br />Flexible delegation officials</div>
+                <div><span className="font-semibold text-white">1-2 leaders</span><br />One required, one optional</div>
               </div>
             </div>
           </motion.div>
@@ -843,7 +844,7 @@ export default function SecondStepRegistration({
               <SectionTitle
                 eyebrow="Section 02"
                 title="Delegation Groups"
-                description="Name each delegation, then add up to two leaders and five students as needed."
+                description="Name each delegation, then add one required leader, an optional second leader, and up to five students."
                 displayClassName={displayClassName}
               />
 
@@ -890,7 +891,7 @@ export default function SecondStepRegistration({
                         <div className="space-y-2">
                           <Label>Team leaders</Label>
                           <p className="text-sm text-[#52677a]">
-                            0-2 leaders per delegation.
+                            1 required leader, with an optional second leader.
                           </p>
                         </div>
 
@@ -940,7 +941,7 @@ export default function SecondStepRegistration({
                 <SectionTitle
                   eyebrow="Leaders first"
                   title="Team Leaders and Officials"
-                  description="Leaders are optional. Add up to two profiles for this delegation."
+                  description="One leader is required. Add one optional second leader for this delegation."
                   displayClassName={displayClassName}
                 />
                 {teamLeaderFields.fields.filter(
@@ -994,7 +995,7 @@ export default function SecondStepRegistration({
                       </div>
                       {teamLeaderFields.fields.filter(
                         (leader) => leader.delegation_index === delegationIndex
-                      ).length > 0 ? (
+                      ).length > 1 ? (
                         <Button
                           type="button"
                           variant="outline"

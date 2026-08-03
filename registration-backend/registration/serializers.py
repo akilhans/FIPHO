@@ -317,6 +317,10 @@ class DelegationSerializer(serializers.ModelSerializer):
         ]
 
     def validate_team_leaders(self, value):
+        if not value:
+            raise serializers.ValidationError(
+                "Each delegation must have at least 1 team leader."
+            )
         if len(value) > DETAILED_REGISTRATION_MAX_TEAM_LEADERS:
             raise serializers.ValidationError(
                 "Each delegation may have up to 2 team leaders."
