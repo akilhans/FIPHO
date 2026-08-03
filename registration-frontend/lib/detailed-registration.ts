@@ -10,14 +10,6 @@ export function delegationCompositionErrors(
   studentCount: number
 ) {
   return [
-    ...(leaderCount < 1
-      ? [
-          {
-            field: "team_leaders" as const,
-            message: "Each delegation must have at least 1 team leader.",
-          },
-        ]
-      : []),
     ...(leaderCount > MAX_TEAM_LEADERS
       ? [
           {
