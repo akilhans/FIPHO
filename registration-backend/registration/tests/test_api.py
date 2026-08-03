@@ -791,6 +791,14 @@ class PermissionsTests(APITestCase):
 
         self.assertEqual(three_leaders.status_code, 400)
         self.assertEqual(six_students.status_code, 400)
+        self.assertIn(
+            "Malformed form data: Too many team_leaders",
+            three_leaders.data["detail"],
+        )
+        self.assertIn(
+            "Malformed form data: Too many contestants",
+            six_students.data["detail"],
+        )
 
     def test_detailed_registration_rejects_ineligible_contestant(self):
         url = reverse("detailed_registration_list")
