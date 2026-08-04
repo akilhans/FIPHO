@@ -74,10 +74,10 @@ Current backend defaults:
 - max students: `5`
 - max team leaders: `2`
 
-These are configurable with `FIPHO_DEFAULT_SUBJECT`, `FIPHO_MAX_STUDENTS`, and `FIPHO_MAX_TEAM_LEADERS`.
+Participation-request defaults are configurable with `FIPHO_DEFAULT_SUBJECT`, `FIPHO_MAX_STUDENTS`, and `FIPHO_MAX_TEAM_LEADERS`; detailed registration uses the fixed limits below.
 
 ## Detailed registration rules
 
-- Render each delegation's two leaders followed by its four students before the next delegation.
+- Render each delegation's zero to two leaders followed by its zero to five students before the next delegation.
 - Contestants must be under 20 on May 1, 2026 and not enrolled in higher education.
 - Dates of birth must be strictly after May 1, 2006.

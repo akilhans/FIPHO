@@ -18,6 +18,8 @@ from .models import (
 
 
 ALLOWED_GENDERS = {"Female", "Male"}
+DETAILED_REGISTRATION_MAX_TEAM_LEADERS = 2
+DETAILED_REGISTRATION_MAX_CONTESTANTS = 5
 CONTESTANT_ELIGIBILITY_CUTOFF = date(2006, 5, 1)
 CONTESTANT_ELIGIBILITY_MESSAGE = (
     "Contestants must be under 20 on May 1, 2026 and must not be enrolled "
@@ -315,16 +317,16 @@ class DelegationSerializer(serializers.ModelSerializer):
         ]
 
     def validate_team_leaders(self, value):
-        if len(value) != 2:
+        if len(value) > DETAILED_REGISTRATION_MAX_TEAM_LEADERS:
             raise serializers.ValidationError(
-                "Exactly 2 team leaders are required per delegation."
+                "Each delegation may have up to 2 team leaders."
             )
         return value
 
     def validate_contestants(self, value):
-        if len(value) != 4:
+        if len(value) > DETAILED_REGISTRATION_MAX_CONTESTANTS:
             raise serializers.ValidationError(
-                "Exactly 4 contestants are required per delegation."
+                "Each delegation may have up to 5 contestants."
             )
         return value
 

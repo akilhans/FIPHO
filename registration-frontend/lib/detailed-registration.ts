@@ -2,6 +2,33 @@ type DelegationField = {
   delegation_index: number;
 };
 
+export const MAX_TEAM_LEADERS = 2;
+export const MAX_STUDENTS = 5;
+
+export function delegationCompositionErrors(
+  leaderCount: number,
+  studentCount: number
+) {
+  return [
+    ...(leaderCount > MAX_TEAM_LEADERS
+      ? [
+          {
+            field: "team_leaders" as const,
+            message: "Each delegation may have up to 2 team leaders.",
+          },
+        ]
+      : []),
+    ...(studentCount > MAX_STUDENTS
+      ? [
+          {
+            field: "contestants" as const,
+            message: "Each delegation may have up to 5 students.",
+          },
+        ]
+      : []),
+  ];
+}
+
 export function orderParticipantsByTeam<
   TLeader extends DelegationField,
   TStudent extends DelegationField,
@@ -34,8 +61,37 @@ export function firstErrorMessage(value: unknown): string | undefined {
   return undefined;
 }
 
-export function invalidSubmissionMessage(errors: unknown) {
-  const firstError = firstErrorMessage(errors);
+type ParticipantErrorOrder = {
+  kind: "leader" | "student";
+  index: number;
+};
+
+export function invalidSubmissionMessage(
+  errors: unknown,
+  participantOrder: ParticipantErrorOrder[] = []
+) {
+  let firstError: string | undefined;
+  if (errors && typeof errors === "object" && participantOrder.length) {
+    const {
+      team_leaders: leaderErrors,
+      contestants: studentErrors,
+      ...nonParticipantErrors
+    } = errors as Record<string, unknown>;
+    firstError = firstErrorMessage(nonParticipantErrors);
+    for (const participant of participantOrder) {
+      if (firstError) break;
+      const participantErrors = participant.kind === "leader"
+        ? leaderErrors
+        : studentErrors;
+      if (Array.isArray(participantErrors)) {
+        firstError = firstErrorMessage(participantErrors[participant.index]);
+      }
+    }
+    firstError ??=
+      firstErrorMessage(leaderErrors) ?? firstErrorMessage(studentErrors);
+  } else {
+    firstError = firstErrorMessage(errors);
+  }
   return firstError
     ? `Please correct the highlighted fields before submitting. First issue: ${firstError}`
     : "Please correct the highlighted fields before submitting.";

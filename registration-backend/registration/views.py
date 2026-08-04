@@ -35,6 +35,8 @@ from .models import (
     Contestant,
 )
 from .serializers import (
+    DETAILED_REGISTRATION_MAX_CONTESTANTS,
+    DETAILED_REGISTRATION_MAX_TEAM_LEADERS,
     CountrySerializer,
     SubjectSerializer,
     RoleSerializer,
@@ -159,9 +161,9 @@ class DetailedRegistrationListCreateView(generics.ListCreateAPIView):
                     collection_name = person_match.group(2)
                     person_index = int(person_match.group(3))
                     max_people = (
-                        getattr(settings, "FIPHO_MAX_TEAM_LEADERS", 2)
+                        DETAILED_REGISTRATION_MAX_TEAM_LEADERS
                         if collection_name == "team_leaders"
-                        else getattr(settings, "FIPHO_MAX_STUDENTS", 5)
+                        else DETAILED_REGISTRATION_MAX_CONTESTANTS
                     )
                     if person_index >= max_people:
                         raise ValueError(

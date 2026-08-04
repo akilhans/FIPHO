@@ -36,24 +36,71 @@ from registration.serializers import (
 User = get_user_model()
 
 
-def complete_fixed_roster(data):
-    for group, required_count in (("team_leaders", 2), ("contestants", 4)):
-        prefix = f"delegations[0][{group}][0]"
-        original_items = [
-            (key, value) for key, value in data.items() if key.startswith(prefix)
-        ]
-        for index in range(1, required_count):
-            for key, value in original_items:
-                copied_value = value
-                if isinstance(value, SimpleUploadedFile):
-                    value.seek(0)
-                    copied_value = SimpleUploadedFile(
-                        value.name,
-                        value.read(),
-                        value.content_type,
-                    )
-                    value.seek(0)
-                data[key.replace(f"[{group}][0]", f"[{group}][{index}]")] = copied_value
+def detailed_registration_payload(
+    country_id,
+    leader_count=1,
+    contestant_count=0,
+    contestant_dob="2011-05-15",
+):
+    data = {
+        "country": str(country_id),
+        "number_of_teams": "1",
+        "confirm_information": "true",
+        "agree_rules": "true",
+        "delegations[0][official_delegation_name]": "Test Delegation",
+        "delegations[0][position]": "1",
+    }
+    for index in range(leader_count):
+        prefix = f"delegations[0][team_leaders][{index}]"
+        data.update({
+            f"{prefix}[full_name]": f"Leader {index + 1}",
+            f"{prefix}[badge_name]": f"L. {index + 1}",
+            f"{prefix}[date_of_birth]": "1980-01-01",
+            f"{prefix}[gender]": "Male",
+            f"{prefix}[passport_number]": f"TL12345{index}",
+            f"{prefix}[email]": f"leader{index + 1}@example.com",
+            f"{prefix}[phone_number]": f"+123456789{index}",
+            f"{prefix}[role]": "Head of Delegation",
+            f"{prefix}[t_shirt_size]": "L",
+            f"{prefix}[food_type]": "Halal",
+            f"{prefix}[dietary_requirements]": "",
+            f"{prefix}[passport_scan]": SimpleUploadedFile(
+                f"leader-{index}-passport.pdf", b"x" * 10, "application/pdf"
+            ),
+            f"{prefix}[id_photo]": SimpleUploadedFile(
+                f"leader-{index}-photo.jpg", b"x" * 10, "image/jpeg"
+            ),
+            f"{prefix}[consent_form]": SimpleUploadedFile(
+                f"leader-{index}-consent.pdf", b"x" * 10, "application/pdf"
+            ),
+        })
+    for index in range(contestant_count):
+        prefix = f"delegations[0][contestants][{index}]"
+        data.update({
+            f"{prefix}[full_name]": f"Student {index + 1}",
+            f"{prefix}[badge_name]": f"S. {index + 1}",
+            f"{prefix}[date_of_birth]": contestant_dob,
+            f"{prefix}[gender]": "Female",
+            f"{prefix}[competition_subject]": "Physics",
+            f"{prefix}[passport_number]": f"AB123456{index}",
+            f"{prefix}[passport_expiry_date]": "2030-01-01",
+            f"{prefix}[t_shirt_size]": "M",
+            f"{prefix}[food_type]": "Vegetarian",
+            f"{prefix}[dietary_requirements]": "",
+            f"{prefix}[special_requirements]": "",
+            f"{prefix}[passport_scan]": SimpleUploadedFile(
+                f"student-{index}-passport.pdf", b"x" * 10, "application/pdf"
+            ),
+            f"{prefix}[id_photo]": SimpleUploadedFile(
+                f"student-{index}-photo.jpg", b"x" * 10, "image/jpeg"
+            ),
+            f"{prefix}[commitment_form]": SimpleUploadedFile(
+                f"student-{index}-commitment.pdf", b"x" * 10, "application/pdf"
+            ),
+            f"{prefix}[consent_form]": SimpleUploadedFile(
+                f"student-{index}-consent.pdf", b"x" * 10, "application/pdf"
+            ),
+        })
     return data
 
 
@@ -163,18 +210,27 @@ class ParticipationRequestAPITests(APITestCase):
 
 
 class DetailedRegistrationLimitTests(APITestCase):
-    def test_second_step_requires_fixed_roster(self):
+    def test_second_step_accepts_flexible_roster_limits(self):
+        serializer = DelegationSerializer()
+
+        self.assertEqual(serializer.validate_team_leaders([]), [])
+        self.assertEqual(serializer.validate_team_leaders([{}]), [{}])
+        self.assertEqual(serializer.validate_team_leaders([{}, {}]), [{}, {}])
+        self.assertEqual(serializer.validate_contestants([]), [])
+        self.assertEqual(serializer.validate_contestants([{}] * 5), [{}] * 5)
+
+    def test_second_step_rejects_roster_outside_limits(self):
         serializer = DelegationSerializer()
 
         with self.assertRaisesMessage(
-            ValidationError, "Exactly 4 contestants are required per delegation."
+            ValidationError, "Each delegation may have up to 2 team leaders."
         ):
-            serializer.validate_contestants([{}])
+            serializer.validate_team_leaders([{}, {}, {}])
 
         with self.assertRaisesMessage(
-            ValidationError, "Exactly 2 team leaders are required per delegation."
+            ValidationError, "Each delegation may have up to 5 contestants."
         ):
-            serializer.validate_team_leaders([{}])
+            serializer.validate_contestants([{}] * 6)
 
     def test_nested_replacement_requires_complete_people(self):
         country = Country.objects.create(name="Testland")
@@ -191,7 +247,7 @@ class DetailedRegistrationLimitTests(APITestCase):
                     "official_delegation_name": "Replacement",
                     "position": 1,
                     "team_leaders": [{}, {}],
-                    "contestants": [{}, {}, {}, {}],
+                    "contestants": [{}, {}, {}, {}, {}],
                 }],
             },
             partial=True,
@@ -631,6 +687,7 @@ class ExportTests(APITestCase):
 
 class PermissionsTests(APITestCase):
     def setUp(self):
+        cache.clear()
         self.admin = User.objects.create_user(
             username="admin", password="pass", is_staff=True
         )
@@ -664,128 +721,95 @@ class PermissionsTests(APITestCase):
             [newer.id, older.id],
         )
 
-    def test_detailed_registration_create_is_public(self):
+    def test_detailed_registration_accepts_supported_compositions(self):
         url = reverse("detailed_registration_list")
-        data = {
-            "country": str(self.country.id),
-            "number_of_teams": "1",
-            "confirm_information": "true",
-            "agree_rules": "true",
-            "delegations[0][official_delegation_name]": "Test Delegation",
-            "delegations[0][position]": "1",
-            "delegations[0][team_leaders][0][full_name]": "Leader One",
-            "delegations[0][team_leaders][0][badge_name]": "L. One",
-            "delegations[0][team_leaders][0][date_of_birth]": "1980-01-01",
-            "delegations[0][team_leaders][0][gender]": "Male",
-            "delegations[0][team_leaders][0][passport_number]": "TL123456",
-            "delegations[0][team_leaders][0][email]": "leader@example.com",
-            "delegations[0][team_leaders][0][phone_number]": "+1234567890",
-            "delegations[0][team_leaders][0][role]": "Head of Delegation",
-            "delegations[0][team_leaders][0][t_shirt_size]": "L",
-            "delegations[0][team_leaders][0][food_type]": "Halal",
-            "delegations[0][team_leaders][0][dietary_requirements]": "No peanuts",
-            "delegations[0][team_leaders][0][passport_scan]": SimpleUploadedFile(
-                "leader-passport.pdf", b"x" * 10, "application/pdf"
+        empty = self.client.post(
+            url,
+            detailed_registration_payload(self.country.id, leader_count=0),
+            format="multipart",
+        )
+        one_leader = self.client.post(
+            url,
+            detailed_registration_payload(self.country.id),
+            format="multipart",
+        )
+        cutoff_boundary = self.client.post(
+            url,
+            detailed_registration_payload(
+                self.country.id,
+                leader_count=0,
+                contestant_count=1,
+                contestant_dob="2006-05-02",
             ),
-            "delegations[0][team_leaders][0][id_photo]": SimpleUploadedFile(
-                "leader-photo.jpg", b"x" * 10, "image/jpeg"
+            format="multipart",
+        )
+        maximum = self.client.post(
+            url,
+            detailed_registration_payload(
+                self.country.id, leader_count=2, contestant_count=5
             ),
-            "delegations[0][team_leaders][0][consent_form]": SimpleUploadedFile(
-                "leader-consent.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][full_name]": "Student One",
-            "delegations[0][contestants][0][badge_name]": "S. One",
-            "delegations[0][contestants][0][date_of_birth]": "2011-05-15",
-            "delegations[0][contestants][0][gender]": "Female",
-            "delegations[0][contestants][0][competition_subject]": "Physics",
-            "delegations[0][contestants][0][passport_number]": "AB1234567",
-            "delegations[0][contestants][0][passport_expiry_date]": "2030-01-01",
-            "delegations[0][contestants][0][t_shirt_size]": "M",
-            "delegations[0][contestants][0][food_type]": "Vegetarian",
-            "delegations[0][contestants][0][dietary_requirements]": "No dairy",
-            "delegations[0][contestants][0][special_requirements]": "",
-            "delegations[0][contestants][0][passport_scan]": SimpleUploadedFile(
-                "student-passport.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][id_photo]": SimpleUploadedFile(
-                "student-photo.jpg", b"x" * 10, "image/jpeg"
-            ),
-            "delegations[0][contestants][0][commitment_form]": SimpleUploadedFile(
-                "student-commitment.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][consent_form]": SimpleUploadedFile(
-                "student-consent.pdf", b"x" * 10, "application/pdf"
-            ),
-        }
-        response = self.client.post(
-            url, complete_fixed_roster(data), format="multipart"
+            format="multipart",
         )
 
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(DetailedRegistration.objects.count(), 1)
-        registration = DetailedRegistration.objects.get()
-        self.assertEqual(registration.number_of_teams, 1)
-        delegation = registration.delegations.get()
-        self.assertEqual(delegation.official_delegation_name, "Test Delegation")
-        self.assertEqual(delegation.team_leaders.count(), 2)
-        self.assertEqual(delegation.contestants.count(), 4)
-        self.assertEqual(delegation.team_leaders.first().badge_name, "L. One")
-        self.assertEqual(delegation.team_leaders.first().food_type, "Halal")
-        self.assertEqual(delegation.contestants.first().badge_name, "S. One")
-        self.assertEqual(delegation.contestants.first().food_type, "Vegetarian")
+        self.assertEqual(empty.status_code, 201)
+        self.assertEqual(one_leader.status_code, 201)
+        self.assertEqual(cutoff_boundary.status_code, 201)
+        self.assertEqual(maximum.status_code, 201)
+        self.assertEqual(DetailedRegistration.objects.count(), 4)
+        empty_delegation = DetailedRegistration.objects.get(
+            id=empty.data["id"]
+        ).delegations.get()
+        one_leader_delegation = DetailedRegistration.objects.get(
+            id=one_leader.data["id"]
+        ).delegations.get()
+        max_delegation = DetailedRegistration.objects.get(
+            id=maximum.data["id"]
+        ).delegations.get()
+        self.assertEqual(empty_delegation.team_leaders.count(), 0)
+        self.assertEqual(empty_delegation.contestants.count(), 0)
+        self.assertEqual(one_leader_delegation.team_leaders.count(), 1)
+        self.assertEqual(one_leader_delegation.contestants.count(), 0)
+        self.assertEqual(max_delegation.team_leaders.count(), 2)
+        self.assertEqual(max_delegation.contestants.count(), 5)
+
+    def test_detailed_registration_rejects_compositions_outside_limits(self):
+        url = reverse("detailed_registration_list")
+
+        with self.settings(FIPHO_MAX_TEAM_LEADERS=3, FIPHO_MAX_STUDENTS=6):
+            three_leaders = self.client.post(
+                url,
+                detailed_registration_payload(self.country.id, leader_count=3),
+                format="multipart",
+            )
+            six_students = self.client.post(
+                url,
+                detailed_registration_payload(
+                    self.country.id, leader_count=0, contestant_count=6
+                ),
+                format="multipart",
+            )
+
+        self.assertEqual(three_leaders.status_code, 400)
+        self.assertEqual(six_students.status_code, 400)
+        self.assertIn(
+            "Malformed form data: Too many team_leaders",
+            three_leaders.data["detail"],
+        )
+        self.assertIn(
+            "Malformed form data: Too many contestants",
+            six_students.data["detail"],
+        )
 
     def test_detailed_registration_rejects_ineligible_contestant(self):
         url = reverse("detailed_registration_list")
-        data = {
-            "country": str(self.country.id),
-            "number_of_teams": "1",
-            "confirm_information": "true",
-            "agree_rules": "true",
-            "delegations[0][official_delegation_name]": "Test Delegation",
-            "delegations[0][position]": "1",
-            "delegations[0][team_leaders][0][full_name]": "Leader One",
-            "delegations[0][team_leaders][0][badge_name]": "L. One",
-            "delegations[0][team_leaders][0][date_of_birth]": "1980-01-01",
-            "delegations[0][team_leaders][0][gender]": "Male",
-            "delegations[0][team_leaders][0][passport_number]": "TL123456",
-            "delegations[0][team_leaders][0][email]": "leader@example.com",
-            "delegations[0][team_leaders][0][phone_number]": "+1234567890",
-            "delegations[0][team_leaders][0][role]": "Head of Delegation",
-            "delegations[0][team_leaders][0][t_shirt_size]": "L",
-            "delegations[0][team_leaders][0][food_type]": "Halal",
-            "delegations[0][team_leaders][0][passport_scan]": SimpleUploadedFile(
-                "leader-passport.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][team_leaders][0][id_photo]": SimpleUploadedFile(
-                "leader-photo.jpg", b"x" * 10, "image/jpeg"
-            ),
-            "delegations[0][team_leaders][0][consent_form]": SimpleUploadedFile(
-                "leader-consent.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][full_name]": "Older Student",
-            "delegations[0][contestants][0][badge_name]": "O. Student",
-            "delegations[0][contestants][0][date_of_birth]": "2006-05-01",
-            "delegations[0][contestants][0][gender]": "Female",
-            "delegations[0][contestants][0][competition_subject]": "Physics",
-            "delegations[0][contestants][0][passport_number]": "AB1234567",
-            "delegations[0][contestants][0][passport_expiry_date]": "2030-01-01",
-            "delegations[0][contestants][0][t_shirt_size]": "M",
-            "delegations[0][contestants][0][food_type]": "Vegetarian",
-            "delegations[0][contestants][0][passport_scan]": SimpleUploadedFile(
-                "student-passport.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][id_photo]": SimpleUploadedFile(
-                "student-photo.jpg", b"x" * 10, "image/jpeg"
-            ),
-            "delegations[0][contestants][0][commitment_form]": SimpleUploadedFile(
-                "student-commitment.pdf", b"x" * 10, "application/pdf"
-            ),
-            "delegations[0][contestants][0][consent_form]": SimpleUploadedFile(
-                "student-consent.pdf", b"x" * 10, "application/pdf"
-            ),
-        }
         response = self.client.post(
-            url, complete_fixed_roster(data), format="multipart"
+            url,
+            detailed_registration_payload(
+                self.country.id,
+                contestant_count=1,
+                contestant_dob="2006-05-01",
+            ),
+            format="multipart",
         )
 
         self.assertEqual(response.status_code, 400)
