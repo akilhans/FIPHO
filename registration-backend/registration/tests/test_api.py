@@ -800,6 +800,31 @@ class PermissionsTests(APITestCase):
             six_students.data["detail"],
         )
 
+    @override_settings(
+        FIPHO_MAX_TOTAL_UPLOAD_MB=1,
+        FIPHO_MAX_TOTAL_UPLOAD_BYTES=1024 * 1024,
+    )
+    def test_detailed_registration_rejects_total_upload_size_before_persistence(self):
+        response = self.client.post(
+            reverse("detailed_registration_list"),
+            {
+                "country": str(self.country.id),
+                "oversized_upload": SimpleUploadedFile(
+                    "oversized.pdf",
+                    b"x" * (2 * 1024 * 1024),
+                    "application/pdf",
+                ),
+            },
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.data["detail"],
+            "Total uploaded file size must not exceed 1 MB.",
+        )
+        self.assertEqual(DetailedRegistration.objects.count(), 0)
+
     def test_detailed_registration_rejects_ineligible_contestant(self):
         url = reverse("detailed_registration_list")
         response = self.client.post(

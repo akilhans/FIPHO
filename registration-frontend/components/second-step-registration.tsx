@@ -77,6 +77,14 @@ const foodTypeOptions = [
   "Other",
 ];
 const MAX_PARTICIPATING_TEAMS = 10;
+const configuredMaxTotalUploadMb = Number(
+  process.env.NEXT_PUBLIC_MAX_TOTAL_UPLOAD_MB
+);
+const MAX_TOTAL_UPLOAD_MB =
+  Number.isFinite(configuredMaxTotalUploadMb) && configuredMaxTotalUploadMb > 0
+    ? configuredMaxTotalUploadMb
+    : 550;
+const MAX_TOTAL_UPLOAD_BYTES = MAX_TOTAL_UPLOAD_MB * 1024 * 1024;
 const CONTESTANT_ELIGIBILITY_CUTOFF = "2006-05-01";
 const CONTESTANT_MINIMUM_DATE = "2006-05-02";
 const CONTESTANT_ELIGIBILITY_MESSAGE =
@@ -250,6 +258,42 @@ function appendFileIfPresent(
   if (file) {
     formData.append(key, file);
   }
+}
+
+const leaderUploadFields = [
+  "passport_scan",
+  "id_photo",
+  "consent_form",
+] as const;
+
+const contestantUploadFields = [
+  "passport_scan",
+  "id_photo",
+  "commitment_form",
+  "consent_form",
+] as const;
+
+function getFirstFile(fileList?: FileList | null) {
+  return fileList?.[0] || null;
+}
+
+function getUploadFiles(values: SecondStepRegistrationFormValues) {
+  return [
+    ...values.team_leaders.flatMap((leader) =>
+      leaderUploadFields
+        .map((field) => getFirstFile(leader[field]))
+        .filter((file): file is File => file !== null)
+    ),
+    ...values.contestants.flatMap((contestant) =>
+      contestantUploadFields
+        .map((field) => getFirstFile(contestant[field]))
+        .filter((file): file is File => file !== null)
+    ),
+  ];
+}
+
+function formatUploadSize(bytes: number) {
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 async function downloadFormAsset(href: string) {
@@ -462,6 +506,20 @@ export default function SecondStepRegistration({
 
   async function onSubmit(values: SecondStepRegistrationFormValues) {
     setSubmissionError(null);
+
+    const totalUploadBytes = getUploadFiles(values).reduce(
+      (total, file) => total + file.size,
+      0
+    );
+    if (totalUploadBytes > MAX_TOTAL_UPLOAD_BYTES) {
+      const message = `Selected files total ${formatUploadSize(
+        totalUploadBytes
+      )}. Please keep all attachments under ${MAX_TOTAL_UPLOAD_MB} MB and submit again.`;
+      showSubmissionError(message);
+      toast.error("Attachments are too large to submit.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("country", values.country);
     formData.append("number_of_teams", String(values.number_of_teams));
@@ -1840,7 +1898,8 @@ export default function SecondStepRegistration({
               <div className="flex flex-col gap-4 border-t border-[#d8e5f0] pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-2xl text-sm leading-6 text-[#52677a]">
                   Your submission will be sent securely to the FIPHO organizing
-                  team for review.
+                  team for review. Combined attachments must stay under{" "}
+                  {MAX_TOTAL_UPLOAD_MB} MB.
                 </p>
                 <Button
                   type="submit"

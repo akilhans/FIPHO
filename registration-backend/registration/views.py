@@ -125,6 +125,22 @@ class DetailedRegistrationListCreateView(generics.ListCreateAPIView):
         data = request.POST
         files = request.FILES
 
+        total_upload_bytes = sum(
+            uploaded_file.size
+            for key in files
+            for uploaded_file in files.getlist(key)
+        )
+        if total_upload_bytes > settings.FIPHO_MAX_TOTAL_UPLOAD_BYTES:
+            return Response(
+                {
+                    "detail": (
+                        "Total uploaded file size must not exceed "
+                        f"{settings.FIPHO_MAX_TOTAL_UPLOAD_MB} MB."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         delegations = []
 
         def ensure_delegation(index):
