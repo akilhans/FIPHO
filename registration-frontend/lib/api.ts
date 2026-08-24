@@ -111,11 +111,36 @@ export async function logout(): Promise<void> {
 }
 
 export async function fetchMediaUrl(path: string): Promise<string | null> {
+  const mediaPath = normalizeMediaPath(path);
+  if (!mediaPath) return null;
+
   try {
-    const res = await apiFetch(`/media/${path}`);
+    const res = await apiFetch(mediaPath);
     if (!res.ok) return null;
     const blob = await res.blob();
     return URL.createObjectURL(blob);
+  } catch {
+    return null;
+  }
+}
+
+function normalizeMediaPath(path: string): string | null {
+  const value = path.trim();
+  if (!value) return null;
+
+  try {
+    const parsed = new URL(value, API_BASE);
+    let mediaPath = parsed.pathname;
+
+    if (!mediaPath.startsWith("/media/")) {
+      mediaPath = `/media/${mediaPath.replace(/^\/+/, "")}`;
+    }
+
+    if (mediaPath === "/media/" || !mediaPath.startsWith("/media/")) {
+      return null;
+    }
+
+    return `${mediaPath}${parsed.search}`;
   } catch {
     return null;
   }

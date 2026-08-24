@@ -721,6 +721,21 @@ class PermissionsTests(APITestCase):
             [newer.id, older.id],
         )
 
+    def test_detailed_registration_create_is_public(self):
+        url = reverse("detailed_registration_list")
+        data = detailed_registration_payload(
+            self.country.id, leader_count=1, contestant_count=1
+        )
+
+        response = self.client.post(url, data, format="multipart")
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(DetailedRegistration.objects.count(), 1)
+        registration = DetailedRegistration.objects.get()
+        self.assertEqual(registration.number_of_teams, 1)
+        delegation = registration.delegations.get()
+        self.assertEqual(delegation.official_delegation_name, "Test Delegation")
+
     def test_detailed_registration_accepts_supported_compositions(self):
         url = reverse("detailed_registration_list")
         empty = self.client.post(
