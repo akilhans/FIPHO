@@ -85,7 +85,7 @@ export default function Hero() {
                   FIPHO 2026
                 </h1>
                 <p className="text-lg text-fipho-gold/90 font-medium mt-2">
-                  Al-Ferghani International Physics Olympiad
+                  Al-Fergani International Physics Olympiad
                 </p>
               </div>
             </div>

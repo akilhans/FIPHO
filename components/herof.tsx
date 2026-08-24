@@ -24,11 +24,11 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-12 px-6 overflow-hidden bg-background">
       
-      {/* Al-Ferghani blended graphic backdrop */}
+      {/* Al-Fergani blended graphic backdrop */}
       <div className="absolute inset-0 w-full h-full opacity-25 pointer-events-none select-none z-0">
         <Image
           src="/images/fergani.jpg"
-          alt="Al-Ferghani and Satellite Cosmos"
+          alt="Al-Fergani and Satellite Cosmos"
           fill
           priority
           className="object-cover object-center mix-blend-screen"
@@ -48,7 +48,7 @@ export default function Hero() {
       <div className="relative max-w-5xl mx-auto text-center w-full z-20 flex flex-col items-center">
         
         <p className="font-mono-ui text-xs tracking-[0.3em] uppercase mb-6 text-accent animate-fade-in [animation-delay:.05s]">
-          Al-Ferghani International Physics Olympiad · 2026
+          Al-Fergani International Physics Olympiad · 2026
         </p>
         
         {/* Adjusted tracking, leading, and spacing for structural layout elegance */}
@@ -84,6 +84,12 @@ export default function Hero() {
 
         {/* Action Call To Actions */}
         <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-in [animation-delay:.45s]">
+          <Link
+            href="https://register-fipho.olympcenter.uz/registration"
+            className="px-8 py-3.5 rounded-full font-medium text-sm border border-accent bg-accent text-accent-foreground hover:opacity-90 transition-opacity shadow-sm"
+          >
+            Registration is open
+          </Link>
           <Link
             href="/about"
             className="px-8 py-3.5 rounded-full font-medium text-sm border border-border bg-white text-background hover:bg-white/90 transition-colors shadow-sm"

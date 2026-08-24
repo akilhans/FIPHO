@@ -27,10 +27,10 @@ export function NewsSection() {
             Official Registration Opening
           </h3>
           <p className="font-mono-ui text-xs text-[#bc963e] font-semibold tracking-wider uppercase mb-3">
-            July 15, 2026
+            October 10, 2026
           </p>
           <p className="text-sm text-[#555a66] max-w-sm mx-auto leading-relaxed">
-            The global registration portal for the Al-Ferghani International Physics Olympiad will officially open on July 15. Team leaders and individual participants should prepare their validation credentials in advance.
+            The global registration portal for the Al-Fergani International Physics Olympiad will officially open on October 10. Team leaders and individual participants should prepare their validation credentials in advance.
           </p>
         </div>
         

@@ -7,9 +7,9 @@ import Link from "next/link";
 
 const pastCompetitions = [
   {
-    year: "FIPHO 2023",
+    year: "FIPHO 2021",
     location: "Khiva, Uzbekistan",
-    dates: "June 11 to June 17, 2023",
+    dates: "November 8 to November 13, 2021",
     participants: "112 students from 16 countries",
     highlights: [
       "Record number of participating countries",
@@ -61,7 +61,7 @@ export default function PastFIPHOPage() {
             Past FIPHO Competitions
           </h1>
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-            Explore the rich history of the Ahmad al-Fargʻoniy International
+            Explore the rich history of the Ahmad al-Fergani International
             Physics Olympiad and its impact on young scientists worldwide
           </p>
         </div>

@@ -17,7 +17,7 @@ const quickLinks = [
 ];
 
 const academicRequirements = [
-  "Must be enrolled in secondary education during the 2025-2026 academic year",
+  "Must be enrolled in secondary education during the 2026-2027 academic year",
   "Not enrolled in any university-level courses",
   "Not holding a secondary school graduation certificate as of January 1, 2026",
   "No more than two participations in previous FIPHO competitions",
@@ -25,7 +25,6 @@ const academicRequirements = [
 
 const countryRequirements = [
   "Each country may send multiple teams",
-  "Teams must be officially endorsed by their national physics organization or education ministry",
   "Maximum of 5 + 2 students per team",
   "Students must be citizens or legal permanent residents of the country they represent",
 ];

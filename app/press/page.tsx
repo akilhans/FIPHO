@@ -39,7 +39,7 @@ export default function PressPage() {
             Press Release
           </p>
           <h1 className="font-heading font-semibold text-3xl md:text-5xl leading-tight mb-6">
-            Samarkand will host the Al-Ferghani International Physics
+            Samarkand will host the Al-Fergani International Physics
             Olympiad
           </h1>
           <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
@@ -54,7 +54,7 @@ export default function PressPage() {
       <section className="px-6 py-14 bg-background">
         <div className="max-w-2xl mx-auto space-y-5 text-muted-foreground leading-relaxed">
           <p>
-           Al-Ferghani International Physics Olympiad will be held in
+           Al-Fergani International Physics Olympiad will be held in
             Samarkand from October 10th to 17th, 2026. This prestigious event
             brings together talented students from around the world who
             possess knowledge and skills in the main branches of physics.

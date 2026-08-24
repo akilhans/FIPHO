@@ -124,7 +124,7 @@ export default function UzbekistanPage() {
               </p>
               <p>
                 It was also a place of ideas: al-Khwarizmi&apos;s algebra,
-                al-Farghani&apos;s astronomy, and Ibn Sina&apos;s medicine all trace
+                al-Fergani&apos;s astronomy, and Ibn Sina&apos;s medicine all trace
                 back to scholars raised or trained in this region.
               </p>
             </div>

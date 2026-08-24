@@ -86,7 +86,7 @@ export default function PastFIPHOPage() {
             Past FIPHO Competitions
           </h1>
           <p className="mt-6 text-lg leading-8 text-fipho-slate/70">
-            Explore the rich history of the Ahmad al-Fargʻoniy International
+            Explore the rich history of the Ahmad al-Fergani International
             Physics Olympiad and its impact on young scientists worldwide
           </p>
         </div>

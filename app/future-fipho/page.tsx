@@ -18,17 +18,17 @@ const upcomingCompetitions = [
     registrationDeadline: "September 25, 2026",
     theme: "Sustainable Physics for a Better Future",
     eligibility: [
-      "Students between 15 and 19 years of age",
+      "Participants must be under 20 years of age as of October 10, 2026.",
       "Currently enrolled in secondary education",
       "Not enrolled in university-level courses",
-      "Maximum of 5 students per country",
+      "Maximum of 5 students per team",
     ],
     keyDates: [
       { date: "Oct 10, 2026", event: "Arrival of Delegations" },
       { date: "Oct 11, 2026", event: "Opening Ceremony" },
-      { date: "Oct 12, 2026", event: "Theoretical Exam" },
+      { date: "Oct 12, 2026", event: "Practical Exam" },
       { date: "Oct 13, 2026", event: "Cultural Excursion" },
-      { date: "Oct 14, 2026", event: "Practical Exam" },
+      { date: "Oct 14, 2026", event: "Theoretical Exam" },
       { date: "Oct 15, 2026", event: "Appeals & Review" },
       { date: "Oct 16, 2026", event: "Closing & Awards" },
       { date: "Oct 17, 2026", event: "Departure" },
@@ -246,7 +246,7 @@ export default function FutureFIPHOPage() {
               <p className="text-sm text-muted-foreground">
                 Uzbekistan, located in Central Asia, is a country with a rich
                 scientific heritage and a strong commitment to education. It
-                is the birthplace of Ahmad al-Fargʻoniy, the renowned
+                is the birthplace of Ahmad al-Fergani, the renowned
                 polymath after whom our competition is named.
               </p>
               <p className="text-sm text-muted-foreground">

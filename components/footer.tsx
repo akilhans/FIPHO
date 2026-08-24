@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Facebook,
-  Twitter,
+  Send,
   Instagram,
   Linkedin,
+  Youtube,
   Mail,
   Phone,
   MapPin,
@@ -40,19 +41,41 @@ export function SiteFooter() {
 
             <p className="max-w-xs text-sm leading-6 text-white/70">
               An international physics olympiad honoring the legacy of Ahmad
-              al-Fargʻoniy, fostering scientific excellence and global
+              al-Fergani, fostering scientific excellence and global
               collaboration among young physicists.
             </p>
             <div className="flex space-x-5">
               {[
-                { Icon: Facebook, href: "https://facebook.com/fipho" },
-                { Icon: Twitter, href: "https://twitter.com/fipho" },
-                { Icon: Instagram, href: "https://instagram.com/fipho" },
-                { Icon: Linkedin, href: "https://linkedin.com/company/fipho" },
-              ].map(({ Icon, href }, i) => (
+                {
+                  Icon: Facebook,
+                  label: "Facebook",
+                  href: "https://www.facebook.com/share/14NAmhu2D5/?mibextid=wwXIfr",
+                },
+                {
+                  Icon: Send,
+                  label: "Telegram",
+                  href: "https://t.me/Fan_olimpiadalari_M",
+                },
+                {
+                  Icon: Instagram,
+                  label: "Instagram",
+                  href: "https://www.instagram.com/fan_olimpiadalari_markazi?igsh=aTl1emd5Z3ludzUw&utm_source=qr",
+                },
+                {
+                  Icon: Linkedin,
+                  label: "LinkedIn",
+                  href: "https://linkedin.com/company/106571536/",
+                },
+                {
+                  Icon: Youtube,
+                  label: "YouTube",
+                  href: "https://youtube.com/@olimpmarkaz?si=bZhIJBMLEtM9YuH5",
+                },
+              ].map(({ Icon, label, href }) => (
                 <Link
-                  key={i}
+                  key={label}
                   href={href}
+                  aria-label={label}
                   className="text-fipho-gold/80 hover:text-fipho-gold transition-colors"
                 >
                   <Icon className="h-5 w-5" />

@@ -42,7 +42,7 @@ const localVideos: GalleryMedia[] = [
   {
     id: "vid-fargoniyfinish",
     src: "/images/FiphoGallery/fargoniyfinish.mp4",
-    alt: "Fargʻoniy Olympiad Closing & Finish",
+    alt: "Fergani Olympiad Closing & Finish",
     year: "2025",
     category: "Ceremonies",
     description: "Celebrating the grand finale, award distributions, and the official closing moments of the competition.",

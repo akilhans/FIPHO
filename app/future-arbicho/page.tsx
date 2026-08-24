@@ -291,7 +291,7 @@ export default function FutureFIPHOPage() {
                 <p className="text-fipho-slate/70">
                   Uzbekistan, located in Central Asia, is a country with a rich
                   scientific heritage and a strong commitment to education. It
-                  is the birthplace of Ahmad al-Fargʻoniy, the renowned
+                  is the birthplace of Ahmad al-Fergani, the renowned
                   polymath after whom our competition is named.
                 </p>
                 <p className="text-fipho-slate/70">
