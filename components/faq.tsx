@@ -10,9 +10,9 @@ import { BRAND } from "@/lib/brand";
 
 const faqs = [
   {
-    question: "What is the Fargʻoniy International Physics Olympiad (FIPHO)?",
+    question: "What is the Fergani International Physics Olympiad (FIPHO)?",
     answer:
-      "FIPHO is a prestigious international physics competition that brings together talented secondary school students from around the world. It promotes scientific excellence, international collaboration, and honors the legacy of Ahmad al-Fargʻoniy.",
+      "FIPHO is a prestigious international physics competition that brings together talented secondary school students from around the world. It promotes scientific excellence, international collaboration, and honors the legacy of Ahmad al-Fergani.",
   },
   {
     question: "When and where will the Olympiad take place?",
@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "Who is eligible to participate?",
     answer:
-      "Participants must be secondary school students under 18 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 5 students and 2 team leaders.",
+      "Participants must be secondary school students under 20 years of age, enrolled in a regular school (not yet in full-time university studies). Each country sends one team of 5 students and 2 team leaders.",
   },
   {
     question: "How can my country participate?",

@@ -5,7 +5,7 @@ const pillars = [
   },
   {
     label: "VISION",
-    body: "To become a leading olympiad that shapes the intellectual legacy of Ahmad al-Farghani for a new generation.",
+    body: "To become a leading olympiad that shapes the intellectual legacy of Ahmad al-Fergani for a new generation.",
   },
   {
     label: "INTERNATIONAL COLLABORATION",
@@ -16,7 +16,7 @@ const pillars = [
     body: "Earn recognition on a global stage, challenge your problem-solving ability, and connect with peers who share your passion for physics.",
   },
   {
-    label: "LEGACY OF AL-FARGHANI",
+    label: "LEGACY OF AL-FERGANI",
     body: "Named in honor of the renowned 9th-century polymath, echoing his enduring contributions to astronomy, mathematics, and natural science.",
   },
   {
@@ -37,7 +37,7 @@ export default function About() {
             A prestigious international physics olympiad
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-muted-foreground">
-            FIPHO — the Al-Ferghani International Physics Olympiad — is a
+            FIPHO — the Al-Fergani International Physics Olympiad — is a
             world-class competition for talented secondary school students
             passionate about physics, discovery, and scientific excellence.
           </p>

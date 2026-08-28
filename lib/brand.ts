@@ -1,6 +1,6 @@
 export const BRAND = {
   name: "FIPHO",
-  fullName: "Al-Ferghani International Physics Olympiad",
+  fullName: "Al-Fergani International Physics Olympiad",
   tagline:
     "Empowering the next generation of physicists through international competition, discovery, and excellence.",
   email: "fipho@olympcenter.uz",

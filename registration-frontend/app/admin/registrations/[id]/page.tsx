@@ -31,7 +31,7 @@ function DocumentLink({ label, path }: { label: string; path: string | null }) {
   useEffect(() => {
     if (!path) return;
     let objectUrl: string | null = null;
-    fetchMediaUrl(path.replace(/^\/media\//, "")).then((resolvedUrl) => {
+    fetchMediaUrl(path).then((resolvedUrl) => {
       objectUrl = resolvedUrl;
       setUrl(resolvedUrl);
       setLoading(false);

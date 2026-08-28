@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About | Al-Ferghani International Physics Olympiad",
+  title: "About | Al-Fergani International Physics Olympiad",
   description:
-    "Learn about the Al-Ferghani International Physics Olympiad (FIPHO), its mission, vision, and commitment to fostering young scientific talent worldwide.",
+    "Learn about the Al-Fergani International Physics Olympiad (FIPHO), its mission, vision, and commitment to fostering young scientific talent worldwide.",
 };
 
 const eventDetails = [
@@ -20,7 +20,7 @@ const eventDetails = [
   { label: "Location", value: "Samarkand, Uzbekistan" },
   {
     label: "Participants",
-    value: "Students between 15 and 19 years of age",
+    value: "Participants must be under 20 years of age as of October 10, 2026.",
   },
   { label: "Field", value: "Physics" },
 ];
@@ -85,7 +85,7 @@ export default function AboutPage() {
             About FIPHO
           </p>
           <h1 className="font-heading font-semibold text-4xl md:text-6xl leading-tight mb-6">
-            Al-Ferghani International Physics Olympiad
+            Al-Fergani International Physics Olympiad
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             A prestigious global competition identifying and nurturing young

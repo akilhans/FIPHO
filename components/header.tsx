@@ -21,6 +21,8 @@ const fipho2026Links = [
   { href: "/organizing-committee", label: "Organizing Committee" },
   { href: "/scientific-committee", label: "Scientific Committee" },
   { href: "/programme-schedule", label: "Program Schedule" },
+  { href: "/docs/syllabus.pdf", label: "Syllabus of the Olympiad" },
+  { href: "/docs/regulations.pdf", label: "Olympiad Regulations" },
   { href: "/press", label: "Press Release & Report Book" },
 ];
 

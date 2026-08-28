@@ -15,6 +15,7 @@ services:
       context: ./registration-frontend
       args:
         NEXT_PUBLIC_API_URL: "https://api-fipho.olympcenter.uz"
+        NEXT_PUBLIC_MAX_TOTAL_UPLOAD_MB: ${FIPHO_MAX_TOTAL_UPLOAD_MB:-550}
     container_name: fipho-registration-frontend
     ports:
       - "127.0.0.1:3013:3000"
@@ -50,6 +51,7 @@ services:
       FIPHO_MAX_STUDENTS: ${FIPHO_MAX_STUDENTS:-5}
       FIPHO_MAX_TEAM_LEADERS: ${FIPHO_MAX_TEAM_LEADERS:-2}
       FIPHO_DEFAULT_SUBJECT: ${FIPHO_DEFAULT_SUBJECT:-Physics}
+      FIPHO_MAX_TOTAL_UPLOAD_MB: ${FIPHO_MAX_TOTAL_UPLOAD_MB:-550}
       PUBLIC_MEDIA_URL: ${PUBLIC_MEDIA_URL:-https://api-fipho.olympcenter.uz/media/}
       ADMIN_LOGIN_URL: ${ADMIN_LOGIN_URL:-https://register-fipho.olympcenter.uz/admin/login}
     depends_on:

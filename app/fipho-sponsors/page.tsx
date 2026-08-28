@@ -5,7 +5,7 @@ import { BRAND } from "@/lib/brand";
 export const metadata: Metadata = {
   title: `Sponsors & Partners | ${BRAND.fullName}`,
   description:
-    "Meet the sponsors and partners supporting the Fargʻoniy International Physics Olympiad.",
+    "Meet the sponsors and partners supporting the Fergani International Physics Olympiad.",
 };
 
 export default function SponsorsPage() {

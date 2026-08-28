@@ -721,6 +721,21 @@ class PermissionsTests(APITestCase):
             [newer.id, older.id],
         )
 
+    def test_detailed_registration_create_is_public(self):
+        url = reverse("detailed_registration_list")
+        data = detailed_registration_payload(
+            self.country.id, leader_count=1, contestant_count=1
+        )
+
+        response = self.client.post(url, data, format="multipart")
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(DetailedRegistration.objects.count(), 1)
+        registration = DetailedRegistration.objects.get()
+        self.assertEqual(registration.number_of_teams, 1)
+        delegation = registration.delegations.get()
+        self.assertEqual(delegation.official_delegation_name, "Test Delegation")
+
     def test_detailed_registration_accepts_supported_compositions(self):
         url = reverse("detailed_registration_list")
         empty = self.client.post(
@@ -799,6 +814,31 @@ class PermissionsTests(APITestCase):
             "Malformed form data: Too many contestants",
             six_students.data["detail"],
         )
+
+    @override_settings(
+        FIPHO_MAX_TOTAL_UPLOAD_MB=1,
+        FIPHO_MAX_TOTAL_UPLOAD_BYTES=1024 * 1024,
+    )
+    def test_detailed_registration_rejects_total_upload_size_before_persistence(self):
+        response = self.client.post(
+            reverse("detailed_registration_list"),
+            {
+                "country": str(self.country.id),
+                "oversized_upload": SimpleUploadedFile(
+                    "oversized.pdf",
+                    b"x" * (2 * 1024 * 1024),
+                    "application/pdf",
+                ),
+            },
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.data["detail"],
+            "Total uploaded file size must not exceed 1 MB.",
+        )
+        self.assertEqual(DetailedRegistration.objects.count(), 0)
 
     def test_detailed_registration_rejects_ineligible_contestant(self):
         url = reverse("detailed_registration_list")

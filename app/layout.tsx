@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(BRAND.domain),
   keywords: [
     "FIPHO",
-    "Fargʻoniy International Physics Olympiad",
-    "Ahmad al-Fargʻoniy",
+    "Fergani International Physics Olympiad",
+    "Ahmad al-Fergani",
     "Physics Olympiad",
     "International Physics Competition",
     "Science Olympiad",
@@ -36,6 +36,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: BRAND.name,
+    images: [
+      {
+        url: "/images/fergani.jpg",
+        width: 1280,
+        height: 720,
+        alt: "Al-Fergani International Physics Olympiad",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/fergani.jpg"],
   },
 };
 
