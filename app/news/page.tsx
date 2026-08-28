@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 
@@ -40,14 +41,20 @@ export default function NewsPage() {
               <Calendar className="h-5 w-5" />
             </div>
             <h2 className="font-heading font-semibold text-xl text-[#1a1d24] mb-2">
-              Official Registration Opening
+              Registration Is Now Open
             </h2>
             <p className="font-mono-ui text-xs text-[#bc963e] font-semibold tracking-wider uppercase mb-3">
-              October 10, 2026
+              Open Now
             </p>
             <p className="text-sm text-[#555a66] max-w-sm mx-auto leading-relaxed font-light">
-              The global registration portal for the Fergani International Physics Olympiad will officially open on October 10. Team leaders and individual participants should prepare their validation credentials in advance.
+              The global registration portal for the {BRAND.fullName} is open. Team leaders and participants can register their delegation now.
             </p>
+            <Link
+              href="/register"
+              className="inline-flex items-center justify-center mt-6 px-7 py-3 rounded-full font-medium text-sm bg-[#bc963e] text-white hover:opacity-90 transition-opacity"
+            >
+              Register now
+            </Link>
           </div>
         </div>
       </section>
