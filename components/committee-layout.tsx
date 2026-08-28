@@ -1,6 +1,4 @@
-import { Mail, LinkedinIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export interface CommitteeMember {
   name: string;
@@ -9,8 +7,6 @@ export interface CommitteeMember {
   country: string;
   bio: string;
   image?: string;
-  email?: string;
-  linkedin?: string;
 }
 
 interface CommitteeLayoutProps {
@@ -97,31 +93,6 @@ export function CommitteeLayout({
               <p className="text-sm text-slate-600 leading-relaxed mb-4">
                 {member.bio}
               </p>
-
-              {(member.email || member.linkedin) && (
-                <div className="flex gap-2 pt-2 border-t border-amber-200/60">
-                  {member.email && (
-                    <Link
-                      href={`mailto:${member.email}`}
-                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-medium border border-amber-300/60 text-amber-800 hover:bg-amber-100 transition-colors"
-                    >
-                      <Mail className="h-3.5 w-3.5" />
-                      Email
-                    </Link>
-                  )}
-                  {member.linkedin && (
-                    <Link
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-medium border border-amber-300/60 text-amber-800 hover:bg-amber-100 transition-colors"
-                    >
-                      <LinkedinIcon className="h-3.5 w-3.5" />
-                      LinkedIn
-                    </Link>
-                  )}
-                </div>
-              )}
             </div>
           ))}
         </div>

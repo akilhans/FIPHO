@@ -10,8 +10,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Director of Science Olympiad Center and Chairman of The Organizing Committee",
-    email: "s.chen@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/turaboy.jpg",
   },
   {
@@ -20,8 +18,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
-    email: "charosabdusattorova456@gmail.com",
-    linkedin: "https://www.linkedin.com/in/charos-abdusattorova-77a911282/",
     image: "/images/organizing/charos.jpg",
   },
   {
@@ -30,8 +26,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "The Agency of Specialized Educational Institution",
     country: "Uzbekistan",
     bio: "Vice Diector of The Agency of Specialized Educational Institutions and Committee member",
-    email: "m.rahman@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/sevara.jpg",
   },
   {
@@ -40,8 +34,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Exam preparation and supporting track",
-    email: "d.park@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/davron.jpg",
   },
   
@@ -51,8 +43,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Media track",
-    email: "d.park@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/tamanno.jpg",
   },
   
@@ -62,8 +52,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Software engineer",
-    email: "d.park@fipho.uz",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/oqiljon.jpg",
   },
   {
@@ -72,8 +60,6 @@ const organizingMembers: CommitteeMember[] = [
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Software engineer",
-    email: "oqiljondadaxanov@gmail.com",
-    linkedin: "https://linkedin.com/in/example",
     image: "/images/organizing/shoxbek.jpg",
   },
 ];
