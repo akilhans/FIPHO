@@ -7,6 +7,7 @@ export interface CommitteeMember {
   country: string;
   bio: string;
   image?: string;
+  imagePosition?: string;
 }
 
 interface CommitteeLayoutProps {
@@ -69,7 +70,8 @@ export function CommitteeLayout({
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover"
+                      unoptimized
+                      className={`object-cover ${member.imagePosition ?? ""}`}
                     />
                   ) : (
                     <span className="font-heading font-semibold text-amber-800">
