@@ -1,4 +1,4 @@
-import { Clock, Users, Bell, Utensils } from "lucide-react";
+import { Clock, Users, Bell, Utensils, FileText } from "lucide-react";
 import Link from "next/link";
 
 const notes = [
@@ -32,13 +32,15 @@ export default function SchedulePage() {
             Detailed schedule of events and activities for the FIPHO
             competition.
           </p>
-         <button
-  disabled
-  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-muted text-muted-foreground cursor-not-allowed opacity-70"
->
-  <Clock className="h-4 w-4" />
-  Full Schedule Coming Soon
-</button>
+          <a
+            href="/docs/programme.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
+          >
+            <FileText className="h-4 w-4" />
+            View Official Programme (PDF)
+          </a>
         </div>
       </section>
 
