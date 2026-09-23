@@ -25,7 +25,7 @@ const organizingMembers: CommitteeMember[] = [
     role: "Olympiad Coordinator",
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
-    bio: "Olympiad Coordinator",
+    bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
     image: "/images/organizing/quvonchbek.jpg",
   },
   {
