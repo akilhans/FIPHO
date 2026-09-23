@@ -11,6 +11,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Director of Science Olympiad Center and Chairman of The Organizing Committee",
     image: "/images/organizing/turaboy.jpg",
+    thumbnail: "/images/organizing/avatars/turaboy.jpg",
   },
   {
     name: "Kh.R. Shakirov",
@@ -19,6 +20,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Deputy Director of the Agency for Specialized Educational Institutions and Co-Chair of The Organizing Committee",
     image: "/images/organizing/shakirov.jpg",
+    thumbnail: "/images/organizing/avatars/shakirov.jpg",
   },
   {
     name: "Kuvonchbek Abdirahmonov",
@@ -27,6 +29,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
     image: "/images/organizing/quvonchbek.jpg",
+    thumbnail: "/images/organizing/avatars/quvonchbek.jpg",
   },
   {
     name: "Charos Abdusattorova",
@@ -35,6 +38,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
     image: "/images/organizing/charos.jpg",
+    thumbnail: "/images/organizing/avatars/charos.jpg",
   },
   {
     name: "Sevara Shakirova",
@@ -43,6 +47,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Director of the Agency for Specialized Educational Institutions and Committee member",
     image: "/images/organizing/sevara.jpg",
+    thumbnail: "/images/organizing/avatars/sevara.jpg",
   },
   {
     name: "S.A. Ashirov",
@@ -51,6 +56,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Head of the Department for Creative and Sports Schools",
     image: "/images/organizing/ashirov.jpg",
+    thumbnail: "/images/organizing/avatars/ashirov.jpg",
   },
   {
     name: "A.N. Abdulkhaev",
@@ -59,6 +65,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Head of the Department of International Relations",
     image: "/images/organizing/abdulkhaev.jpg",
+    thumbnail: "/images/organizing/avatars/abdulkhaev.jpg",
   },
   {
     name: "M.N. Musurmonov",
@@ -67,6 +74,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Head of the Department for ICT Implementation and Digitalization",
     image: "/images/organizing/musurmonov.jpg",
+    thumbnail: "/images/organizing/avatars/musurmonov.jpg",
   },
   {
     name: "D.A. Sobirova",
@@ -75,6 +83,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Head of the Information Service",
     image: "/images/organizing/sobirova.jpg",
+    thumbnail: "/images/organizing/avatars/sobirova.jpg",
   },
   {
     name: "Davron Tuxtayev",
@@ -83,6 +92,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Deputy Director of the Science Olympiad Center. Exam preparation and supporting track.",
     image: "/images/organizing/davron.jpg",
+    thumbnail: "/images/organizing/avatars/davron.jpg",
   },
   {
     name: "F.F. Tuychiev",
@@ -91,6 +101,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Head of the Department for Organizing International Science Olympiads and Selecting and Training Students",
     image: "/images/organizing/tuychiev.jpg",
+    thumbnail: "/images/organizing/avatars/tuychiev.jpg",
   },
   {
     name: "Janar Djumabaeva",
@@ -99,6 +110,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Chief Specialist, Department for Organizing International Science Olympiads and Selecting and Training Students",
     image: "/images/organizing/janar.jpg",
+    thumbnail: "/images/organizing/avatars/janar.jpg",
   },
   {
     name: "Elyorbek Toshboltayev",
@@ -107,6 +119,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Lead Specialist, Department for Organizing International Science Olympiads and Selecting and Training Students",
     image: "/images/organizing/elyor.jpg",
+    thumbnail: "/images/organizing/avatars/elyor.jpg",
   },
   {
     name: "Abbos Akramov",
@@ -115,6 +128,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Lead Specialist, Department for Organizing International Science Olympiads and Selecting and Training Students",
     image: "/images/organizing/abbos.jpg",
+    thumbnail: "/images/organizing/avatars/abbos.jpg",
   },
   {
     name: "Tamanno To‘rayeva",
@@ -123,6 +137,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Media track",
     image: "/images/organizing/tamanno.jpg",
+    thumbnail: "/images/organizing/avatars/tamanno.jpg",
   },
   {
     name: "Dadaxanov Oqiljon",
@@ -131,6 +146,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Software engineer",
     image: "/images/organizing/oqiljon.jpg",
+    thumbnail: "/images/organizing/avatars/oqiljon.jpg",
   },
   {
     name: "Shoxbek Shukurulloev",
@@ -139,6 +155,7 @@ const organizingMembers: CommitteeMember[] = [
     country: "Uzbekistan",
     bio: "Software engineer",
     image: "/images/organizing/shoxbek.jpg",
+    thumbnail: "/images/organizing/avatars/shoxbek.jpg",
   },
 ];
 
