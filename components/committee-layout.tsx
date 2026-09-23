@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MemberPhoto } from "@/components/member-photo";
 
 export interface CommitteeMember {
   name: string;
@@ -8,6 +8,8 @@ export interface CommitteeMember {
   bio: string;
   image?: string;
   imagePosition?: string;
+  // Square face crop for the avatar; `image` opens full size on click.
+  thumbnail?: string;
 }
 
 interface CommitteeLayoutProps {
@@ -15,14 +17,6 @@ interface CommitteeLayoutProps {
   description: string;
   members: CommitteeMember[];
   type: "organizing" | "scientific";
-}
-
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2);
 }
 
 export function CommitteeLayout({
@@ -64,21 +58,13 @@ export function CommitteeLayout({
               className="p-6 rounded-xl border border-amber-200/60 bg-[#f7f2e7] hover:border-amber-300 transition-colors"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="relative h-16 w-16 flex-shrink-0 rounded-full overflow-hidden border-2 border-amber-300/50 bg-amber-100 flex items-center justify-center">
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      unoptimized
-                      className={`object-cover ${member.imagePosition ?? ""}`}
-                    />
-                  ) : (
-                    <span className="font-heading font-semibold text-amber-800">
-                      {initials(member.name)}
-                    </span>
-                  )}
-                </div>
+                <MemberPhoto
+                  name={member.name}
+                  role={member.role}
+                  image={member.image}
+                  thumbnail={member.thumbnail}
+                  imagePosition={member.imagePosition}
+                />
                 <div>
                   <h3 className="font-heading font-semibold text-lg leading-tight text-amber-950">
                     {member.name}
