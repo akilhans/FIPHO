@@ -81,7 +81,7 @@ const organizingMembers: CommitteeMember[] = [
     role: "Committee member",
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
-    bio: "Head of the Department for Selection and Training of Students for International Science Olympiads",
+    bio: "Head of the Department for Organizing International Science Olympiads and Selecting and Training Students",
     image: "/images/organizing/tuychiev.jpg",
   },
   {
