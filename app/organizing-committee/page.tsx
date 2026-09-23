@@ -33,7 +33,7 @@ const organizingMembers: CommitteeMember[] = [
     role: "Committee member",
     institution: "Agency for Specialized Educational Institutions",
     country: "Uzbekistan",
-    bio: "Vice Director of the Agency for Specialized Educational Institutions and Committee member",
+    bio: "Director of the Agency for Specialized Educational Institutions and Committee member",
     image: "/images/organizing/sevara.jpg",
   },
   {
