@@ -21,20 +21,20 @@ const organizingMembers: CommitteeMember[] = [
     image: "/images/organizing/shakirov.jpg",
   },
   {
-    name: "Charos Abdusattorova",
-    role: "Olympiad Coordinator",
-    institution: "Science Olympiad Center",
-    country: "Uzbekistan",
-    bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
-    image: "/images/organizing/charos.jpg",
-  },
-  {
     name: "Kuvonchbek Abdirahmonov",
     role: "Olympiad Coordinator",
     institution: "Science Olympiad Center",
     country: "Uzbekistan",
     bio: "Olympiad Coordinator",
     image: "/images/organizing/quvonchbek.jpg",
+  },
+  {
+    name: "Charos Abdusattorova",
+    role: "Olympiad Coordinator",
+    institution: "Science Olympiad Center",
+    country: "Uzbekistan",
+    bio: "Olympiad Coordinator managing operations, international delegations, and event logistics.",
+    image: "/images/organizing/charos.jpg",
   },
   {
     name: "Sevara Shakirova",
