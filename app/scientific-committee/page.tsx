@@ -84,7 +84,7 @@ const scientificMembers: CommitteeMember[] = [
     name: "Shirinbek Baratov",
     role: "Committee Member",
     institution:
-      "Physics Teacher, Akangaran Specialized Boarding School (Olympiad Winner)",
+      "Physics Teacher, Akhangaran Specialized Boarding School (Olympiad Winner)",
     country: "Uzbekistan",
     image: "/images/scientific/baratov.jpg",
     thumbnail: "/images/scientific/avatars/baratov.jpg",
