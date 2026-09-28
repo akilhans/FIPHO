@@ -11,14 +11,14 @@ const sponsorTiers = [
         description: "Organizer of national science Olympiads and supporter of gifted students."
       },
       {
-        name: "Ministry of Education",
+        name: "Ministry of Preschool and School Education",
         logo: "/images/educationMinistry.png",
         description: "Leading educational development and supporting excellence in learning."
       },
       {
-        name: "Innovation Agency",
+        name: "Agency for Specialized Educational Institutions",
         logo: "/images/agentlik.png",
-        description: "Promoting innovation, research, and technology-driven development."
+        description: "Developing specialized schools and supporting gifted students across Uzbekistan."
       }
     ],
   },
