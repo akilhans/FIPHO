@@ -1,5 +1,7 @@
-import { Clock, Users, Bell, Utensils, FileText } from "lucide-react";
+import { Clock, Users, Bell, Utensils, Download } from "lucide-react";
 import Link from "next/link";
+import { ProgrammeSchedule } from "@/components/programme-schedule";
+import { BRAND } from "@/lib/brand";
 
 const notes = [
   { icon: Clock, text: "All times are in Uzbekistan Time (UZT, UTC+5)." },
@@ -34,17 +36,30 @@ export default function SchedulePage() {
           </p>
           <a
             href="/docs/programme.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            download="FIPhO-2026-Official-Programme.pdf"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium bg-accent text-accent-foreground hover:opacity-90 transition-opacity"
           >
-            <FileText className="h-4 w-4" />
-            View Official Programme (PDF)
+            <Download className="h-4 w-4" />
+            Download Programme (PDF)
           </a>
         </div>
       </section>
 
-    
+      {/* PROGRAMME */}
+      <section className="px-6 pb-8 bg-background">
+        <div className="max-w-6xl mx-auto">
+          <div className="glass-card rounded-xl border-white/10 px-6 py-5 mb-6">
+            <h2 className="font-heading font-semibold text-xl md:text-2xl">
+              Official Olympiad Programme
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              {BRAND.dates} · {BRAND.location}
+            </p>
+          </div>
+          <ProgrammeSchedule />
+        </div>
+      </section>
+
       {/* IMPORTANT NOTES */}
       <section className="px-6 py-16 bg-background">
         <div className="max-w-2xl mx-auto">
