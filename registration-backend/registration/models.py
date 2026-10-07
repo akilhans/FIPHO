@@ -147,3 +147,40 @@ register_file_cleanup_signals(
     Contestant,
     ["passport_scan", "id_photo", "commitment_form", "consent_form", "parental_consent_form"],
 )
+
+
+# ----------------- REJECTED SUBMISSIONS ----------------- #
+class RegistrationFailure(models.Model):
+    """A rejected detailed-registration submission.
+
+    Kept so organisers can see exactly why someone could not register. It
+    records the reasons and the shape of the submission (country, delegation
+    names, file types and sizes), never participants' personal details,
+    filenames, or file contents.
+    """
+
+    class Reason(models.TextChoices):
+        VALIDATION = "validation", "Validation error"
+        UPLOAD_LIMIT = "upload_limit", "Total upload size limit"
+        MALFORMED = "malformed", "Malformed form data"
+        SERVER_ERROR = "server_error", "Server error"
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    reason = models.CharField(max_length=20, choices=Reason.choices)
+    status_code = models.PositiveSmallIntegerField()
+    # [{"field": "delegations[0].team_leaders[1].passport_scan", "message": "..."}]
+    errors = models.JSONField(default=list)
+    country_name = models.CharField(max_length=100, blank=True)
+    delegation_names = models.JSONField(default=list)
+    number_of_teams = models.CharField(max_length=10, blank=True)
+    # [{"field": ..., "content_type": ..., "extension": ..., "size_bytes": ...}]
+    uploads = models.JSONField(default=list)
+    total_upload_bytes = models.PositiveBigIntegerField(default=0)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.CharField(max_length=512, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.get_reason_display()} ({self.country_name or 'no country'})"
