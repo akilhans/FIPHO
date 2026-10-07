@@ -5,6 +5,7 @@ from .models import (
     Delegation,
     DetailedRegistration,
     ParticipationRequest,
+    RegistrationFailure,
     Role,
     Subject,
     TeamLeader,
@@ -90,3 +91,29 @@ class ContestantAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'badge_name', 'competition_subject', 'date_of_birth', 'passport_number', 'delegation')
     search_fields = ('full_name', 'badge_name', 'passport_number')
     raw_id_fields = ('delegation',)
+
+
+@admin.register(RegistrationFailure)
+class RegistrationFailureAdmin(admin.ModelAdmin):
+    """Read-only log of rejected registration submissions."""
+
+    list_display = ("created_at", "reason", "country_name", "first_error", "ip_address")
+    list_filter = ("reason", "country_name")
+    search_fields = ("country_name", "ip_address")
+    date_hierarchy = "created_at"
+    readonly_fields = [field.name for field in RegistrationFailure._meta.fields]
+
+    @admin.display(description="First error")
+    def first_error(self, obj):
+        if not obj.errors:
+            return "-"
+        first = obj.errors[0]
+        label = f"{first.get('field')}: " if first.get("field") else ""
+        more = f" (+{len(obj.errors) - 1} more)" if len(obj.errors) > 1 else ""
+        return f"{label}{first.get('message', '')}"[:160] + more
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False

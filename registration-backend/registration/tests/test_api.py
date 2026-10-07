@@ -1,3 +1,4 @@
+import json
 from datetime import date
 from io import BytesIO
 from pathlib import Path
@@ -8,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
+from django.db import IntegrityError
 from django.test import override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
@@ -22,11 +24,14 @@ from registration.models import (
     Delegation,
     DetailedRegistration,
     ParticipationRequest,
+    RegistrationFailure,
     Role,
     Subject,
     TeamLeader,
 )
+from registration.failure_log import flatten_errors
 from registration.serializers import (
+    SAVE_CONFLICT_MESSAGE,
     ContestantSerializer,
     DelegationSerializer,
     DetailedRegistrationSerializer,
@@ -972,3 +977,148 @@ class CookieAuthTests(APITestCase):
                 response = self.client.get(f"/media/{leader.passport_scan.name}")
 
         self.assertEqual(response.status_code, 403)
+
+
+class RegistrationFailureLogTests(APITestCase):
+    PERSONAL_VALUES = [
+        "Leader 1", "Leader 2", "TL123450", "TL123451",
+        "leader1@example.com", "leader2@example.com", "+1234567891", "Jane_Doe",
+    ]
+
+    def setUp(self):
+        cache.clear()
+        self.country = Country.objects.create(name="Testland")
+        self.url = reverse("detailed_registration_list")
+
+    def _stored_text(self, failure):
+        return json.dumps(
+            {field.name: getattr(failure, field.name) for field in RegistrationFailure._meta.fields},
+            default=str,
+        )
+
+    def test_unsupported_file_is_recorded_with_exact_field_and_no_personal_data(self):
+        data = detailed_registration_payload(self.country.id, leader_count=2)
+        data["delegations[0][team_leaders][1][passport_scan]"] = SimpleUploadedFile(
+            "Jane_Doe_passport.HEIC", b"x" * 10, "image/heic"
+        )
+
+        response = self.client.post(self.url, data, format="multipart")
+
+        self.assertEqual(response.status_code, 400)
+        message = response.data["delegations"][0]["team_leaders"][1]["passport_scan"][0]
+        self.assertIn("HEIC", message)
+        self.assertIn("PDF", message)
+        self.assertIn("JPEG first", message)
+        self.assertEqual(DetailedRegistration.objects.count(), 0)
+
+        failure = RegistrationFailure.objects.get()
+        self.assertEqual(failure.reason, RegistrationFailure.Reason.VALIDATION)
+        self.assertEqual(failure.status_code, 400)
+        self.assertEqual(
+            failure.errors,
+            [{"field": "delegations[0].team_leaders[1].passport_scan", "message": message}],
+        )
+        self.assertEqual(failure.country_name, "Testland")
+        self.assertEqual(failure.delegation_names, ["Test Delegation"])
+        self.assertEqual(failure.number_of_teams, "1")
+        heic = [u for u in failure.uploads if u["content_type"] == "image/heic"]
+        self.assertEqual(
+            heic,
+            [{
+                "field": "delegations[0][team_leaders][1][passport_scan]",
+                "content_type": "image/heic",
+                "extension": ".heic",
+                "size_bytes": 10,
+            }],
+        )
+        self.assertEqual(len(failure.uploads), 6)
+        self.assertEqual(failure.ip_address, "127.0.0.1")
+
+        stored = self._stored_text(failure)
+        for value in self.PERSONAL_VALUES:
+            self.assertNotIn(value, stored)
+
+    def test_successful_registration_records_nothing(self):
+        response = self.client.post(
+            self.url,
+            detailed_registration_payload(self.country.id, leader_count=1, contestant_count=1),
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(RegistrationFailure.objects.count(), 0)
+
+    @override_settings(FIPHO_MAX_TOTAL_UPLOAD_MB=1, FIPHO_MAX_TOTAL_UPLOAD_BYTES=1024 * 1024)
+    def test_upload_limit_rejection_is_recorded(self):
+        response = self.client.post(
+            self.url,
+            {
+                "country": str(self.country.id),
+                "big": SimpleUploadedFile("big.pdf", b"x" * (2 * 1024 * 1024), "application/pdf"),
+            },
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        failure = RegistrationFailure.objects.get()
+        self.assertEqual(failure.reason, RegistrationFailure.Reason.UPLOAD_LIMIT)
+        self.assertEqual(failure.errors, [{"field": "", "message": response.data["detail"]}])
+        self.assertEqual(failure.total_upload_bytes, 2 * 1024 * 1024)
+
+    def test_malformed_form_data_is_recorded(self):
+        response = self.client.post(
+            self.url,
+            {"country": str(self.country.id), "delegations[0][bogus]": "x"},
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        failure = RegistrationFailure.objects.get()
+        self.assertEqual(failure.reason, RegistrationFailure.Reason.MALFORMED)
+        self.assertIn("Malformed", failure.errors[0]["message"])
+
+    def test_database_error_text_is_not_returned_or_stored(self):
+        raw = 'duplicate key value: Key (email)=(leader1@example.com) already exists'
+        with patch(
+            "registration.serializers.DetailedRegistration.objects.create",
+            side_effect=IntegrityError(raw),
+        ):
+            response = self.client.post(
+                self.url,
+                detailed_registration_payload(self.country.id),
+                format="multipart",
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["detail"], SAVE_CONFLICT_MESSAGE)
+        self.assertNotIn("leader1@example.com", json.dumps(response.data))
+        failure = RegistrationFailure.objects.get()
+        self.assertNotIn("leader1@example.com", self._stored_text(failure))
+
+    def test_recording_problem_does_not_change_the_response(self):
+        data = detailed_registration_payload(self.country.id)
+        data["delegations[0][team_leaders][0][id_photo]"] = SimpleUploadedFile(
+            "photo.webp", b"x" * 10, "image/webp"
+        )
+        with patch.object(RegistrationFailure, "save", side_effect=RuntimeError("db down")):
+            response = self.client.post(self.url, data, format="multipart")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("WebP", response.data["delegations"][0]["team_leaders"][0]["id_photo"][0])
+
+    def test_flatten_errors_keeps_positions_and_skips_valid_entries(self):
+        detail = {
+            "non_field_errors": ["Must confirm information accuracy and agree to rules."],
+            "delegations": [
+                {},
+                {"contestants": [{}, {"date_of_birth": ["Too old."]}]},
+            ],
+        }
+
+        self.assertEqual(
+            flatten_errors(detail),
+            [
+                {"field": "", "message": "Must confirm information accuracy and agree to rules."},
+                {"field": "delegations[1].contestants[1].date_of_birth", "message": "Too old."},
+            ],
+        )

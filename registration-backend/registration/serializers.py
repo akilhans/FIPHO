@@ -1,3 +1,4 @@
+import logging
 from datetime import date
 
 from rest_framework import serializers
@@ -17,7 +18,14 @@ from .models import (
 )
 
 
+logger = logging.getLogger("django.request")
+
 ALLOWED_GENDERS = {"Female", "Male"}
+SAVE_CONFLICT_MESSAGE = (
+    "The registration could not be saved because part of it conflicts with "
+    "data that is already stored. Please check the delegation details and "
+    "try again, or contact the organising committee."
+)
 DETAILED_REGISTRATION_MAX_TEAM_LEADERS = 2
 DETAILED_REGISTRATION_MAX_CONTESTANTS = 5
 CONTESTANT_ELIGIBILITY_CUTOFF = date(2006, 5, 1)
@@ -409,8 +417,15 @@ class DetailedRegistrationSerializer(serializers.ModelSerializer):
                 registration = DetailedRegistration.objects.create(**validated_data)
                 self._create_delegations(registration, delegations_data)
         except IntegrityError as error:
+            # The raw database message can echo submitted values, so only the
+            # constraint name is logged and the person gets a plain explanation.
+            constraint = getattr(getattr(error.__cause__, "diag", None), "constraint_name", None)
+            logger.warning(
+                "IntegrityError saving detailed registration (constraint=%s)",
+                constraint or "unknown",
+            )
             raise serializers.ValidationError(
-                {"detail": f"Database error: {error}"}
+                {"detail": SAVE_CONFLICT_MESSAGE}
             ) from error
         return registration
 
@@ -423,8 +438,15 @@ class DetailedRegistrationSerializer(serializers.ModelSerializer):
                     instance.delegations.all().delete()
                     self._create_delegations(instance, delegations_data)
         except IntegrityError as error:
+            # The raw database message can echo submitted values, so only the
+            # constraint name is logged and the person gets a plain explanation.
+            constraint = getattr(getattr(error.__cause__, "diag", None), "constraint_name", None)
+            logger.warning(
+                "IntegrityError saving detailed registration (constraint=%s)",
+                constraint or "unknown",
+            )
             raise serializers.ValidationError(
-                {"detail": f"Database error: {error}"}
+                {"detail": SAVE_CONFLICT_MESSAGE}
             ) from error
         return instance
 

@@ -17,7 +17,8 @@ from drf_spectacular.utils import extend_schema
 from openpyxl import Workbook
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import AuthenticationFailed
+from django.db import IntegrityError
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -33,7 +34,9 @@ from .models import (
     DetailedRegistration,
     TeamLeader,
     Contestant,
+    RegistrationFailure,
 )
+from .failure_log import record_registration_failure
 from .serializers import (
     DETAILED_REGISTRATION_MAX_CONTESTANTS,
     DETAILED_REGISTRATION_MAX_TEAM_LEADERS,
@@ -122,6 +125,32 @@ class DetailedRegistrationListCreateView(generics.ListCreateAPIView):
         return []
 
     def create(self, request, *args, **kwargs):
+        # Every rejection is recorded so organisers can see why someone could
+        # not register; the response itself is unchanged.
+        try:
+            return self._create(request)
+        except ValidationError as exc:
+            record_registration_failure(
+                request, RegistrationFailure.Reason.VALIDATION, exc.detail
+            )
+            raise
+        except Exception as exc:
+            # The exception handler turns these two into 400s, everything else into 500.
+            handled = isinstance(exc, (IntegrityError, ValueError))
+            record_registration_failure(
+                request,
+                RegistrationFailure.Reason.VALIDATION if handled else RegistrationFailure.Reason.SERVER_ERROR,
+                {"detail": f"Unexpected {type(exc).__name__} while saving the registration."},
+                status_code=400 if handled else 500,
+            )
+            raise
+
+    @staticmethod
+    def _reject(request, reason, detail):
+        record_registration_failure(request, reason, detail)
+        return Response(detail, status=status.HTTP_400_BAD_REQUEST)
+
+    def _create(self, request):
         data = request.POST
         files = request.FILES
 
@@ -131,14 +160,15 @@ class DetailedRegistrationListCreateView(generics.ListCreateAPIView):
             for uploaded_file in files.getlist(key)
         )
         if total_upload_bytes > settings.FIPHO_MAX_TOTAL_UPLOAD_BYTES:
-            return Response(
+            return self._reject(
+                request,
+                RegistrationFailure.Reason.UPLOAD_LIMIT,
                 {
                     "detail": (
                         "Total uploaded file size must not exceed "
                         f"{settings.FIPHO_MAX_TOTAL_UPLOAD_MB} MB."
                     )
                 },
-                status=status.HTTP_400_BAD_REQUEST,
             )
 
         delegations = []
@@ -191,9 +221,10 @@ class DetailedRegistrationListCreateView(generics.ListCreateAPIView):
                         people.append({})
                     people[person_index][person_match.group(4)] = value
         except (ValueError, IndexError) as e:
-            return Response(
+            return self._reject(
+                request,
+                RegistrationFailure.Reason.MALFORMED,
                 {"detail": f"Malformed form data: {e}"},
-                status=status.HTTP_400_BAD_REQUEST,
             )
 
         main_data = {

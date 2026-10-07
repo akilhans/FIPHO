@@ -17,7 +17,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { BrandLockup } from "@/components/brand-lockup";
 import {
   delegationCompositionErrors,
-  firstErrorMessage,
+  DOCUMENT_TYPES,
+  IMAGE_TYPES,
+  describeSubmissionErrors,
+  fileProblem,
   invalidSubmissionMessage,
   MAX_STUDENTS,
   MAX_TEAM_LEADERS,
@@ -90,12 +93,18 @@ const CONTESTANT_MINIMUM_DATE = "2006-05-02";
 const CONTESTANT_ELIGIBILITY_MESSAGE =
   "Contestants must be under 20 on May 1, 2026 and must not be enrolled in a university or another higher education institution.";
 
-const requiredFileSchema = z
-  .any()
-  .refine(
-    (value) => value instanceof FileList && value.length > 0,
-    "This file is required."
-  );
+function requiredFileSchema(allowedTypes: string[]) {
+  return z.any().superRefine((value, ctx) => {
+    if (!(value instanceof FileList) || value.length === 0) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "This file is required." });
+      return;
+    }
+    const problem = fileProblem(value[0], allowedTypes);
+    if (problem) ctx.addIssue({ code: z.ZodIssueCode.custom, message: problem });
+  });
+}
+const documentFileSchema = requiredFileSchema(DOCUMENT_TYPES);
+const imageFileSchema = requiredFileSchema(IMAGE_TYPES);
 
 const leaderSchema = z.object({
   delegation_index: z.number().int().min(0).max(MAX_PARTICIPATING_TEAMS - 1),
@@ -110,9 +119,9 @@ const leaderSchema = z.object({
   t_shirt_size: z.string().min(1, "Select a T-shirt size."),
   food_type: z.string().min(1, "Select a food type."),
   dietary_requirements: z.string().optional(),
-  passport_scan: requiredFileSchema,
-  id_photo: requiredFileSchema,
-  consent_form: requiredFileSchema,
+  passport_scan: documentFileSchema,
+  id_photo: imageFileSchema,
+  consent_form: documentFileSchema,
 });
 
 const contestantSchema = z
@@ -129,10 +138,10 @@ const contestantSchema = z
     food_type: z.string().min(1, "Select a food type."),
     dietary_requirements: z.string().optional(),
     special_requirements: z.string().optional(),
-    passport_scan: requiredFileSchema,
-    id_photo: requiredFileSchema,
-    commitment_form: requiredFileSchema,
-    consent_form: requiredFileSchema,
+    passport_scan: documentFileSchema,
+    id_photo: imageFileSchema,
+    commitment_form: documentFileSchema,
+    consent_form: documentFileSchema,
   })
   .superRefine((value, ctx) => {
     if (value.date_of_birth && value.date_of_birth <= CONTESTANT_ELIGIBILITY_CUTOFF) {
@@ -293,7 +302,7 @@ function getUploadFiles(values: SecondStepRegistrationFormValues) {
 }
 
 function formatUploadSize(bytes: number) {
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
 async function downloadFormAsset(href: string) {
@@ -391,6 +400,7 @@ export default function SecondStepRegistration({
   const [countries, setCountries] = useState<CountryOption[]>([]);
   const [isLoadingCountries, setIsLoadingCountries] = useState(true);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [submissionErrorDetails, setSubmissionErrorDetails] = useState<string[]>([]);
   const submissionErrorRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<SecondStepRegistrationFormValues>({
@@ -424,8 +434,9 @@ export default function SecondStepRegistration({
     contestantFields.fields
   );
 
-  function showSubmissionError(message: string) {
+  function showSubmissionError(message: string, details: string[] = []) {
     setSubmissionError(message);
+    setSubmissionErrorDetails(details);
   }
 
   useEffect(() => {
@@ -506,20 +517,23 @@ export default function SecondStepRegistration({
 
   async function onSubmit(values: SecondStepRegistrationFormValues) {
     setSubmissionError(null);
+    setSubmissionErrorDetails([]);
 
     const totalUploadBytes = getUploadFiles(values).reduce(
       (total, file) => total + file.size,
       0
     );
     if (totalUploadBytes > MAX_TOTAL_UPLOAD_BYTES) {
-      const message = `Selected files total ${formatUploadSize(
-        totalUploadBytes
-      )}. Please keep all attachments under ${MAX_TOTAL_UPLOAD_MB} MB and submit again.`;
+      const message =
+        "Selected files total " +
+        formatUploadSize(totalUploadBytes) +
+        ". Please keep all attachments under " +
+        MAX_TOTAL_UPLOAD_MB +
+        " MB and submit again. Your completed form is still here. Update the files or reduce the attachments, then retry.";
       showSubmissionError(message);
       toast.error("Attachments are too large to submit.");
       return;
     }
-
     const formData = new FormData();
     formData.append("country", values.country);
     formData.append("number_of_teams", String(values.number_of_teams));
@@ -654,9 +668,18 @@ export default function SecondStepRegistration({
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        const detail = firstErrorMessage(errorData) ||
-          "Failed to submit the Detailed Registration.";
-        throw new Error(detail);
+        const reasons = describeSubmissionErrors(errorData);
+        const summary = reasons.length
+          ? reasons.length === 1
+            ? "The server found 1 problem. Fix it and submit again."
+            : `The server found ${reasons.length} problems. Fix them and submit again.`
+          : `The server could not accept the registration (error ${response.status}). Please try again or contact the organizing committee.`;
+        showSubmissionError(
+          summary + " Your completed form is still here.",
+          reasons
+        );
+        toast.error(reasons[0] ?? "Registration not submitted.");
+        return;
       }
 
       toast.success(
@@ -673,10 +696,16 @@ export default function SecondStepRegistration({
       });
     } catch (error) {
       console.error(error);
-      const message = error instanceof Error
-        ? error.message
-        : "An unexpected error occurred while submitting.";
-      showSubmissionError(message);
+      const message =
+        error instanceof TypeError && error.message === "Failed to fetch"
+          ? "We could not reach the registration server. Check your connection and retry."
+          : error instanceof Error
+            ? error.message
+            : "An unexpected error occurred while submitting.";
+      showSubmissionError(
+        message +
+          " Your completed form is still here. Update the files or check your connection, then retry."
+      );
       toast.error(message);
     }
   }
@@ -721,7 +750,7 @@ export default function SecondStepRegistration({
             <div className="max-w-4xl space-y-7">
               <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#e0b555]">
                 <ShieldCheck className="h-4 w-4" />
-                Al-Ferghani International Physics Olympiad · 2026
+                Al-Fergani International Physics Olympiad · 2026
               </div>
 
               <div className="space-y-4">
@@ -776,6 +805,13 @@ export default function SecondStepRegistration({
             >
               <span className="font-semibold">Registration not submitted.</span>{" "}
               {submissionError}
+              {submissionErrorDetails.length ? (
+                <ul className="mt-3 list-disc space-y-1 pl-5">
+                  {submissionErrorDetails.map((reason, index) => (
+                    <li key={index}>{reason}</li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           ) : null}
           <Card className="overflow-hidden rounded-[2rem] border-[#d8e5f0] bg-white shadow-[0_24px_70px_rgba(10,65,116,0.10)]">
