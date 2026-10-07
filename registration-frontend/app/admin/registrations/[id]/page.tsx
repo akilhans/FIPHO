@@ -69,6 +69,7 @@ export default function RegistrationDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -130,6 +131,35 @@ export default function RegistrationDetailPage() {
         <h1 className="min-w-0 flex-1 text-2xl font-semibold">
           {data.country.name} Detailed Registration
         </h1>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={exporting || loading}
+          onClick={async () => {
+            setExporting(true);
+            try {
+              const response = await apiFetch("/api/detailed-registrations/export/");
+              if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "detailed-registrations.xlsx";
+                link.click();
+                URL.revokeObjectURL(url);
+              } else {
+                toast.error("Failed to export data");
+              }
+            } catch {
+              toast.error("Failed to export data");
+            } finally {
+              setExporting(false);
+            }
+          }}
+        >
+          <Download className="mr-2 h-4 w-4" />
+          {exporting ? "Exporting..." : "Export XLSX"}
+        </Button>
         <Button variant="destructive" size="sm" onClick={() => setShowDelete(true)}>
           <Trash2 className="mr-2 h-4 w-4" />
           Delete

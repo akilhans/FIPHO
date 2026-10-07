@@ -293,7 +293,7 @@ function getUploadFiles(values: SecondStepRegistrationFormValues) {
 }
 
 function formatUploadSize(bytes: number) {
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
 }
 
 async function downloadFormAsset(href: string) {
@@ -512,14 +512,16 @@ export default function SecondStepRegistration({
       0
     );
     if (totalUploadBytes > MAX_TOTAL_UPLOAD_BYTES) {
-      const message = `Selected files total ${formatUploadSize(
-        totalUploadBytes
-      )}. Please keep all attachments under ${MAX_TOTAL_UPLOAD_MB} MB and submit again.`;
+      const message =
+        "Selected files total " +
+        formatUploadSize(totalUploadBytes) +
+        ". Please keep all attachments under " +
+        MAX_TOTAL_UPLOAD_MB +
+        " MB and submit again. Your completed form is still here. Update the files or reduce the attachments, then retry.";
       showSubmissionError(message);
       toast.error("Attachments are too large to submit.");
       return;
     }
-
     const formData = new FormData();
     formData.append("country", values.country);
     formData.append("number_of_teams", String(values.number_of_teams));
@@ -673,10 +675,16 @@ export default function SecondStepRegistration({
       });
     } catch (error) {
       console.error(error);
-      const message = error instanceof Error
-        ? error.message
-        : "An unexpected error occurred while submitting.";
-      showSubmissionError(message);
+      const message =
+        error instanceof TypeError && error.message === "Failed to fetch"
+          ? "We could not reach the registration server. Check your connection and retry."
+          : error instanceof Error
+            ? error.message
+            : "An unexpected error occurred while submitting.";
+      showSubmissionError(
+        message +
+          " Your completed form is still here. Update the files or check your connection, then retry."
+      );
       toast.error(message);
     }
   }
@@ -721,7 +729,7 @@ export default function SecondStepRegistration({
             <div className="max-w-4xl space-y-7">
               <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#e0b555]">
                 <ShieldCheck className="h-4 w-4" />
-                Al-Ferghani International Physics Olympiad · 2026
+                Al-Fergani International Physics Olympiad · 2026
               </div>
 
               <div className="space-y-4">
