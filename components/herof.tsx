@@ -85,12 +85,6 @@ export default function Hero() {
         {/* Action Call To Actions */}
         <div className="flex flex-wrap items-center justify-center gap-4 animate-fade-in [animation-delay:.45s]">
           <Link
-            href="https://register-fipho.olympcenter.uz/registration"
-            className="px-8 py-3.5 rounded-full font-medium text-sm border border-accent bg-accent text-accent-foreground hover:opacity-90 transition-opacity shadow-sm"
-          >
-            Registration is open
-          </Link>
-          <Link
             href="/about"
             className="px-8 py-3.5 rounded-full font-medium text-sm border border-border bg-white text-background hover:bg-white/90 transition-colors shadow-sm"
           >
