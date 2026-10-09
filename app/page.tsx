@@ -4,7 +4,6 @@ import { StatsSection } from "@/components/stats-section";
 import Disciplines from "@/components/disciplines";
 import { CompetitionSection } from "@/components/competetion";
 import { TimelineSection } from "@/components/timeline-section";
-import { NewsSection } from "@/components/news-section";
 import { FAQSection } from "@/components/faq";
 import { EventFilm } from "@/components/event-film";
 
@@ -18,7 +17,6 @@ export default function Home() {
       <Disciplines />
       <CompetitionSection />
       <TimelineSection />
-      <NewsSection />
       <FAQSection />
     </main>
   );
