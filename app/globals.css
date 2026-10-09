@@ -157,3 +157,90 @@ h1, h2, h3, h4, h5, h6 {
     transform: none !important; 
   }
 }
+
+/* Hero "Olympiad is live" panel (components/olympiad-live.tsx) */
+@property --live-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes live-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes live-shimmer {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(320%) skewX(-20deg); }
+}
+
+@keyframes live-spin {
+  to { --live-angle: 360deg; }
+}
+
+.live-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.live-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: live-marquee var(--live-duration, 40s) linear infinite;
+}
+
+.live-marquee-track[data-reverse] {
+  animation-direction: reverse;
+}
+
+.live-marquee:hover .live-marquee-track {
+  animation-play-state: paused;
+}
+
+.live-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  animation: live-shimmer 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* A slow light travelling around the card border. */
+.live-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.live-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--live-angle),
+    transparent 0deg,
+    var(--live-color, rgba(224, 181, 85, 0.9)) 40deg,
+    transparent 90deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: live-spin 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-marquee { mask-image: none; }
+  .live-marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .live-marquee-track > [aria-hidden="true"] { display: none; }
+  .live-shimmer::after, .live-border::before { animation: none; }
+}

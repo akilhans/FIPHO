@@ -12,6 +12,6 @@ export const BRAND = {
   dates: "October 10-17, 2026",
   eventStartDate: "2026-10-10T00:00:00", 
   location: "Samarkand, Uzbekistan",
-  countries: "30+",
+  countries: "15",
   teamComposition: "5 Students + 2 Team Leader",
 } as const;
