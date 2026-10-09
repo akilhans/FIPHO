@@ -4,27 +4,28 @@ import { Globe2, Users, Award, Medal } from "lucide-react";
 const stats = [
   {
     icon: Globe2,
-    value: "30+",
+    value: "15",
     label: "Participating Countries",
-    sub: "across 6 continents",
+    sub: "across Asia and Europe",
   },
   {
     icon: Users,
-    value: "200+",
+    value: "120",
     label: "Competing Students",
     sub: "5 + 2 per national team",
   },
   {
     icon: Award,
-    value: "25+",
+    value: "19",
     label: "Scientific Committee",
     sub: "world-class physicists",
   },
   {
     icon: Medal,
-    value: "120+",
+    // Regulations: winners are at most 50% of participants, medals 1:2:3.
+    value: "60",
     label: "Medal Recipients",
-    sub: "gold, silver & bronze",
+    sub: "up to 10 gold, 20 silver, 30 bronze",
   },
 ];
 
