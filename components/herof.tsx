@@ -9,7 +9,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { BRAND } from "@/lib/brand";
-import { Countdown } from "@/components/countdowncircular";
+import { OlympiadLive } from "@/components/olympiad-live";
 
 const facts = [
   { icon: CalendarDays, text: BRAND.dates },
@@ -65,9 +65,9 @@ export default function Hero() {
   
   
 
-        {/* Countdown wrapper */}
+        {/* The Olympiad is under way: live status, exams and delegations */}
         <div className="mb-12 animate-fade-in [animation-delay:.32s] w-full flex justify-center">
-          <Countdown />
+          <OlympiadLive />
         </div>
 
         {/* Clean, beautifully separated fact infrastructure */}
